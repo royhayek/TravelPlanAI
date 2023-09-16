@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "ChatAI",
+    "slug": "ChatAI",
+    "version": "1.0.7",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.codeblow.chatai",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.codeblow.chatai",
+      "versionCode": "8",
+      "runtimeVersion": "exposdk:44.0.0",
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c944d619-e2a3-4ebc-b1a1-d9adfa9acfc5"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c944d619-e2a3-4ebc-b1a1-d9adfa9acfc5"
+    },
+    "plugins": [
+      "react-native-iap",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1469570455778464~7118559925",
+    "ios_app_id": "ca-app-pub-1469570455778464~1963740474"
+  }
+}
