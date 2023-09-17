@@ -11,4 +11,6 @@ export const INTEREST_LIST = [
   { key: 'artsTheatre', title: 'Arts & Theatre' },
   { key: 'hiddenGems', title: 'Hidden Gems' },
   { key: 'adventure', title: 'Adventure & Sports' },
+  { key: 'nightlife', title: 'Nightlife' },
+  { key: 'shopping', title: 'Shopping' },
 ];

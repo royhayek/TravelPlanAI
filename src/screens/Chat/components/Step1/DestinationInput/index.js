@@ -38,24 +38,24 @@ const DestinationInput = ({ handleSubmit }) => {
   return (
     <TextInput
       mode="outlined"
-      placeholder={_t('search_by')}
       style={styles.input}
-      outlineStyle={styles.inputOutlineStyle}
       returnKeyType="send"
       verticalAlign="middle"
-      outlineColor={theme.colors.secondary}
-      onSubmitEditing={Keyboard.dismiss}
+      placeholder={_t('search_by')}
       onChangeText={handleValueChange}
-      activeOutlineColor={theme.colors.primary}
+      onSubmitEditing={Keyboard.dismiss}
       underlineStyle={styles.underline}
+      outlineColor={theme.colors.secondary}
+      outlineStyle={styles.inputOutlineStyle}
+      activeOutlineColor={theme.colors.primary}
       placeholderTextColor={theme.colors.secondary}
       left={
         <TextInput.Icon
           centered
           icon="magnify"
           disabled={_.isEmpty(value)}
-          iconColor={theme.colors.secondary}
           onPress={handleSubmitPrompt}
+          iconColor={theme.colors.secondary}
           style={{ transform: isRTL ? [{ scaleX: -1 }] : undefined }}
         />
       }

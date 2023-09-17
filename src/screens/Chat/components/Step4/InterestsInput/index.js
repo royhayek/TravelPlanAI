@@ -1,35 +1,30 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { TextInput, useTheme } from 'react-native-paper';
 import { Keyboard } from 'react-native';
-import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { isRTL, t } from 'app/src/config/i18n';
+import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
 const _t = (key, options) => t(`planner.${key}`, options);
 
-const InterestsInput = ({ handleSubmit }) => {
+const InterestsInput = ({ value, setValue }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
-
-  const [value, setValue] = useState();
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- CALLBACKS ----------------------- //
-  const handleValueChange = useCallback(text => setValue(text), []);
-
-  const handleSubmitPrompt = useCallback(() => handleSubmit(value), [handleSubmit, value]);
+  const handleValueChange = useCallback(text => setValue(text), [setValue]);
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
@@ -38,16 +33,17 @@ const InterestsInput = ({ handleSubmit }) => {
   return (
     <TextInput
       mode="outlined"
-      placeholder={"Shopping, Nightlight"}
+      value={value}
+      placeholder={'Shopping, Nightlight'}
       style={styles.input}
-      outlineStyle={styles.inputOutlineStyle}
       returnKeyType="send"
       verticalAlign="middle"
-      outlineColor={theme.colors.secondary}
-      onSubmitEditing={Keyboard.dismiss}
       onChangeText={handleValueChange}
-      activeOutlineColor={theme.colors.primary}
+      onSubmitEditing={Keyboard.dismiss}
       underlineStyle={styles.underline}
+      outlineColor={theme.colors.secondary}
+      outlineStyle={styles.inputOutlineStyle}
+      activeOutlineColor={theme.colors.primary}
       placeholderTextColor={theme.colors.secondary}
     />
   );

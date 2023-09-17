@@ -2,25 +2,26 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React, { useCallback, useMemo, useState } from 'react';
-import { Keyboard, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { Keyboard, TouchableOpacity, View } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
+import RegularButton from 'app/src/components/Buttons/Regular';
 import Step1 from './components/Step1';
+import Step2 from './components/Step2';
+import Step3 from './components/Step3';
+import Step4 from './components/Step4';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import Step2 from './components/Step2';
+import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
-import Step3 from './components/Step3';
-import RegularButton from 'app/src/components/Buttons/Regular';
-import Step4 from './components/Step4';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const ChatScreen = ({ route, navigation }) => {
+const ChatScreen = () => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
 
@@ -58,24 +59,28 @@ const ChatScreen = ({ route, navigation }) => {
   // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //
 
-  const steps = [
-    <Step1 title="Step 1" setActive={setActive} />,
-    <Step2 title="Step 2" setActive={setActive} />,
-    <Step3 title="Step 3" setActive={setActive} />,
-    <Step4 title="Step 3" setActive={setActive} />,
-  ];
+  // --------------------------------------------------------- //
+  // ---------------------- RENDER VARS ---------------------- //
+  const steps = [<Step1 setActive={setActive} />, <Step2 />, <Step3 />, <Step4 />];
 
   const isLastStep = _.isEqual(active, steps.length - 1);
+  // --------------------- /RENDER VARS ---------------------- //
+  // --------------------------------------------------------- //
+
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   const renderFooter = useMemo(
     () => (
       <View style={styles.footer}>
-        <RegularButton title="Back" onPress={handleBackPress} backgroundColors={[theme.colors.black]} />
-        <RegularButton title={!isLastStep ? 'Next' : 'Submit'} onPress={!isLastStep ? handleNextPress : handleSubmitPress} />
+        <TouchableOpacity onPress={handleBackPress}>
+          <Text variant="titleMedium" style={styles.backButtonTitle}>
+            {t('common.back')}
+          </Text>
+        </TouchableOpacity>
+        <RegularButton title={!isLastStep ? t('common.next') : t('common.submit')} onPress={!isLastStep ? handleNextPress : handleSubmitPress} />
       </View>
     ),
-    [styles.footer, theme.colors.black, isLastStep, handleBackPress, handleNextPress, handleSubmitPress],
+    [styles.footer, styles.backButtonTitle, isLastStep, handleBackPress, handleNextPress, handleSubmitPress],
   );
 
   return (

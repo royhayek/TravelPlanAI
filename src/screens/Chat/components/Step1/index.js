@@ -42,7 +42,7 @@ const Step1 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <Text variant="titleLarge" style={styles.title}>
         {_t('where_to_go')}
       </Text>

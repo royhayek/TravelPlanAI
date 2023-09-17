@@ -10,7 +10,6 @@ export default theme =>
       fontWeight: '500',
       marginHorizontal: 16,
       justifyContent: 'center',
-      // backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.white,
     },
     underline: { display: 'none' },
     inputOutlineStyle: {

@@ -26,7 +26,7 @@ const PopularDestinations = ({ handleSubmit }) => {
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.flex1}>
       <Text variant="titleMedium" style={styles.popularDestText}>
         {_t('popular_destinations')}
       </Text>

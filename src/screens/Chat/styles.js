@@ -37,6 +37,8 @@ export default theme =>
       paddingVertical: 16,
       flexDirection: 'row',
       paddingHorizontal: 24,
+      alignItems: 'center',
       justifyContent: 'space-between',
     },
+    backButtonTitle: { fontWeight: 'bold' },
   });
