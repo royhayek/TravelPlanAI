@@ -7,6 +7,7 @@ export default theme =>
       maxHeight: 120,
       borderRadius: 30,
       marginBottom: 8,
+      fontWeight: '500',
       marginHorizontal: 16,
       justifyContent: 'center',
       // backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.white,

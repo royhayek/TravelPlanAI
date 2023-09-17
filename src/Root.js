@@ -178,7 +178,7 @@ const Root = () => {
         <NavigationContainer>
           <StatusBar style={theme.dark ? 'light' : 'dark'} />
           <RootNavigation />
-          <SplashScreen loadedData={loadedData} />
+          {/* <SplashScreen loadedData={loadedData} /> */}
           <NetworkInfo />
           <SubscriptionManager />
         </NavigationContainer>

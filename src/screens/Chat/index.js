@@ -1,38 +1,29 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
+import React, { useCallback, useMemo, useState } from 'react';
+import { Keyboard, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import _ from 'lodash';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { I18nManager, Keyboard, Platform, View } from 'react-native';
-import { IconButton, useTheme } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
-import Stepper from 'react-native-stepper-ui';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import { Octicons } from '@expo/vector-icons';
-import BackButton from 'app/src/components/Buttons/Back';
-import Usage from 'app/src/components/Usage';
 import Step1 from './components/Step1';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { getConversationId, getLanguage, getOwnedSubscription } from 'app/src/redux/selectors';
-import { setConversationId, setMessages } from 'app/src/redux/slices/chatSlice';
-import { ASSISTANTS } from '../Assistants/data';
+import Step2 from './components/Step2';
 import makeStyles from './styles';
+import Step3 from './components/Step3';
+import RegularButton from 'app/src/components/Buttons/Regular';
+import Step4 from './components/Step4';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
 const ChatScreen = ({ route, navigation }) => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
-  const dispatch = useDispatch();
-  const updateConversationId = useCallback(payload => dispatch(setConversationId(payload)), [dispatch]);
-  const updateMessages = useCallback(payload => dispatch(setMessages(payload)), [dispatch]);
 
-  const ownedSubscription = useSelector(getOwnedSubscription);
-  const conversationId = useSelector(getConversationId);
   // ----------------------- /REDUX -------------------------- //
   // --------------------------------------------------------- //
 
@@ -41,84 +32,56 @@ const ChatScreen = ({ route, navigation }) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
 
-  const [openUsageModal, setOpenUsageModal] = useState(false);
   const [active, setActive] = useState(0);
-
-  const routeParams = route.params;
-  const isAssistantChat = _.has(routeParams, 'id') && route.params.fromAssistants;
-  const assistant = _.find(ASSISTANTS, { id: routeParams?.id });
-  const isArabic = I18nManager.isRTL && Platform.OS === 'android';
-  const language = useSelector(getLanguage);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- CALLBACKS ----------------------- //
-  const handleNewConversation = useCallback(() => {
-    updateConversationId(null);
-    updateMessages([]);
-  }, [updateConversationId, updateMessages]);
+  const handleBackPress = useCallback(() => setActive(a => a - 1), [setActive]);
 
-  const renderUsagePie = useMemo(
-    () => !ownedSubscription && <Usage open={openUsageModal} onClose={setOpenUsageModal} radius={14} />,
-    [openUsageModal, ownedSubscription],
-  );
+  const handleNextPress = useCallback(() => {
+    // const { fromDate, toDate } = dateState;
 
-  const renderNewIcon = useCallback(
-    props => <Octicons name="plus" size={22} color={theme.dark ? theme.colors.white : theme.colors.black} />,
-    [theme.colors.black, theme.colors.white, theme.dark],
-  );
+    // console.info('[handleNextPress] :: ', { payload: { fromDate, toDate, selectedMonth, noOfDays } });
 
-  const renderNewConvoButton = useMemo(
-    () => conversationId && <IconButton size={22} onPress={handleNewConversation} icon={renderNewIcon} />,
-    [conversationId, handleNewConversation, renderNewIcon],
-  );
+    setActive(a => a + 1);
+  }, [setActive]);
 
-  const renderHeaderLeft = useCallback(() => (isAssistantChat ? <BackButton /> : renderUsagePie), [isAssistantChat, renderUsagePie]);
-
-  const renderHeaderRight = useCallback(
-    () =>
-      isAssistantChat ? (
-        <>
-          {renderUsagePie}
-          {renderNewConvoButton}
-        </>
-      ) : (
-        renderNewConvoButton
-      ),
-    [isAssistantChat, renderNewConvoButton, renderUsagePie],
-  );
+  const handleSubmitPress = useCallback(() => {}, []);
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ------------------------ EFFECTS ------------------------ //
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: isArabic ? renderHeaderRight : renderHeaderLeft,
-      headerRight: isArabic ? renderHeaderLeft : renderHeaderRight,
-      headerTitle: isAssistantChat && assistant?.name[language],
-    });
-  }, [assistant?.name, isArabic, isAssistantChat, language, navigation, renderHeaderLeft, renderHeaderRight]);
+
   // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //
 
-  const steps = [<Step1 title="Step 1" />, <Step1 title="Step 2" />, <Step1 title="Step 3" />];
+  const steps = [
+    <Step1 title="Step 1" setActive={setActive} />,
+    <Step2 title="Step 2" setActive={setActive} />,
+    <Step3 title="Step 3" setActive={setActive} />,
+    <Step4 title="Step 3" setActive={setActive} />,
+  ];
 
+  const isLastStep = _.isEqual(active, steps.length - 1);
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
+  const renderFooter = useMemo(
+    () => (
+      <View style={styles.footer}>
+        <RegularButton title="Back" onPress={handleBackPress} backgroundColors={[theme.colors.black]} />
+        <RegularButton title={!isLastStep ? 'Next' : 'Submit'} onPress={!isLastStep ? handleNextPress : handleSubmitPress} />
+      </View>
+    ),
+    [styles.footer, theme.colors.black, isLastStep, handleBackPress, handleNextPress, handleSubmitPress],
+  );
+
   return (
     <View style={styles.container} onPress={() => Keyboard.dismiss()}>
-      <View>
-        <Stepper
-          active={active}
-          content={steps}
-          onBack={() => setActive(p => p - 1)}
-          onFinish={() => console.info('Finish')}
-          onNext={() => setActive(p => p + 1)}
-        />
-        <Step1 />
-      </View>
+      {steps[active]}
+      {active !== 0 && renderFooter}
     </View>
   );
 };

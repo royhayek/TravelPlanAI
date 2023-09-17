@@ -19,7 +19,7 @@ import makeStyles from './styles';
 // ------------------------------------------------------------ //
 const _t = (key, options) => t(`planner.${key}`, options);
 
-const Step1 = () => {
+const Step1 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -29,16 +29,20 @@ const Step1 = () => {
 
   // --------------------------------------------------------- //
   // ----------------------- CALLBACKS ----------------------- //
-  const handleSubmitPrompt = useCallback(value => {
-    console.debug('[handleSubmitPrompt] :: ', value);
-  }, []);
+  const handleSubmitPrompt = useCallback(
+    value => {
+      console.debug('[handleSubmitPrompt] :: ', value);
+      setActive(1);
+    },
+    [setActive],
+  );
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Text variant="titleLarge" style={styles.title}>
         {_t('where_to_go')}
       </Text>

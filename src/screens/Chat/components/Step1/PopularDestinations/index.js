@@ -26,7 +26,7 @@ const PopularDestinations = ({ handleSubmit }) => {
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Text variant="titleMedium" style={styles.popularDestText}>
         {_t('popular_destinations')}
       </Text>
@@ -37,7 +37,7 @@ const PopularDestinations = ({ handleSubmit }) => {
         contentContainerStyle={styles.flatListContainer}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleSubmit(item.name)} style={styles.button}>
-            <ImageBackground source={{ uri: item.image }} resizeMode='stretch' imageStyle={styles.imageStyle} style={styles.image}>
+            <ImageBackground source={{ uri: item.image }} resizeMode="stretch" imageStyle={styles.imageStyle} style={styles.image}>
               <Text variant="titleMedium" style={styles.name}>
                 {item.name}
               </Text>
