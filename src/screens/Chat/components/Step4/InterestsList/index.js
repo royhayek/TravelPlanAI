@@ -1,25 +1,20 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback } from 'react';
-import { View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
-// ------------------------------------------------------------ //
-// ------------------------ COMPONENTS ------------------------ //
-// ------------------------------------------------------------ //
-import PopularDestinations from './PopularDestinations';
-import DestinationInput from './DestinationInput';
+import React, { useMemo } from 'react';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import { Chip, Text, useTheme } from 'react-native-paper';
+import { MaterialIcons } from '@expo/vector-icons';
+import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { t } from 'app/src/config/i18n';
+import { INTEREST_LIST, PARTNERS_LIST } from '../data';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const _t = (key, options) => t(`planner.${key}`, options);
-
-const Step1 = ({ setActive }) => {
+const InterestsList = ({ value, setValue }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -28,28 +23,34 @@ const Step1 = ({ setActive }) => {
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
-  // ----------------------- CALLBACKS ----------------------- //
-  const handleSubmitPrompt = useCallback(
-    value => {
-      console.debug('[handleSubmitPrompt] :: ', value);
-      setActive(1);
-    },
-    [setActive],
-  );
-  // ---------------------- /CALLBACKS ----------------------- //
+  // ---------------------- RENDER VARS ---------------------- //
+
+  // --------------------- /RENDER VARS ---------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <View style={{ flex: 1 }}>
-      <Text variant="titleLarge" style={styles.title}>
-        {_t('where_to_go')}
-      </Text>
-      <DestinationInput handleSubmit={handleSubmitPrompt} />
-      <PopularDestinations handleSubmit={handleSubmitPrompt} />
-    </View>
+    <FlatList
+      data={INTEREST_LIST}
+      style={styles.flatList}
+      contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}
+      keyExtractor={item => item.key}
+      renderItem={({ item }) => {
+        const selected = _.includes(value, item);
+        return (
+          <Chip
+            mode="outlined"
+            selected={selected}
+            onPress={() => setValue(item)}
+            selectedColor={selected ? theme.colors.primary : theme.colors.black}
+            style={{ margin: 5, backgroundColor: 'transparent', borderColor: selected ? theme.colors.primary : theme.colors.lightGray }}>
+            {item.title}
+          </Chip>
+        );
+      }}
+    />
   );
 };
 
-export default Step1;
+export default InterestsList;

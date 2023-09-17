@@ -1,25 +1,20 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback } from 'react';
-import { View } from 'react-native';
+import React, { useMemo } from 'react';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
-// ------------------------------------------------------------ //
-// ------------------------ COMPONENTS ------------------------ //
-// ------------------------------------------------------------ //
-import PopularDestinations from './PopularDestinations';
-import DestinationInput from './DestinationInput';
+import { MaterialIcons } from '@expo/vector-icons';
+import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { t } from 'app/src/config/i18n';
+import { PARTNERS_LIST } from '../data';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const _t = (key, options) => t(`planner.${key}`, options);
-
-const Step1 = ({ setActive }) => {
+const PartnersList = ({ value, setValue }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -28,28 +23,38 @@ const Step1 = ({ setActive }) => {
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
-  // ----------------------- CALLBACKS ----------------------- //
-  const handleSubmitPrompt = useCallback(
-    value => {
-      console.debug('[handleSubmitPrompt] :: ', value);
-      setActive(1);
-    },
-    [setActive],
-  );
-  // ---------------------- /CALLBACKS ----------------------- //
+  // ---------------------- RENDER VARS ---------------------- //
+
+  // --------------------- /RENDER VARS ---------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <View style={{ flex: 1 }}>
-      <Text variant="titleLarge" style={styles.title}>
-        {_t('where_to_go')}
-      </Text>
-      <DestinationInput handleSubmit={handleSubmitPrompt} />
-      <PopularDestinations handleSubmit={handleSubmitPrompt} />
-    </View>
+    <FlatList
+      numColumns={2}
+      data={PARTNERS_LIST}
+      style={styles.flatList}
+      keyExtractor={item => item.key}
+      renderItem={({ item }) => {
+        const isActive = _.isEqual(value, item.title);
+        return (
+          <TouchableOpacity onPress={() => setValue(item.title)} style={styles.button(isActive)}>
+            <View style={styles.iconContainer(isActive)}>
+              <MaterialIcons
+                size={26}
+                name={item.icon}
+                color={isActive ? theme.colors.white : theme.dark ? theme.colors.white : theme.colors.black}
+              />
+            </View>
+            <Text variant="titleMedium" style={styles.title(isActive)}>
+              {item.title}
+            </Text>
+          </TouchableOpacity>
+        );
+      }}
+    />
   );
 };
 
-export default Step1;
+export default PartnersList;

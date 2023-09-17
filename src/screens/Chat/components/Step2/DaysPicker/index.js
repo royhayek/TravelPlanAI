@@ -2,51 +2,53 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React from 'react';
-import { FlatList, ImageBackground, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { POPULAR_DESTINATIONS } from '../data';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const _t = (key, options) => t(`planner.${key}`, options);
+const _t = (key, options) => t(`planner.step2.${key}`, options);
 
-const PopularDestinations = ({ handleSubmit }) => {
+const DaysPicker = ({ value, setValue }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
+
+  const isMinusDisabled = value === 1;
+  const isPlusDisabled = value === 7;
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <View style={{ flex: 1 }}>
-      <Text variant="titleMedium" style={styles.popularDestText}>
-        {_t('popular_destinations')}
+    <View style={styles.container}>
+      <Text variant="bodySmall" style={{ color: theme.colors.secondary }}>
+        {_t('noOfDays')}
       </Text>
-      <FlatList
-        numColumns={2}
-        data={POPULAR_DESTINATIONS}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.flatListContainer}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleSubmit(item.name)} style={styles.button}>
-            <ImageBackground source={{ uri: item.image }} resizeMode="stretch" imageStyle={styles.imageStyle} style={styles.image}>
-              <Text variant="titleMedium" style={styles.name}>
-                {item.name}
-              </Text>
-            </ImageBackground>
-          </TouchableOpacity>
-        )}
-      />
+      <View style={styles.stepperRow}>
+        <TouchableOpacity disabled={isMinusDisabled} onPress={() => setValue(d => d - 1)} style={styles.button(isMinusDisabled)}>
+          <Text variant="headlineSmall" style={{ color: theme.colors.white }}>
+            -
+          </Text>
+        </TouchableOpacity>
+        <Text variant="titleMedium" style={styles.value}>
+          {value}
+        </Text>
+        <TouchableOpacity disabled={isPlusDisabled} onPress={() => setValue(d => d + 1)} style={styles.button(isPlusDisabled)}>
+          <Text variant="headlineSmall" style={{ color: theme.colors.white }}>
+            +
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-export default PopularDestinations;
+export default DaysPicker;

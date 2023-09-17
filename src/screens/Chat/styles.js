@@ -33,4 +33,10 @@ export default theme =>
       marginVertical: 16,
       marginHorizontal: 16,
     },
+    footer: {
+      paddingVertical: 16,
+      flexDirection: 'row',
+      paddingHorizontal: 24,
+      justifyContent: 'space-between',
+    },
   });

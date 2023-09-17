@@ -3,12 +3,11 @@ import { StyleSheet } from 'react-native';
 export default theme =>
   StyleSheet.create({
     input: {
-      marginTop: 6,
+      marginTop: 8,
       maxHeight: 120,
       borderRadius: 30,
       marginBottom: 8,
       fontWeight: '500',
-      marginHorizontal: 16,
       justifyContent: 'center',
       // backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.white,
     },

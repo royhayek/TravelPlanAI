@@ -5,7 +5,7 @@
     },
     "navigation": {
       "trip_planner": "مخطط الرحلة",
-      "history": "السجل",
+      "history": "الخطط المحفوظة",
       "categories": "التصنيفات",
       "settings": "الإعدادات",
       "my_subscription": "اشتراكي"
@@ -13,7 +13,13 @@
     "planner": {
       "where_to_go": "إلى أين تريد الذهاب؟",
       "search_by": "البحث حسب المدينة أو البلدة",
-      "popular_destinations": "وجهات شعبية"
+      "popular_destinations": "وجهات شعبية",
+      "when_to_go": "متى تريد الذهاب؟",
+      "who_is_coming": "من سيأتي معك؟",
+      "how_to_spend": "كيف تريد أن تقضي وقتك؟",
+      "step2": {
+        "noOfDays": "عدد الأيام"
+      }
     },
     "history": {
       "delete_your_history": "هل أنت متأكد أنك تريد حذف السجل الخاص بك؟",

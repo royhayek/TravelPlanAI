@@ -5,7 +5,7 @@
     },
     "navigation": {
       "trip_planner": "Planificateur de voyage",
-      "history": "Historique",
+      "history": "Plans sauvegardés",
       "categories": "Assistants",
       "settings": "Paramètres",
       "my_subscription": "Mon abonnement"
@@ -13,7 +13,13 @@
     "planner": {
       "where_to_go": "Où voulez vous aller?",
       "search_by": "Rechercher par ville ou village",
-      "popular_destinations": "Destinations populaires"
+      "popular_destinations": "Destinations populaires",
+      "when_to_go": "Quand voulez-vous aller?",
+      "who_is_coming": "Qui vient avec vous?",
+      "how_to_spend": "Comment voulez-vous passer votre temps ?",
+      "step2": {
+        "noOfDays": "Nombre de jours"
+      }
     },
     "history": {
       "delete_your_history": "Voulez-vous vraiment supprimer votre historique?",

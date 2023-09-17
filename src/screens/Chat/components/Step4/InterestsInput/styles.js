@@ -5,16 +5,15 @@ export default theme =>
     input: {
       marginTop: 6,
       maxHeight: 120,
-      borderRadius: 30,
-      marginBottom: 8,
+      borderRadius: 8,
       fontWeight: '500',
-      marginHorizontal: 16,
       justifyContent: 'center',
+      marginHorizontal: 8,
       // backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.white,
     },
     underline: { display: 'none' },
     inputOutlineStyle: {
-      borderRadius: 50,
       borderWidth: 1.5,
+      borderColor: theme.colors.lightGray,
     },
   });

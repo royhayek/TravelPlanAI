@@ -4,8 +4,8 @@
       "continue": "Continue"
     },
     "navigation": {
-      "trip_planner": "Trip Planner",
-      "history": "History",
+      "trip_planner": "Planner",
+      "history": "Saved Plans",
       "categories": "Assistants",
       "settings": "Settings",
       "my_subscription": "My Subscription"
@@ -13,7 +13,13 @@
     "planner": {
       "where_to_go": "Where do you want to go?",
       "search_by": "Search by city or town",
-      "popular_destinations": "Popular destinations"
+      "popular_destinations": "Popular destinations",
+      "when_to_go": "When do you want to go?",
+      "who_is_coming": "Who is coming with you?",
+      "how_to_spend": "How do you want to spend your time?",
+      "step2": {
+        "noOfDays": "Number of days"
+      }
     },
     "history": {
       "delete_your_history": "Are you sure you want to delete your history?",
