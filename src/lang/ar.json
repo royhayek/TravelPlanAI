@@ -1,6 +1,9 @@
 {
   "ar": {
     "common": {
+      "back": "عودة",
+      "next": "التالي",
+      "submit": "إرسال",
       "continue": "المتابعة"
     },
     "navigation": {

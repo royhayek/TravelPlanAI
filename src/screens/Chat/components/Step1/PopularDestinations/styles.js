@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
+    flex1: { flex: 1 },
     popularDestText: {
       marginVertical: 16,
       marginHorizontal: 16,

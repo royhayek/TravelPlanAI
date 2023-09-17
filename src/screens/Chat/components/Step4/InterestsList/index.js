@@ -1,15 +1,14 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useMemo } from 'react';
-import { FlatList, TouchableOpacity, View } from 'react-native';
-import { Chip, Text, useTheme } from 'react-native-paper';
-import { MaterialIcons } from '@expo/vector-icons';
+import React from 'react';
+import { Chip, useTheme } from 'react-native-paper';
+import { FlatList } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { INTEREST_LIST, PARTNERS_LIST } from '../data';
+import { INTEREST_LIST } from '../data';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
@@ -23,28 +22,22 @@ const InterestsList = ({ value, setValue }) => {
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
-  // ---------------------- RENDER VARS ---------------------- //
-
-  // --------------------- /RENDER VARS ---------------------- //
-  // --------------------------------------------------------- //
-
-  // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
     <FlatList
       data={INTEREST_LIST}
       style={styles.flatList}
-      contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}
       keyExtractor={item => item.key}
+      contentContainerStyle={styles.flatListContent}
       renderItem={({ item }) => {
         const selected = _.includes(value, item);
         return (
           <Chip
             mode="outlined"
             selected={selected}
+            style={styles.chip(selected)}
             onPress={() => setValue(item)}
-            selectedColor={selected ? theme.colors.primary : theme.colors.black}
-            style={{ margin: 5, backgroundColor: 'transparent', borderColor: selected ? theme.colors.primary : theme.colors.lightGray }}>
+            selectedColor={selected ? theme.colors.primary : theme.colors.black}>
             {item.title}
           </Chip>
         );

@@ -1,6 +1,9 @@
 {
   "fr": {
     "common": {
+      "back": "Retour",
+      "next": "Suivant",
+      "submit": "Envoyer",
       "continue": "Continuer"
     },
     "navigation": {

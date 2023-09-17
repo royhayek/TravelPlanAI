@@ -34,4 +34,9 @@ export default theme =>
       marginBottom: 4,
       paddingHorizontal: 8,
     },
+    interestsInfo: {
+      flexDirection: 'row',
+      paddingHorizontal: 4,
+      justifyContent: 'space-between',
+    },
   });

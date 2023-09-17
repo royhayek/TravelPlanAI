@@ -1,6 +1,9 @@
 {
   "en": {
     "common": {
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit",
       "continue": "Continue"
     },
     "navigation": {
