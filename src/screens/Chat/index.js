@@ -13,6 +13,7 @@ import Step1 from './components/Step1';
 import Step2 from './components/Step2';
 import Step3 from './components/Step3';
 import Step4 from './components/Step4';
+import Step5 from './components/Step5';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
@@ -22,12 +23,6 @@ import makeStyles from './styles';
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
 const ChatScreen = () => {
-  // --------------------------------------------------------- //
-  // ------------------------ REDUX -------------------------- //
-
-  // ----------------------- /REDUX -------------------------- //
-  // --------------------------------------------------------- //
-
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -43,13 +38,14 @@ const ChatScreen = () => {
 
   const handleNextPress = useCallback(() => {
     // const { fromDate, toDate } = dateState;
-
     // console.info('[handleNextPress] :: ', { payload: { fromDate, toDate, selectedMonth, noOfDays } });
 
     setActive(a => a + 1);
-  }, [setActive]);
+  }, []);
 
-  const handleSubmitPress = useCallback(() => {}, []);
+  const handleSubmitPress = useCallback(() => {
+    setActive(a => a + 1);
+  }, []);
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
@@ -61,8 +57,9 @@ const ChatScreen = () => {
 
   // --------------------------------------------------------- //
   // ---------------------- RENDER VARS ---------------------- //
-  const steps = [<Step1 setActive={setActive} />, <Step2 />, <Step3 />, <Step4 />];
+  const steps = [<Step1 setActive={setActive} />, <Step2 />, <Step3 />, <Step4 />, <Step5 setActive={setActive} />];
 
+  const isBeforeLastStep = _.isEqual(active, steps.length - 2);
   const isLastStep = _.isEqual(active, steps.length - 1);
   // --------------------- /RENDER VARS ---------------------- //
   // --------------------------------------------------------- //
@@ -77,16 +74,19 @@ const ChatScreen = () => {
             {t('common.back')}
           </Text>
         </TouchableOpacity>
-        <RegularButton title={!isLastStep ? t('common.next') : t('common.submit')} onPress={!isLastStep ? handleNextPress : handleSubmitPress} />
+        <RegularButton
+          title={!isBeforeLastStep ? t('common.next') : t('common.submit')}
+          onPress={!isBeforeLastStep ? handleNextPress : handleSubmitPress}
+        />
       </View>
     ),
-    [styles.footer, styles.backButtonTitle, isLastStep, handleBackPress, handleNextPress, handleSubmitPress],
+    [styles.footer, styles.backButtonTitle, handleBackPress, isBeforeLastStep, handleNextPress, handleSubmitPress],
   );
 
   return (
     <View style={styles.container} onPress={() => Keyboard.dismiss()}>
       {steps[active]}
-      {active !== 0 && renderFooter}
+      {active !== 0 && !isLastStep && renderFooter}
     </View>
   );
 };

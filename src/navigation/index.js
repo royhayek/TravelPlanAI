@@ -13,6 +13,7 @@ import { useTheme } from 'react-native-paper';
 // ------------------------------------------------------------ //
 import SubscriptionScreen from '../screens/Subscription';
 import BackButton from '../components/Buttons/Back';
+import ItineraryScreen from '../screens/Itinerary';
 import SettingsScreen from '../screens/Settings';
 import HistoryScreen from '../screens/History';
 import ChatScreen from '../screens/Chat';
@@ -124,7 +125,8 @@ const RootNavigation = () => {
       <Stack.Screen name="Home" component={Tabs} />
       <Stack.Screen name="Chat" component={ChatScreen} options={{ title: _t('trip_planner'), ...screenOptions }} />
       <Stack.Screen name="Subscription" component={SubscriptionScreen} options={{ title: '', ...screenOptions }} />
-      <SettingsStack.Screen name="Info" component={InfoScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
+      <Stack.Screen name="Info" component={InfoScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
+      <Stack.Screen name="Itinerary" component={ItineraryScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
     </Stack.Navigator>
   );
 };

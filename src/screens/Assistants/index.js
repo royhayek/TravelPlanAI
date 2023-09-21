@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { setConversationId, setMessages } from 'app/src/redux/slices/chatSlice';
+import { setConversationId, setMessages } from 'app/src/redux/slices/travelItinerarySlice';
 import { getLanguage } from 'app/src/redux/selectors';
 import { ASSISTANTS } from './data';
 import makeStyles from './styles';
