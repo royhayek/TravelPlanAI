@@ -1,18 +1,19 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Text, useTheme } from 'react-native-paper';
 import { ScrollView, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import InterestsInput from './InterestsInput';
 import InterestsList from './InterestsList';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
+import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
@@ -20,32 +21,35 @@ import makeStyles from './styles';
 // ------------------------------------------------------------ //
 const _t = (key, options) => t(`planner.${key}`, options);
 
-const Step4 = ({ setActive }) => {
+const Step4 = () => {
+  // --------------------------------------------------------- //
+  // ------------------------ REDUX -------------------------- //
+  const dispatch = useDispatch();
+  // ----------------------- /REDUX -------------------------- //
+  // --------------------------------------------------------- //
+
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
 
   const [interests, setInterests] = useState([]);
-  const [value, setValue] = useState([]);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- CALLBACKS ----------------------- //
   const handleInterestPress = useCallback(interest => setInterests(_.xor(interests, [interest])), [interests]);
-
-  const handleInterestsChange = useCallback(interest => {
-    setValue(interest);
-
-    const interestsArray = interest.split(', ');
-    _.forEach(interestsArray, i => !!String(i).match());
-    setInterests();
-  }, []);
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
-  console.log('interests', interests);
+  // --------------------------------------------------------- //
+  // ------------------------ EFFECTS ------------------------ //
+  useEffect(() => {
+    dispatch(setPayload({ interests }));
+  }, [dispatch, interests]);
+  // ----------------------- /EFFECTS ------------------------ //
+  // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //

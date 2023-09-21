@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import * as Device from 'expo-device';
+import moment from 'moment';
 
 export const appName = Constants.expoConfig.name;
 
@@ -61,5 +62,18 @@ export const hasArabicCharacters = text => {
   var arregex = /[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufbc1]|[\ufbd3-\ufd3f]|[\ufd50-\ufd8f]|[\ufd92-\ufdc7]|[\ufe70-\ufefc]|[\uFDF0-\uFDFD]/;
   return arregex.test(text);
 };
+
+export const getMonths = (startDate, endDate) => {
+  let betweenMonths = [];
+  if (startDate < endDate) {
+    const date = moment(startDate).startOf('month');
+    while (date < moment(endDate).endOf('month')) {
+      betweenMonths.push(moment(date).format('MMMM'));
+      date.add(1, 'month');
+    }
+  }
+  return betweenMonths.join(', ');
+};
+
 // --------------------- /HELPERS -------------------------- //
 // --------------------------------------------------------- //

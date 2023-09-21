@@ -1,14 +1,14 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Text, useTheme } from 'react-native-paper';
 import { ScrollView, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import RegularButton from 'app/src/components/Buttons/Regular';
 import ToggleButtons from 'app/src/components/ToggleButtons';
 import DatePicker from 'app/src/components/DatePicker';
 import MonthPicker from './MonthPicker';
@@ -17,6 +17,7 @@ import DateInput from './DateInput';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
+import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
@@ -24,7 +25,13 @@ import makeStyles from './styles';
 // ------------------------------------------------------------ //
 const _t = (key, options) => t(`planner.${key}`, options);
 
-const Step2 = ({ setActive }) => {
+const Step2 = () => {
+  // --------------------------------------------------------- //
+  // ------------------------ REDUX -------------------------- //
+  const dispatch = useDispatch();
+  // ----------------------- /REDUX -------------------------- //
+  // --------------------------------------------------------- //
+
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -41,6 +48,8 @@ const Step2 = ({ setActive }) => {
 
   // --------------------------------------------------------- //
   // ----------------------- CALLBACKS ----------------------- //
+  const formatMonthDay = useCallback(date => moment(date, 'YYYY-MM-DD').format('MM/DD'), []);
+
   const handleDatePickerSuccess = useCallback(
     (start, end) => {
       setDateState({
@@ -52,25 +61,26 @@ const Step2 = ({ setActive }) => {
     },
     [dateState],
   );
-
-  const formatMonthDay = useCallback(date => moment(date, 'YYYY-MM-DD').format('MM/DD'), []);
-
-  const handleBackPress = useCallback(() => setActive(a => a - 1), [setActive]);
-
-  const handleNextPress = useCallback(() => {
-    const { fromDate, toDate } = dateState;
-
-    console.info('[handleNextPress] :: ', { payload: { fromDate, toDate, selectedMonth, noOfDays } });
-
-    setActive(a => a + 1);
-  }, [dateState, noOfDays, selectedMonth, setActive]);
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
+  // --------------------------------------------------------- //
+  // ------------------------ EFFECTS ------------------------ //
+  useEffect(() => {
+    const { fromDate, toDate } = dateState;
+    dispatch(setPayload({ periodType: activeButton, fromDate, toDate, noOfDays, selectedMonth }));
+  }, [noOfDays, dateState, selectedMonth, activeButton, dispatch]);
+  // ----------------------- /EFFECTS ------------------------ //
+  // --------------------------------------------------------- //
+
+  // --------------------------------------------------------- //
+  // ---------------------- RENDER VARS ---------------------- //
   const toggleButtons = [
     { key: 'date', title: 'Dates (MM/DD)' },
     { key: 'days', title: 'Number of days' },
   ];
+  // --------------------- /RENDER VARS ---------------------- //
+  // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //

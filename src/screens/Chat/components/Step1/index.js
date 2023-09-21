@@ -4,6 +4,7 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
@@ -12,6 +13,7 @@ import DestinationInput from './DestinationInput';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
+import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
@@ -20,6 +22,12 @@ import makeStyles from './styles';
 const _t = (key, options) => t(`planner.${key}`, options);
 
 const Step1 = ({ setActive }) => {
+  // --------------------------------------------------------- //
+  // ------------------------ REDUX -------------------------- //
+  const dispatch = useDispatch();
+  // ----------------------- /REDUX -------------------------- //
+  // --------------------------------------------------------- //
+
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -31,10 +39,10 @@ const Step1 = ({ setActive }) => {
   // ----------------------- CALLBACKS ----------------------- //
   const handleSubmitPrompt = useCallback(
     value => {
-      console.debug('[handleSubmitPrompt] :: ', value);
+      dispatch(setPayload({ destination: value }));
       setActive(1);
     },
-    [setActive],
+    [dispatch, setActive],
   );
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //

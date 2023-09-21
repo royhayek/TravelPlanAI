@@ -30,14 +30,14 @@ const InterestsList = ({ value, setValue }) => {
       keyExtractor={item => item.key}
       contentContainerStyle={styles.flatListContent}
       renderItem={({ item }) => {
-        const selected = _.includes(value, item);
+        const selected = _.includes(value, item.title);
         return (
           <Chip
             mode="outlined"
             selected={selected}
             style={styles.chip(selected)}
-            onPress={() => setValue(item)}
-            selectedColor={selected ? theme.colors.primary : theme.colors.black}>
+            onPress={() => setValue(item.title)}
+            selectedColor={selected ? theme.colors.primary : theme.dark ? theme.colors.white : theme.colors.black}>
             {item.title}
           </Chip>
         );

@@ -12,7 +12,6 @@ export const getSubscriptions = createSelector(appState, data => data.subscripti
 export const getOwnedSubscription = createSelector(appState, data => data.ownedSubscription);
 
 // ------------- Chat Selectors ------------- //
-export const chatState = state => state.chat;
+export const itineraryState = state => state.travelItinerary;
 
-export const getChatMessages = createSelector(chatState, data => data.messages);
-export const getConversationId = createSelector(chatState, data => data.conversationId);
+export const selectItinerary = createSelector(itineraryState, data => data);

@@ -2,6 +2,7 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { NavigationContainer } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +32,6 @@ import { FIREBASE_DB } from 'app/firebaseConfig';
 import { Firebase } from './config/constants';
 import { createTables } from './data/localdb';
 import { changeLocale } from './config/i18n';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
