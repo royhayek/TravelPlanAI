@@ -14,7 +14,6 @@ export default theme =>
     },
     title: {
       color: theme.colors.white,
-      fontWeight: 'bold',
       paddingHorizontal: 3,
     },
     endIcon: {

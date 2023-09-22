@@ -75,5 +75,29 @@ export const getMonths = (startDate, endDate) => {
   return betweenMonths.join(', ');
 };
 
+export const parseAIResponse = response => {
+  try {
+    let modifiedResponse = response;
+    if (response.includes('=')) {
+      modifiedResponse = response.split('=')[1].trim();
+    }
+    if (response.includes(';')) {
+      modifiedResponse = modifiedResponse.replace(';', '');
+    }
+    if (response.includes('JSON.stringify(')) {
+      modifiedResponse = modifiedResponse.replace('JSON.stringify(', '');
+    }
+    if (response.includes('})')) {
+      modifiedResponse = modifiedResponse.replace('})', '}');
+    }
+    if (response.includes('`')) {
+      modifiedResponse = modifiedResponse.replace('`', '}');
+    }
+
+    return JSON.parse(modifiedResponse);
+  } catch (error) {
+    console.debug('[parseAIResponse] :: error ', error);
+  }
+};
 // --------------------- /HELPERS -------------------------- //
 // --------------------------------------------------------- //

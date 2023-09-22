@@ -14,7 +14,7 @@ import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const BackButton = ({ title, onPress, ...props }) => {
+const BackButton = ({ title, onPress, style, ...props }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -28,11 +28,12 @@ const BackButton = ({ title, onPress, ...props }) => {
   return (
     <IconButton
       size={18}
-      style={styles.container}
+      style={[styles.container, style]}
       onPress={() => navigation.goBack()}
       icon={() => (
         <LeftChevron color={theme.dark ? theme.colors.white : theme.colors.black} style={{ transform: [{ rotateY: isRTL ? '180deg' : '0deg' }] }} />
       )}
+      {...props}
     />
   );
 };

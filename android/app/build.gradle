@@ -113,10 +113,10 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.codeblow.chatai'
+    namespace 'com.codeblow.travelplanai'
     defaultConfig {
         missingDimensionStrategy "store", "play"
-        applicationId 'com.codeblow.chatai'
+        applicationId 'com.codeblow.travelplanai'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 8

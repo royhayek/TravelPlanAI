@@ -1,4 +1,4 @@
-package com.codeblow.chatai;
+package com.codeblow.travelplanai;
 
 import android.app.Application;
 import android.content.res.Configuration;

@@ -40,5 +40,4 @@ export default theme =>
       alignItems: 'center',
       justifyContent: 'space-between',
     },
-    backButtonTitle: { fontWeight: 'bold' },
   });

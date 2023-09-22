@@ -70,9 +70,7 @@ const ChatScreen = () => {
     () => (
       <View style={styles.footer}>
         <TouchableOpacity onPress={handleBackPress}>
-          <Text variant="titleMedium" style={styles.backButtonTitle}>
-            {t('common.back')}
-          </Text>
+          <Text variant="titleMedium">{t('common.back')}</Text>
         </TouchableOpacity>
         <RegularButton
           title={!isBeforeLastStep ? t('common.next') : t('common.submit')}
@@ -80,7 +78,7 @@ const ChatScreen = () => {
         />
       </View>
     ),
-    [styles.footer, styles.backButtonTitle, handleBackPress, isBeforeLastStep, handleNextPress, handleSubmitPress],
+    [styles.footer, handleBackPress, isBeforeLastStep, handleNextPress, handleSubmitPress],
   );
 
   return (

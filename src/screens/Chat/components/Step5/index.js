@@ -46,6 +46,8 @@ const Step5 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
+    console.debug('itinerarySelect.payload', itinerarySelect.payload);
+    // console.debug('itinerarySelect.itinerary', Array.from(itinerarySelect.itinerary));
     _.isEmpty(itinerarySelect.itinerary) && dispatch(fetchTravelItinerary(itinerarySelect.payload));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);

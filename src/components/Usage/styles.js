@@ -11,7 +11,6 @@ export default theme =>
     },
     bottomSheetTitle: {
       flex: 1,
-      fontWeight: 'bold',
       textAlign: 'center',
     },
     bottomSheetContent: {
