@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ChatAI",
-    "slug": "ChatAI",
+    "name": "TravelPlanAI",
+    "slug": "travelplanai",
     "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,18 +11,31 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.codeblow.chatai",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "bundleIdentifier": "com.codeblow.travelplanai",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleMapsApiKey": "AIzaSyDSlQbEnjmwa44nytAE-PbbSq1cy1fe6KI"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app users your location information while the app is running in the foreground."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "config": {
+          "googleMaps": {
+            "apiKey": "AIzaSyCkPiWykF5Zuw7wuJieWfTu-066rnAGJ1U"
+          }
+        }
       },
-      "package": "com.codeblow.chatai",
+      "package": "com.codeblow.travelplanai",
       "versionCode": "8",
       "runtimeVersion": "exposdk:44.0.0",
       "googleServicesFile": "./google-services.json"
@@ -32,7 +45,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "c944d619-e2a3-4ebc-b1a1-d9adfa9acfc5"
+        "projectId": "8f78b06a-2996-45bb-bc94-ffd3cc0ad712"
       }
     },
     "updates": {
@@ -44,11 +57,13 @@
         "expo-build-properties",
         {
           "ios": {
-            "useFrameworks": "static"
+            "useFrameworks": "static",
+            "deploymentTarget": "13.0"
           }
         }
       ]
-    ]
+    ],
+    "owner": "royhayek"
   },
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-1469570455778464~7118559925",

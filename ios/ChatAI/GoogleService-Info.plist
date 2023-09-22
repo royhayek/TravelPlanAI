@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>359059404392-h5mct58j0cmobbm9da3c2p9iflrdaqhk.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.359059404392-h5mct58j0cmobbm9da3c2p9iflrdaqhk</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA0Jg4BmFcA5M7PfDTFCA6snurPef6jD4U</string>
+	<string>AIzaSyCkwpRBm9ae7nsorbDVkzpxf6B7GTP2AeE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>359059404392</string>
+	<string>48273391374</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.codeblow.chatai</string>
+	<string>com.codeblow.travelplanai</string>
 	<key>PROJECT_ID</key>
-	<string>chatai-6a578</string>
+	<string>travelplanai-a53f4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>chatai-6a578.appspot.com</string>
+	<string>travelplanai-a53f4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:359059404392:ios:0f92237982a919d7ed6ddd</string>
+	<string>1:48273391374:ios:0823b0d8ede319a325e15f</string>
 </dict>
 </plist>

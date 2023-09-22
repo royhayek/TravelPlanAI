@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, useTheme } from 'react-native-paper';
 import { ScrollView, View } from 'react-native';
+import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
@@ -33,14 +34,16 @@ const Step3 = () => {
   const theme = useTheme();
   const styles = makeStyles(theme);
 
-  const [whoIsGoing, setWhoIsGoing] = useState(PARTNERS_LIST[0].title);
+  const [whoIsGoing, setWhoIsGoing] = useState(PARTNERS_LIST[0].key);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- EFFECTS ------------------------- //
   useEffect(() => {
-    dispatch(setPayload({ whoIsGoing }));
+    const partner = _.find(PARTNERS_LIST, { key: whoIsGoing });
+    const withWho = _.isEqual(partner.key, 'alone') ? 'alone' : `with ${partner.title}`;
+    dispatch(setPayload({ whoIsGoing: withWho }));
   }, [whoIsGoing, dispatch]);
   // ---------------------- /EFFECTS ------------------------- //
   // --------------------------------------------------------- //

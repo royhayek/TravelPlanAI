@@ -52,6 +52,8 @@ const Step2 = () => {
 
   const handleDatePickerSuccess = useCallback(
     (start, end) => {
+      const diffDays = moment(end).diff(moment(start), 'days') + 1;
+      setNoOfDays(diffDays);
       setDateState({
         ...dateState,
         fromDate: start,

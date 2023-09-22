@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>ChatAI</string>
+    <string>TravelPlanAI</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -25,24 +25,20 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.codeblow.chatai</string>
+          <string>com.codeblow.travelplanai</string>
         </array>
       </dict>
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.googleusercontent.apps.359059404392-h5mct58j0cmobbm9da3c2p9iflrdaqhk</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>exp+chatai</string>
+          <string>exp+travelplanai</string>
         </array>
       </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
+    <key>GMSApiKey</key>
+    <string>AIzaSyDSlQbEnjmwa44nytAE-PbbSq1cy1fe6KI</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>
@@ -58,6 +54,8 @@
         </dict>
       </dict>
     </dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app users your location information while the app is running in the foreground.</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>

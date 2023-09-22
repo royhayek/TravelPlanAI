@@ -1,10 +1,10 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
@@ -16,6 +16,7 @@ import DestinationInput from './DestinationInput';
 import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
+import { selectItinerary } from 'app/src/redux/selectors';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -25,6 +26,7 @@ const Step1 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
   const dispatch = useDispatch();
+  const itinerarySelect = useSelector(selectItinerary);
   // ----------------------- /REDUX -------------------------- //
   // --------------------------------------------------------- //
 
@@ -44,6 +46,18 @@ const Step1 = ({ setActive }) => {
     },
     [dispatch, setActive],
   );
+
+  // useEffect(() => {
+  //   console.debug('initerarySelect', itinerarySelect);
+  //   console.debug('itinerarySelect.itinerary[0]', JSON.parse(itinerarySelect.itinerary));
+  // }, []);
+
+  useEffect(() => {
+    if (itinerarySelect?.itinerary) {
+      console.debug('itinerarySelect?.itinerary', itinerarySelect?.itinerary);
+    }
+  }, [itinerarySelect?.itinerary]);
+
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 

@@ -46,7 +46,8 @@ const Step4 = () => {
   // --------------------------------------------------------- //
   // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
-    dispatch(setPayload({ interests }));
+    const joinedInterests = interests.join(', ');
+    dispatch(setPayload({ interests: joinedInterests }));
   }, [dispatch, interests]);
   // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //

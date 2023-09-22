@@ -37,9 +37,9 @@ const PartnersList = ({ value, setValue }) => {
       style={styles.flatList}
       keyExtractor={item => item.key}
       renderItem={({ item }) => {
-        const isActive = _.isEqual(value, item.title);
+        const isActive = _.isEqual(value, item.key);
         return (
-          <TouchableOpacity onPress={() => setValue(item.title)} style={styles.button(isActive)}>
+          <TouchableOpacity onPress={() => setValue(item.key)} style={styles.button(isActive)}>
             <View style={styles.iconContainer(isActive)}>
               <MaterialIcons
                 size={26}

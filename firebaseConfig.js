@@ -3,14 +3,14 @@ import { getDatabase } from 'firebase/database';
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: 'AIzaSyCqXbHznNaLfAAnydoNSk-Wv4mCxnspVgk',
-  authDomain: 'chatai-6a578.firebaseapp.com',
-  projectId: 'chatai-6a578',
-  storageBucket: 'chatai-6a578.appspot.com',
-  messagingSenderId: '359059404392',
-  appId: '1:359059404392:web:b0a4898a0c74188aed6ddd',
-  measurementId: 'G-C8EQBKPYWL',
-  databaseURL: 'https://chatai-6a578-default-rtdb.firebaseio.com',
+  apiKey: 'AIzaSyDPlLdbdjUNy5KRqUPkUP_1W2MJ0z2ayOY',
+  authDomain: 'travelplanai-a53f4.firebaseapp.com',
+  projectId: 'travelplanai-a53f4',
+  storageBucket: 'travelplanai-a53f4.appspot.com',
+  messagingSenderId: '48273391374',
+  appId: '1:48273391374:web:56acf2c6fca721ff25e15f',
+  measurementId: 'G-FPNZRQW974',
+  databaseURL: 'https://travelplanai-a53f4-default-rtdb.firebaseio.com',
 };
 
 // Initialize Firebase

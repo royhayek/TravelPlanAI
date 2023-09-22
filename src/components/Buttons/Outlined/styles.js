@@ -6,15 +6,19 @@ export default theme =>
       opacity: disabled ? 0.5 : 1,
     }),
     linearBackground: {
-      padding: 12,
-      borderRadius: 10,
+      borderWidth: 1.2,
+      borderRadius: 30,
+      paddingVertical: 10,
+      paddingHorizontal: 14,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      borderColor: theme.colors.black,
+      backgroundColor: theme.dark ? theme.colors.background : theme.colors.white,
     },
     title: {
-      color: theme.colors.white,
       paddingHorizontal: 3,
+      color: theme.dark ? theme.colors.white : theme.colors.black,
     },
     endIcon: {
       marginHorizontal: 8,

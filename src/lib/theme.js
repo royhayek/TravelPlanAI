@@ -1,4 +1,15 @@
-import { MD3LightTheme as DefaultTheme, MD3DarkTheme as DarkTheme } from 'react-native-paper';
+import { MD3LightTheme as DefaultTheme, MD3DarkTheme as DarkTheme, configureFonts } from 'react-native-paper';
+
+const fontConfig = {
+  headlineSmall: {
+    fontWeight: 'bold',
+  },
+  titleMedium: {
+    fontWeight: 'bold',
+  },
+};
+
+const fonts = configureFonts({ config: fontConfig });
 
 export const lightTheme = {
   ...DefaultTheme,
@@ -15,6 +26,10 @@ export const lightTheme = {
     darkBlue: '#906FE7',
     pieBlue: '#9b59b6',
   },
+  fonts: {
+    ...DefaultTheme.fonts,
+    fonts,
+  },
 };
 
 export const darkTheme = {
@@ -30,5 +45,9 @@ export const darkTheme = {
     lightGray: 'lightgray',
     darkBlue: '#906FE7',
     pieBlue: '#9b59b6',
+  },
+  fonts: {
+    ...DefaultTheme.fonts,
+    fonts,
   },
 };
