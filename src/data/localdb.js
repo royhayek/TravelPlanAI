@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as SQLite from 'expo-sqlite';
 
 // Open the local stored database
-export const db = SQLite.openDatabase('chatai.db');
+export const db = SQLite.openDatabase('travelplanai.db');
 
 // Create the conversations table if it doesn't exist
 export const createTables = () => {

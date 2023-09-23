@@ -26,8 +26,6 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.codeblow.chatai"/>
-        <data android:scheme="exp+chatai"/>
         <data android:scheme="com.codeblow.travelplanai"/>
         <data android:scheme="exp+travelplanai"/>
       </intent-filter>
