@@ -45,6 +45,17 @@ const ItineraryScreen = ({ navigation }) => {
   //     });
   // }, []);
 
+  const handleNavigateToMapView = () => {
+    const destinations = _.reduce(
+      DUMMY_ITINERARY.days,
+      (r, v) => {
+        return [...r, ...v.activities];
+      },
+      [],
+    );
+    navigation.navigate('Map', { destinations });
+  };
+
   const { destination, noOfDays, whoIsGoing } = itinerarySelect.payload || {};
 
   const mapCoordinates = _.reduce(
@@ -68,27 +79,26 @@ const ItineraryScreen = ({ navigation }) => {
             latitudeDelta: 0.04,
             longitudeDelta: 0.0421,
           }}>
-          {_.map(
-            mapCoordinates.map(({ lat, long }, index) => (
-              <MapMarker coordinate={{ latitude: lat, longitude: long }}>
-                <Image
-                  source={require('../../../assets/map-pin.png')}
-                  style={{
-                    width: 25,
-                    height: 25,
-                    shadowColor: 'black',
-                    shadowOffset: { width: 0, height: 1 },
-                    shadowOpacity: 0.4,
-                    shadowRadius: 2,
-                  }}
-                />
-              </MapMarker>
-            )),
-          )}
+          {_.map(mapCoordinates, ({ lat, long }, index) => (
+            <MapMarker coordinate={{ latitude: lat, longitude: long }}>
+              <Image
+                source={require('../../../assets/map-pin.png')}
+                style={{
+                  width: 25,
+                  height: 25,
+                  shadowColor: 'black',
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.4,
+                  shadowRadius: 2,
+                }}
+              />
+            </MapMarker>
+          ))}
         </MapView>
         <BackButton style={styles.backBtn} />
         <OutlinedButton
           title="Map view"
+          onPress={handleNavigateToMapView}
           containerStyle={styles.mapViewBtn}
           startIcon={<Ionicons name="location-outline" size={20} color={theme.dark ? theme.colors.white : theme.colors.black} />}
         />

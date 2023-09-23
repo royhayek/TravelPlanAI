@@ -18,6 +18,7 @@ import SettingsScreen from '../screens/Settings';
 import HistoryScreen from '../screens/History';
 import ChatScreen from '../screens/Chat';
 import InfoScreen from '../screens/Info';
+import MapScreen from '../screens/Map';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
@@ -127,6 +128,7 @@ const RootNavigation = () => {
       <Stack.Screen name="Subscription" component={SubscriptionScreen} options={{ title: '', ...screenOptions }} />
       <Stack.Screen name="Info" component={InfoScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
       <Stack.Screen name="Itinerary" component={ItineraryScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
+      <Stack.Screen name="Map" component={MapScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
     </Stack.Navigator>
   );
 };

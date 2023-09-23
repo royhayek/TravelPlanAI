@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { openAIConfig } from 'app/src/data/api';
-import { getMonths, parseAIResponse } from 'app/src/helpers';
+import { parseAIResponse } from 'app/src/helpers';
 import { OpenAIApi } from 'openai';
-import moment from 'moment';
 import _ from 'lodash';
 
 // This thunk will make a POST request to the ChatGPT API with the provided payload
@@ -12,9 +11,6 @@ export const fetchTravelItinerary = createAsyncThunk('travelItinerary/fetch', as
   console.debug('starting fetching itinerary');
   // Process payload
   const byDate = _.isEqual(periodType, 'date');
-  const fromDay = moment(fromDate).format('DD');
-  const toDay = moment(toDate).format('DD');
-  const months = getMonths(fromDate, toDate);
 
   // Generate response
   const openai = new OpenAIApi(openAIConfig);
