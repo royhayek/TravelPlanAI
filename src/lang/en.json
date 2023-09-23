@@ -8,7 +8,7 @@
     },
     "navigation": {
       "trip_planner": "Planner",
-      "history": "Saved Plans",
+      "history": "My trips",
       "categories": "Assistants",
       "settings": "Settings",
       "my_subscription": "My Subscription"
@@ -28,7 +28,10 @@
       "delete_your_history": "Are you sure you want to delete your history?",
       "delete": "Delete",
       "cancel": "Cancel",
-      "no_history_found": "No History Found"
+      "no_history_found": "No History Found",
+      "my_trips": "My Trips",
+      "days_long": "days long",
+      "for": "For: "
     },
     "settings": {
       "general": "General",
