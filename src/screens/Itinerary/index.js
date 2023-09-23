@@ -21,6 +21,28 @@ const ItineraryScreen = ({ navigation }) => {
     navigation.setOptions({ headerShown: false });
   }, [navigation]);
 
+  useEffect(() => {
+    // Replace 'YOUR_API_KEY' with your actual Google API key
+    const apiKey = 'AIzaSyDSlQbEnjmwa44nytAE-PbbSq1cy1fe6KI';
+
+    // Construct the URL for the Google Places API request
+    const placeId = 'ChIJ3S8dXl2u5kcRB4Ri3aHpfjE';
+    const fields = 'name,formatted_address,photos,rating,opening_hours,types';
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`;
+
+    fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=Ayasofya, Sultanahmet, Istanbul 34122, Turkey&key=${apiKey}`)
+      .then(response => response.json())
+      .then(json => {
+        console.debug('refreshed place id', json);
+
+        // fetch(apiUrl)
+        //   .then(response => response.json())
+        //   .then(json => {
+        //     console.debug('json', json);
+        //   });
+      });
+  }, []);
+
   const { destination, noOfDays, whoIsGoing } = itinerarySelect.payload || {};
 
   return (
