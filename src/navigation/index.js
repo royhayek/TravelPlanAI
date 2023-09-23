@@ -15,7 +15,7 @@ import SubscriptionScreen from '../screens/Subscription';
 import BackButton from '../components/Buttons/Back';
 import ItineraryScreen from '../screens/Itinerary';
 import SettingsScreen from '../screens/Settings';
-import HistoryScreen from '../screens/History';
+import MyTripsScreen from '../screens/MyTrips';
 import ChatScreen from '../screens/Chat';
 import InfoScreen from '../screens/Info';
 // ------------------------------------------------------------ //
@@ -72,7 +72,7 @@ const RootNavigation = () => {
 
   const HistoryStackScreen = () => (
     <HistoryStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
-      <HistoryStack.Screen name="History" component={HistoryScreen} options={{ title: _t('history'), ...screenOptions }} />
+      <HistoryStack.Screen name="History" component={MyTripsScreen} options={{ title: _t('history'), ...screenOptions }} />
     </HistoryStack.Navigator>
   );
 
