@@ -28,7 +28,10 @@
       "delete_your_history": "Voulez-vous vraiment supprimer votre historique?",
       "delete": "Supprimer",
       "cancel": "Annuler",
-      "no_history_found": "Aucun historique trouvé"
+      "no_history_found": "Aucun historique trouvé",
+      "my trips": "Mes voyages",
+      "days_long": "jours longs",
+      "for": "Pour: "
     },
     "settings": {
       "general": "Générale",

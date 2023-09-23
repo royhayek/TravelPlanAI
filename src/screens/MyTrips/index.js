@@ -18,6 +18,7 @@ import HistoryCard from './components/HistoryCard';
 import { deleteAllConversations, getConversations } from 'app/src/data/localdb';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
+import { savedTrips as savedTripsData } from './mock';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -33,7 +34,9 @@ const HistoryScreen = ({ navigation }) => {
 
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [conversations, setConversations] = useState([]);
+  const [savedTrips, setSavedTrips] = useState(savedTripsData);
+
+  console.log({ savedTrips });
 
   const snapPoints = useMemo(() => ['25%'], []);
   // ----------------------- /STATICS ------------------------ //
@@ -41,10 +44,10 @@ const HistoryScreen = ({ navigation }) => {
 
   // --------------------------------------------------------- //
   // ----------------------- CALLBACKS ----------------------- //
-  const refreshConversations = useCallback(isRefreshing => {
+  const refreshSavedTrips = useCallback(isRefreshing => {
     !isRefreshing && setLoading(true);
     getConversations().then(convos => {
-      setConversations(convos);
+      setSavedTrips(savedTripsData);
       setRefreshing(false);
       !isRefreshing && setLoading(false);
     });
@@ -56,13 +59,13 @@ const HistoryScreen = ({ navigation }) => {
 
   const handleDeleteAllHistory = useCallback(async () => {
     await deleteAllConversations().then(() => console.debug('History Deleted Successfully'));
-    refreshConversations(false);
+    refreshSavedTrips(false);
     handleSheetClose();
-  }, [handleSheetClose, refreshConversations]);
+  }, [handleSheetClose, refreshSavedTrips]);
 
   const renderDeleteIcon = useCallback(
-    () => conversations.length > 0 && <Octicons name="trash" size={22} color={theme.dark ? theme.colors.white : theme.colors.black} />,
-    [conversations.length, theme.colors.black, theme.colors.white, theme.dark],
+    () => savedTrips?.length > 0 && <Octicons name="trash" size={22} color={theme.dark ? theme.colors.white : theme.colors.black} />,
+    [savedTrips?.length, theme.colors.black, theme.colors.white, theme.dark],
   );
 
   const renderHeaderRight = useCallback(
@@ -79,7 +82,7 @@ const HistoryScreen = ({ navigation }) => {
   }, [navigation, renderHeaderRight]);
 
   useEffect(() => {
-    refreshConversations();
+    refreshSavedTrips();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // ----------------------- /EFFECTS ------------------------ //
@@ -92,24 +95,24 @@ const HistoryScreen = ({ navigation }) => {
       <RefreshControl
         refreshing={refreshing}
         tintColor={theme.dark ? theme.colors.white : theme.colors.black}
-        onRefresh={() => refreshConversations(true)}
+        onRefresh={() => refreshSavedTrips(true)}
       />
     ),
-    [refreshConversations, refreshing, theme.colors.black, theme.colors.white, theme.dark],
+    [refreshSavedTrips, refreshing, theme.colors.black, theme.colors.white, theme.dark],
   );
 
   const renderList = useMemo(
     () => (
       <FlatList
-        data={conversations}
+        data={savedTrips}
         key={item => item.id}
         refreshing={refreshing}
         refreshControl={renderRefreshControl}
         contentContainerStyle={styles.listContent}
-        renderItem={({ item, index }) => <HistoryCard item={item} index={index} refresh={refreshConversations} />}
+        renderItem={({ item, index }) => <HistoryCard item={item} index={index} refresh={refreshSavedTrips} />}
       />
     ),
-    [refreshConversations, conversations, refreshing, renderRefreshControl, styles.listContent],
+    [refreshSavedTrips, savedTrips, refreshing, renderRefreshControl, styles.listContent],
   );
 
   const renderLoadingOrEmpty = useMemo(
@@ -152,7 +155,7 @@ const HistoryScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {conversations.length > 0 ? renderList : renderLoadingOrEmpty}
+      {savedTrips?.length > 0 ? renderList : renderLoadingOrEmpty}
       {renderConfBottomSheet}
     </View>
   );
