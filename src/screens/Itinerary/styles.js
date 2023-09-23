@@ -40,4 +40,33 @@ export default theme =>
       paddingTop: 24,
       paddingHorizontal: 10,
     },
+    destinationInfo: {
+      marginVertical: 16,
+    },
+    activity: {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 8,
+      paddingVertical: 8,
+      marginHorizontal: 3,
+      elevation: 2,
+      backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
+      borderColor: theme.isDark ? theme.colors.white : 'transparent',
+      marginBottom: 10,
+      flexDirection: 'row',
+    },
+    imageContainer: {
+      paddingEnd: 16,
+      justifyContent: 'center',
+    },
+    image: {
+      width: 90,
+      height: 90,
+      borderRadius: 8,
+    },
+    descriptionContainer: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-around',
+    },
   });

@@ -29,10 +29,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
-        "config": {
-          "googleMaps": {
-            "apiKey": "AIzaSyCkPiWykF5Zuw7wuJieWfTu-066rnAGJ1U"
-          }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCkPiWykF5Zuw7wuJieWfTu-066rnAGJ1U"
         }
       },
       "package": "com.codeblow.travelplanai",
