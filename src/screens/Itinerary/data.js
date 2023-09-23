@@ -187,22 +187,54 @@ export const DUMMY_ITINERARY = {
   ],
 };
 
-export const DUMMY_PLACE = [
-  {
-    business_status: 'OPERATIONAL',
-    formatted_address: 'Sultan Ahmet, Ayasofya Meydanı No:1, 34122 Fatih/İstanbul, Türkiye',
-    geometry: [Object],
-    icon: 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/worship_islam-71.png',
-    icon_background_color: '#7B9EB0',
-    icon_mask_base_uri: 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/worship_islam_pinlet',
-    name: 'Hagia Sophia',
-    opening_hours: [Object],
-    photos: [Array],
-    place_id: 'ChIJJxwBkr65yhQRrk9EN29vbiM',
-    plus_code: [Object],
-    rating: 4.8,
-    reference: 'ChIJJxwBkr65yhQRrk9EN29vbiM',
-    types: [Array],
-    user_ratings_total: 122416,
-  },
-];
+export const DUMMY_PLACE = {
+  html_attributions: [],
+  results: [
+    {
+      business_status: 'OPERATIONAL',
+      formatted_address: 'Sultan Ahmet, Ayasofya Meydanı No:1, 34122 Fatih/İstanbul, Türkiye',
+      geometry: {
+        location: {
+          lat: 41.008583,
+          lng: 28.980175,
+        },
+        viewport: {
+          northeast: {
+            lat: 41.00955292989273,
+            lng: 28.98089352989273,
+          },
+          southwest: {
+            lat: 41.00685327010729,
+            lng: 28.97819387010729,
+          },
+        },
+      },
+      icon: 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/worship_islam-71.png',
+      icon_background_color: '#7B9EB0',
+      icon_mask_base_uri: 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/worship_islam_pinlet',
+      name: 'Hagia Sophia',
+      opening_hours: {
+        open_now: true,
+      },
+      photos: [
+        {
+          height: 3596,
+          html_attributions: ['<a href="https://maps.google.com/maps/contrib/111876847489816303857">Mohamed Gasim</a>'],
+          photo_reference:
+            'ATJ83zgeh_b6K1MqH7zGK9mu-kmyEfAsQGZnvVP6SulVkFDQSHrela2hBNVnWDjF9V_oMbBJR4dZ_4HND25wlKNT2H5DSh2k067M2TbGpFTxP8H93lWV_spa0-2NRwxsUkJujwBMxSzOp6wcKDfihBaL5f5F99zR5zhPuIvAEGAsAVosqB8X',
+          width: 5753,
+        },
+      ],
+      place_id: 'ChIJJxwBkr65yhQRrk9EN29vbiM',
+      plus_code: {
+        compound_code: '2X5J+C3 Fatih, İstanbul, Türkiye',
+        global_code: '8GHC2X5J+C3',
+      },
+      rating: 4.8,
+      reference: 'ChIJJxwBkr65yhQRrk9EN29vbiM',
+      types: ['mosque', 'tourist_attraction', 'place_of_worship', 'point_of_interest', 'establishment'],
+      user_ratings_total: 122417,
+    },
+  ],
+  status: 'OK',
+};

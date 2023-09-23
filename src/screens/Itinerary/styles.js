@@ -63,6 +63,7 @@ export default theme =>
       width: 90,
       height: 90,
       borderRadius: 8,
+      backgroundColor: theme.colors.background,
     },
     descriptionContainer: {
       flex: 1,
