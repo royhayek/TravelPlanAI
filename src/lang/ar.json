@@ -28,7 +28,10 @@
       "delete_your_history": "هل أنت متأكد أنك تريد حذف السجل الخاص بك؟",
       "delete": "حذف",
       "cancel": "إلغاء",
-      "no_history_found": "لم يتم العثور على محفوظات"
+      "no_history_found": "لم يتم العثور على محفوظات",
+      "my trips": "رحلاتي",
+      "days_long": "أيام طويلة",
+      "for": ": لـ"
     },
     "settings": {
       "general": "عموما",
