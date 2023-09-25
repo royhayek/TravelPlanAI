@@ -3,7 +3,7 @@
 // ------------------------------------------------------------ //
 import React, { useCallback, useMemo, useState } from 'react';
 import { Keyboard, TouchableOpacity, View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { Snackbar, Text, useTheme } from 'react-native-paper';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
@@ -19,6 +19,8 @@ import Step5 from './components/Step5';
 // ------------------------------------------------------------ //
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
+import { useSelector } from 'react-redux';
+import { selectItinerary } from 'app/src/redux/selectors';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -29,6 +31,9 @@ const ChatScreen = () => {
   const styles = makeStyles(theme);
 
   const [active, setActive] = useState(0);
+  const [error, setError] = useState('');
+
+  const itinerarySelect = useSelector(selectItinerary);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
@@ -37,15 +42,36 @@ const ChatScreen = () => {
   const handleBackPress = useCallback(() => setActive(a => a - 1), [setActive]);
 
   const handleNextPress = useCallback(() => {
-    // const { fromDate, toDate } = dateState;
-    // console.info('[handleNextPress] :: ', { payload: { fromDate, toDate, selectedMonth, noOfDays } });
+    const { periodType, fromDate, toDate } = itinerarySelect.payload;
 
-    setActive(a => a + 1);
-  }, []);
+    switch (active) {
+      case 1:
+        if ((_.isEqual(periodType, 'date') && fromDate && toDate) || _.isEqual(periodType, 'days')) {
+          setActive(a => a + 1);
+        } else {
+          setError('Please select a start and end date');
+        }
+        break;
+
+      case 2:
+        setActive(a => a + 1);
+        break;
+
+      default:
+        break;
+    }
+  }, [active, itinerarySelect.payload]);
 
   const handleSubmitPress = useCallback(() => {
-    setActive(a => a + 1);
-  }, []);
+    const { interests } = itinerarySelect.payload;
+    if (!_.isEmpty(interests)) {
+      setActive(a => a + 1);
+    } else {
+      setError('Please select at least 2 interests');
+    }
+  }, [itinerarySelect.payload]);
+
+  const onDismissSnackBar = () => setError('');
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
@@ -85,6 +111,9 @@ const ChatScreen = () => {
     <View style={styles.container} onPress={() => Keyboard.dismiss()}>
       {steps[active]}
       {active !== 0 && !isLastStep && renderFooter}
+      <Snackbar visible={error} onDismiss={onDismissSnackBar} duration={1000}>
+        {error}
+      </Snackbar>
     </View>
   );
 };

@@ -15,3 +15,10 @@ export const getOwnedSubscription = createSelector(appState, data => data.ownedS
 export const itineraryState = state => state.travelItinerary;
 
 export const selectItinerary = createSelector(itineraryState, data => data);
+
+export const itineraryPlacesState = state => {
+  console.debug('state', state);
+  return state.itineraryPlaces;
+};
+
+export const selectItineraryPlaces = createSelector(itineraryPlacesState, data => data);

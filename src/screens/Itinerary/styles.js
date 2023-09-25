@@ -18,15 +18,33 @@ export default theme =>
       flex: 1,
       padding: 20,
     },
-    mapContainer: {
-      height: 200,
+    mapContainer: height => ({
+      height: height,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.background,
-    },
+    }),
     map: {
       width: '100%',
       height: 200,
+    },
+    mapMarkerWrapper: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    mapMarkerImg: {
+      width: 25,
+      height: 25,
+      shadowColor: 'black',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.4,
+      shadowRadius: 2,
+      backgroundColor: 'transparent',
+    },
+    mapMarkerValue: {
+      position: 'absolute',
+      color: theme.colors.white,
+      fontWeight: 'bold',
     },
     backBtn: {
       position: 'absolute',
@@ -34,6 +52,11 @@ export default theme =>
       top: 50,
       color: theme.colors.white,
     },
+    headerButtons: opacity => ({
+      ...StyleSheet.absoluteFillObject,
+      justifyContent: 'center',
+      opacity: opacity,
+    }),
     mapViewBtn: {
       position: 'absolute',
       alignSelf: 'center',

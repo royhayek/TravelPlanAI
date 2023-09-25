@@ -180,7 +180,7 @@ const Root = () => {
           <RootNavigation />
           {/* <SplashScreen loadedData={loadedData} /> */}
           <NetworkInfo />
-          <SubscriptionManager />
+          {/* <SubscriptionManager /> */}
         </NavigationContainer>
       </BottomSheetModalProvider>
     </PaperProvider>

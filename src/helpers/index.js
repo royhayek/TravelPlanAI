@@ -99,5 +99,9 @@ export const parseAIResponse = response => {
     console.debug('[parseAIResponse] :: error ', error);
   }
 };
+
+export const formatAmount = num => {
+  return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;
+};
 // --------------------- /HELPERS -------------------------- //
 // --------------------------------------------------------- //

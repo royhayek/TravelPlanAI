@@ -10,6 +10,7 @@ export default theme =>
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       borderRadius: 5,
+      elevation: 2,
     },
     content: {
       flex: 1,

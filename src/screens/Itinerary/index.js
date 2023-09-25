@@ -1,25 +1,88 @@
-import React, { useEffect } from 'react';
-import { FlatList, Image, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
-import { useTheme, Text, List } from 'react-native-paper';
-import { useSelector } from 'react-redux';
-import { selectItinerary } from 'app/src/redux/selectors';
-import OutlinedButton from 'app/src/components/Buttons/Outlined';
+// ------------------------------------------------------------ //
+// ------------------------- PACKAGES ------------------------- //
+// ------------------------------------------------------------ //
+import React, { useEffect, useMemo, useState } from 'react';
+import { Animated, FlatList, Image, SafeAreaView, ScrollView, View } from 'react-native';
+import MapView, { MapMarker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { useTheme, Text, List, Button, Badge, Divider, Chip } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import _ from 'lodash';
-import MapView, { MapMarker, PROVIDER_GOOGLE } from 'react-native-maps';
+// ------------------------------------------------------------ //
+// ------------------------ COMPONENTS ------------------------ //
+// ------------------------------------------------------------ //
+import OutlinedButton from 'app/src/components/Buttons/Outlined';
+import LocationCard from 'app/src/components/LocationCard';
+import BackButton from 'app/src/components/Buttons/Back';
+// ------------------------------------------------------------ //
+// ------------------------- UTILITIES ------------------------ //
+// ------------------------------------------------------------ //
+import { fetchItineraryPlaces } from 'app/src/redux/actions/itineraryPlacesActions';
+import { selectItinerary, selectItineraryPlaces } from 'app/src/redux/selectors';
 import { DUMMY_ITINERARY } from './data';
 import makeStyles from './styles';
-import BackButton from 'app/src/components/Buttons/Back';
+// ------------------------------------------------------------ //
+// ------------------------ COMPONENT ------------------------- //
+// ------------------------------------------------------------ //
+const HEADER_EXPANDED_HEIGHT = 200;
+const HEADER_COLLAPSED_HEIGHT = 48;
 
 const ItineraryScreen = ({ navigation }) => {
+  // --------------------------------------------------------- //
+  // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const dispatch = useDispatch();
+
+  const [scrollY] = useState(new Animated.Value(0));
 
   const itinerarySelect = useSelector(selectItinerary);
+  const itineraryPlacesSelect = useSelector(selectItineraryPlaces);
+  const itineraryPayload = itinerarySelect?.payload;
+  const itinerary = itinerarySelect?.itinerary || DUMMY_ITINERARY;
+  const itineraryDays = itinerarySelect?.itinerary?.days || DUMMY_ITINERARY.days;
 
+  const destinations = useMemo(
+    () =>
+      _.reduce(
+        itineraryDays,
+        (r, v) => {
+          return [...r, ...v.activities];
+        },
+        [],
+      ),
+    [itineraryDays],
+  );
+
+  const { destination, noOfDays, whoIsGoing } = itinerarySelect.payload || {};
+  // ----------------------- /STATICS ------------------------ //
+  // --------------------------------------------------------- //
+
+  // --------------------------------------------------------- //
+  // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, [navigation]);
+
+  useEffect(() => {
+    if (itineraryDays && _.isEmpty(itineraryPlacesSelect.places)) {
+      const addresses = _.reduce(
+        itineraryDays,
+        (r, v) => {
+          if (v.activities) {
+            _.forEach(v.activities, a => {
+              r.push({ id: a.id, address: a.address });
+            });
+          }
+          return r;
+        },
+        [],
+      );
+
+      console.debug('addresses', addresses);
+      dispatch(fetchItineraryPlaces({ addresses }));
+    }
+  }, [dispatch, itineraryDays, itineraryPlacesSelect]);
 
   // useEffect(() => {
   //   // Replace 'YOUR_API_KEY' with your actual Google API key
@@ -30,125 +93,151 @@ const ItineraryScreen = ({ navigation }) => {
   //   const fields = 'name,formatted_address,photos,rating,opening_hours,types';
   //   const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`;
 
-  //   fetch(
-  //     `https://maps.googleapis.com/maps/api/place/textsearch/json?query=Ayasofya, Sultanahmet, Istanbul 34122, Turkey&fields=${fields}&key=${apiKey}`,
-  //   )
-  //     .then(response => response.json())
-  //     .then(json => {
-  //       console.debug('refreshed place id', json);
-
-  //       // fetch(apiUrl)
-  //       //   .then(response => response.json())
-  //       //   .then(json => {
-  //       //     console.debug('json', json);
-  //       //   });
-  //     });
   // }, []);
+  // ----------------------- /EFFECTS ------------------------ //
+  // --------------------------------------------------------- //
 
-  const handleNavigateToMapView = () => {
-    const destinations = _.reduce(
-      DUMMY_ITINERARY.days,
-      (r, v) => {
-        return [...r, ...v.activities];
-      },
-      [],
-    );
-    navigation.navigate('Map', { destinations });
+  // --------------------------------------------------------- //
+  // ----------------------- CALLBACKS ----------------------- //
+  const handleNavigateToMapView = activities => {
+    navigation.navigate('Map', { destinations: activities || destinations });
   };
+  // ---------------------- /CALLBACKS ----------------------- //
+  // --------------------------------------------------------- //
 
-  const { destination, noOfDays, whoIsGoing } = itinerarySelect.payload || {};
+  // --------------------------------------------------------- //
+  // ----------------------- RENDERERS ----------------------- //
+  const headerHeight = scrollY.interpolate({
+    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    outputRange: [HEADER_EXPANDED_HEIGHT, HEADER_COLLAPSED_HEIGHT],
+    extrapolate: 'clamp',
+  });
 
-  const mapCoordinates = _.reduce(
-    DUMMY_ITINERARY.days,
-    (r, v) => {
-      const coords = _.map(v.activities, a => a.coordinates);
-      return [...r, ...coords];
-    },
-    [],
-  );
+  const headerButtonsOpacity = scrollY.interpolate({
+    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
 
   return (
     <View style={styles.flex1}>
-      <View style={styles.mapContainer}>
+      <Animated.View style={styles.mapContainer(headerHeight)}>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={{
-            latitude: mapCoordinates[0].lat,
-            longitude: mapCoordinates[1].long,
-            latitudeDelta: 0.04,
-            longitudeDelta: 0.0421,
+            latitude: destinations[0].coordinates.lat,
+            longitude: destinations[1].coordinates.long,
+            latitudeDelta: 0.025,
+            longitudeDelta: 0.025,
           }}>
-          {_.map(mapCoordinates, ({ lat, long }, index) => (
-            <MapMarker coordinate={{ latitude: lat, longitude: long }}>
-              <Image
-                source={require('../../../assets/map-pin.png')}
-                style={{
-                  width: 25,
-                  height: 25,
-                  shadowColor: 'black',
-                  shadowOffset: { width: 0, height: 1 },
-                  shadowOpacity: 0.4,
-                  shadowRadius: 2,
-                }}
-              />
+          {_.map(destinations, ({ coordinates: { lat, long } }, index) => (
+            <MapMarker key={index} coordinate={{ latitude: lat, longitude: long }}>
+              <View style={styles.mapMarkerWrapper}>
+                <Image source={require('../../../assets/map-pin.png')} style={styles.mapMarkerImg} />
+                <Text variant="labelSmall" style={styles.mapMarkerValue}>
+                  {index + 1}
+                </Text>
+              </View>
             </MapMarker>
           ))}
         </MapView>
-        <BackButton style={styles.backBtn} />
-        <OutlinedButton
-          title="Map view"
-          onPress={handleNavigateToMapView}
-          containerStyle={styles.mapViewBtn}
-          startIcon={<Ionicons name="location-outline" size={20} color={theme.dark ? theme.colors.white : theme.colors.black} />}
-        />
-      </View>
+        <Animated.View style={styles.headerButtons(headerButtonsOpacity)}>
+          <BackButton style={styles.backBtn} />
+          <OutlinedButton
+            title="Map view"
+            onPress={() => handleNavigateToMapView()}
+            containerStyle={styles.mapViewBtn}
+            startIcon={<Ionicons name="location-outline" size={20} color={theme.dark ? theme.colors.white : theme.colors.black} />}
+          />
+        </Animated.View>
+      </Animated.View>
       <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollView}>
+        <ScrollView
+          style={styles.scrollView}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
+          scrollEventThrottle={16}>
+          <View
+            style={{
+              backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
+              borderWidth: theme.dark ? 1 : 0,
+              borderColor: theme.dark ? theme.colors.secondary : 'transparent',
+              borderRadius: 30,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+              alignSelf: 'flex-start',
+              marginBottom: 5,
+            }}>
+            <Text variant="bodySmall">This trip is powered by AI</Text>
+          </View>
           <Text variant="headlineSmall">
             Your trip to {destination} for {noOfDays} days {whoIsGoing}
           </Text>
-          <Text variant="bodyMedium" style={styles.destinationInfo}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-            since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-            five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-            release of Letraset sheets containing Lorem Ipsum passages.
+          <Text variant="labelLarge" style={styles.destinationInfo}>
+            {itinerary?.summary}
           </Text>
-          <Text variant="headlineSmall">Itinerary</Text>
+          <Text variant="titleLarge" style={{ marginVertical: 8 }}>
+            Interests
+          </Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginVertical: 8 }}>
+            {_.map(itineraryPayload?.interests, i => (
+              <Chip
+                compact
+                selectedColor={theme.colors.primary}
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 30,
+                  backgroundColor: 'transparent',
+                  borderColor: theme.colors.primary,
+                }}>
+                {i}
+              </Chip>
+            ))}
+          </View>
 
-          <List.AccordionGroup>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={itinerarySelect?.itinerary?.days || DUMMY_ITINERARY.days}
-              renderItem={({ item }) => {
-                return (
-                  <List.Accordion title={`${item.name} (${item.date})`} id={item.name}>
-                    <View key={item.date}>
-                      {_.map(item?.activities, a => (
-                        <TouchableOpacity onPress={() => null} style={styles.activity}>
-                          <View style={styles.imageContainer}>
-                            <Image
-                              source={{
-                                uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=ATJ83zgeh_b6K1MqH7zGK9mu-kmyEfAsQGZnvVP6SulVkFDQSHrela2hBNVnWDjF9V_oMbBJR4dZ_4HND25wlKNT2H5DSh2k067M2TbGpFTxP8H93lWV_spa0-2NRwxsUkJujwBMxSzOp6wcKDfihBaL5f5F99zR5zhPuIvAEGAsAVosqB8X&key=AIzaSyDSlQbEnjmwa44nytAE-PbbSq1cy1fe6KI`,
-                              }}
-                              style={styles.image}
-                            />
-                          </View>
-                          <View style={styles.descriptionContainer}>
-                            <Text variant="labelLarge">{a.name}</Text>
-                            <Text variant="bodySmall">{a.description}</Text>
-                            <Text variant="bodySmall" style={{ color: theme.colors.secondary }}>
-                              {a.address}
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
-                      ))}
-                    </View>
+          <Text variant="titleLarge" style={{ marginVertical: 8 }}>
+            Itinerary
+          </Text>
+
+          {/* <List.AccordionGroup> */}
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={itineraryDays}
+            renderItem={({ item }) => (
+              <View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                  <Text variant="titleMedium">{item.name}</Text>
+                  <Button onPress={() => handleNavigateToMapView(item.activities)}>View on Map</Button>
+                </View>
+                {_.map(item?.activities, (a, i) => (
+                  <List.Accordion
+                    key={i}
+                    style={{
+                      backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
+                      borderWidth: theme.dark ? 1 : 0,
+                      borderColor: theme.dark ? theme.colors.secondary : 'transparent',
+                      marginBottom: 10,
+                      borderRadius: 8,
+                    }}
+                    title={
+                      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Badge size={25} style={{ backgroundColor: theme.colors.primary }}>
+                          {i + 1}
+                        </Badge>
+                        <Text style={{ paddingStart: 10 }} variant="titleSmall">
+                          {a.name}
+                        </Text>
+                      </View>
+                    }
+                    id={a.name}>
+                    <LocationCard key={a.name} location={a} vertical />
                   </List.Accordion>
-                );
-              }}
-            />
-          </List.AccordionGroup>
+                ))}
+                <Divider style={{ marginVertical: 8 }} />
+              </View>
+            )}
+          />
+          {/* </List.AccordionGroup> */}
         </ScrollView>
       </SafeAreaView>
     </View>
