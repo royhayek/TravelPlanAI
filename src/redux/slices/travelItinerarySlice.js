@@ -4,12 +4,13 @@ import { fetchTravelItinerary } from '../actions/travelItineraryActions';
 const initialState = {
   payload: null, // Hold user input and preferences
   itinerary: null, // Holds the generated itinerary
+  places: null,
   isShow: false,
   isLoading: false, // Set to true while the request is being made
   error: null, // Holds any error messages if the request fails
 };
 
-export const travelItinerarySlice = createSlice({
+const travelItinerarySlice = createSlice({
   name: 'travelItinerary',
   // Set the initial state of the slice
   initialState: initialState,

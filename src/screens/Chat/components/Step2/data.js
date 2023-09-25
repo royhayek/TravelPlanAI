@@ -16,7 +16,7 @@ export const POPULAR_DESTINATIONS = [
   },
   {
     id: 4,
-    name: 'Turkey',
+    name: 'Istanbul',
     image: 'https://picsum.photos/160/160',
   },
   {

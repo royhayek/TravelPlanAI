@@ -1,10 +1,13 @@
 export const DUMMY_ITINERARY = {
+  summary:
+    'Istanbul offers a unique blend of culture, history, and modernity that makes it a must-see destination. With its bustling medina, awe-inspiring mosques, and bustling nightlife, Istanbul is the perfect place to explore and experience the best of Europe and Asia in one place. From its stunning historic sites to its vibrant nightlife, Istanbul has something for everyone.',
   days: [
     {
       name: 'Day 1',
       date: '2023-09-25',
       activities: [
         {
+          id: 1,
           name: 'Hagia Sophia Museum',
           description: 'Visiting the Hagia Sophia Museum',
           address: 'Ayasofya, Sultanahmet, Istanbul 34122, Turkey',
@@ -15,6 +18,7 @@ export const DUMMY_ITINERARY = {
           placeId: 'ChIJXSXXsVJ2yhQR2_TvYO5w9Zw',
         },
         {
+          id: 2,
           name: 'Galata Tower',
           description: 'Admiring the views from Galata Tower',
           address: 'Bebek Mahallesi, Galata Kulesi, Galata Mh., 34421 Beyoğlu/İstanbul, Turkey',
@@ -25,6 +29,7 @@ export const DUMMY_ITINERARY = {
           placeId: 'ChIJpUOj8z9WyhQRiO8-FvkOmzQ',
         },
         {
+          id: 3,
           name: 'Kiz Kulesi',
           description: 'Admiring the views from Kiz Kulesi',
           address: 'Kız Kulesi, Çamlıca Mahallesi, 34676 Üsküdar/Istanbul, Turkey',
@@ -35,6 +40,7 @@ export const DUMMY_ITINERARY = {
           placeId: 'ChIJY3cHw-JkyxQR-SvUu0eVyZQ',
         },
         {
+          id: 4,
           name: 'Grand Bazaar',
           description: 'Shopping in Grand Bazaar',
           address: 'Kapalıçarşı, Beyazıt Mahallesi, 34126 Fatih/Istanbul, Turkey',
@@ -51,6 +57,7 @@ export const DUMMY_ITINERARY = {
       date: '2023-09-26',
       activities: [
         {
+          id: 5,
           name: 'Topkapi Palace',
           description: 'Visiting the Topkapi Palace',
           address: 'Topkapı Palace, Sultanahmet, 34122 Fatih/Istanbul, Turkey',
@@ -58,9 +65,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.00845,
             long: 28.97835,
           },
-          placeId: 'ChIJe7jGzwJ2yhQRjMhP0O_KIVg',
         },
         {
+          id: 6,
           name: 'Blue Mosque',
           description: 'Visiting the Blue Mosque',
           address: 'Sultanahmet Mahallesi, Atmeydanı Cd. No:7, 34122 Fatih/Istanbul, Turkey',
@@ -68,9 +75,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.0052708,
             long: 28.9769635,
           },
-          placeId: 'ChIJ_QFz7wJ2yhQRRQG9qGXV_zg',
         },
         {
+          id: 7,
           name: 'Taksim Square',
           description: 'Exploring Taksim Square',
           address: 'Taksim Meydanı, Harbiye Mahallesi, 34340 Beyoğlu/Istanbul, Turkey',
@@ -78,9 +85,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.0350409,
             long: 28.9830992,
           },
-          placeId: 'ChIJYQmR_z9WyhQRmBV-RXZf8Wg',
         },
         {
+          id: 8,
           name: 'Istiklal Street',
           description: 'Exploring Istiklal Street',
           address: 'Istiklal Caddesi, Beyoğlu, 34435 İstanbul, Turkey',
@@ -88,7 +95,6 @@ export const DUMMY_ITINERARY = {
             lat: 41.0381339,
             long: 28.9830331,
           },
-          placeId: 'ChIJYyFb_z9WyhQRU5gG-m4k1mI',
         },
       ],
     },
@@ -97,6 +103,7 @@ export const DUMMY_ITINERARY = {
       date: '2023-09-27',
       activities: [
         {
+          id: 9,
           name: 'Basilica Cistern',
           description: 'Visiting the Basilica Cistern',
           address: 'Yerebatan Caddesi, 34122 Fatih/Istanbul, Turkey',
@@ -104,9 +111,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.0090207,
             long: 28.976945,
           },
-          placeId: 'ChIJ7Q5SbVJ2yhQR4NkItKrqEa4',
         },
         {
+          id: 10,
           name: 'Dolmabahce Palace',
           description: 'Visiting the Dolmabahce Palace',
           address: 'Dolmabahçe, Beşiktaş, 34357 Istanbul, Turkey',
@@ -114,9 +121,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.068774,
             long: 29.003899,
           },
-          placeId: 'ChIJt7T_V6hkyxQRiNyJkGmQF_8',
         },
         {
+          id: 11,
           name: 'Spice Bazaar',
           description: 'Exploring the Spice Bazaar',
           address: 'Mısır Çarşısı, Tahtakale, Eminönü, 34116 Fatih/Istanbul, Turkey',
@@ -124,9 +131,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.0135108,
             long: 28.971856,
           },
-          placeId: 'ChIJixO8WEG8yhQRqhXI5NcNjtE',
         },
         {
+          id: 12,
           name: 'Bosphorus Cruise',
           description: 'Going on a Bosphorus Cruise',
           address: 'Kabataş, Beşiktaş, 34349 İstanbul, Turkey',
@@ -134,7 +141,6 @@ export const DUMMY_ITINERARY = {
             lat: 41.03825,
             long: 29.01093,
           },
-          placeId: 'ChIJ6Z3VgbtkyxQRrKdV2jT7K8I',
         },
       ],
     },
@@ -143,6 +149,7 @@ export const DUMMY_ITINERARY = {
       date: '2023-09-28',
       activities: [
         {
+          id: 13,
           name: 'Suleymaniye Mosque',
           description: 'Visiting the Suleymaniye Mosque',
           address: 'Suleymaniye Mahallesi, Prof. Sıddık Sami Onar Cd. No:3, 34116 Fatih/Istanbul, Turkey',
@@ -150,9 +157,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.014414,
             long: 28.9581919,
           },
-          placeId: 'ChIJ0f-hIEG8yhQR-i2U0S6T-aI',
         },
         {
+          id: 14,
           name: 'Rüstem Paşa Mosque',
           description: 'Visiting the Rüstem Paşa Mosque',
           address: 'Rüstem Paşa Mahallesi, Rüstem Paşa Cd. No:39, 34116 Fatih/Istanbul, Turkey',
@@ -160,9 +167,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.007798,
             long: 28.976758,
           },
-          placeId: 'ChIJyXVp5lJ2yhQRiZL9ThK9pqY',
         },
         {
+          id: 15,
           name: 'Tünel Square',
           description: 'Exploring Tünel Square',
           address: 'Tünel Meydanı, Galip Dede Cd. No:14, 34423 Beyoğlu/Istanbul, Turkey',
@@ -170,9 +177,9 @@ export const DUMMY_ITINERARY = {
             lat: 41.032767,
             long: 28.983577,
           },
-          placeId: 'ChIJ0XU6_z9WyhQR6m1d9i-MeGg',
         },
         {
+          id: 16,
           name: 'Kadikoy',
           description: 'Exploring Kadikoy',
           address: 'Kadıköy, 34710 Istanbul, Turkey',
@@ -180,7 +187,6 @@ export const DUMMY_ITINERARY = {
             lat: 40.988135,
             long: 29.083324,
           },
-          placeId: 'ChIJz4zjvFFUyhQRztr5VuMZO-I',
         },
       ],
     },

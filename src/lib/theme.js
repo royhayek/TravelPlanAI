@@ -7,6 +7,9 @@ const fontConfig = {
   titleMedium: {
     fontWeight: 'bold',
   },
+  titleLarge: {
+    fontWeight: '600',
+  },
 };
 
 const fonts = configureFonts({ config: fontConfig });
@@ -24,8 +27,10 @@ export const lightTheme = {
     background: '#FFFFFF',
     card: '#F9F9F9',
     lightGray: 'lightgray',
+    inputBg: '#ECECEC',
     darkBlue: '#906FE7',
     pieBlue: '#9b59b6',
+    star: '#FBBC04',
   },
   fonts: {
     ...DefaultTheme.fonts,
@@ -45,8 +50,10 @@ export const darkTheme = {
     white: '#FFFFFF',
     black: '#000029',
     lightGray: 'lightgray',
+    inputBg: '#ECECEC',
     darkBlue: '#906FE7',
     pieBlue: '#9b59b6',
+    star: '#FBBC04',
   },
   fonts: {
     ...DefaultTheme.fonts,

@@ -37,7 +37,7 @@ const DestinationInput = ({ handleSubmit }) => {
   // ----------------------- RENDERERS ----------------------- //
   return (
     <TextInput
-      mode="outlined"
+      theme={{ roundness: 8 }}
       style={styles.input}
       returnKeyType="send"
       verticalAlign="middle"
@@ -45,16 +45,17 @@ const DestinationInput = ({ handleSubmit }) => {
       onChangeText={handleValueChange}
       onSubmitEditing={Keyboard.dismiss}
       underlineStyle={styles.underline}
-      outlineColor={theme.colors.secondary}
-      outlineStyle={styles.inputOutlineStyle}
+      // outlineColor={theme.colors.secondary}
+      // outlineStyle={styles.inputOutlineStyle}
       activeOutlineColor={theme.colors.primary}
       placeholderTextColor={theme.colors.secondary}
       left={
         <TextInput.Icon
           centered
           icon="magnify"
-          disabled={_.isEmpty(value)}
-          onPress={handleSubmitPrompt}
+          color={theme.colors.secondary}
+          // disabled={_.isEmpty(value)}
+          // onPress={handleSubmitPrompt}
           iconColor={theme.colors.secondary}
           style={{ transform: isRTL ? [{ scaleX: -1 }] : undefined }}
         />

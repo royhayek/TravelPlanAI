@@ -3,7 +3,7 @@
 // ------------------------------------------------------------ //
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Image, RefreshControl, View } from 'react-native';
-import { ActivityIndicator, Button, IconButton, Text, useTheme } from 'react-native-paper';
+import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 // ------------------------------------------------------------ //
@@ -122,7 +122,6 @@ const HistoryScreen = ({ navigation }) => {
           <ActivityIndicator />
         ) : (
           <>
-            <Button onPress={() => navigation.navigate('Itinerary')}>Go to Itinerary</Button>
             <Image source={require('../../../assets/empty-history.png')} style={styles.emptyImage} />
             <Text variant="bodyMedium" style={styles.emptyText}>
               {_t('no_history_found')}
@@ -131,7 +130,7 @@ const HistoryScreen = ({ navigation }) => {
         )}
       </View>
     ),
-    [loading, navigation, styles.emptyContainer, styles.emptyImage, styles.emptyText],
+    [loading, styles.emptyContainer, styles.emptyImage, styles.emptyText],
   );
 
   const renderConfBottomSheet = useMemo(

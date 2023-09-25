@@ -11,7 +11,7 @@ export const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk],
-  enhancers: [batchedSubscribe(debounceNotify)],
+  // enhancers: [batchedSubscribe(debounceNotify)],
 });
 
 export const persistor = persistStore(store);

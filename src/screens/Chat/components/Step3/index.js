@@ -58,9 +58,7 @@ const Step3 = () => {
       <Text variant="titleSmall" style={styles.subtitle}>
         Choose one
       </Text>
-      <ScrollView style={styles.firstContent}>
-        <PartnersList value={whoIsGoing} setValue={setWhoIsGoing} />
-      </ScrollView>
+      <PartnersList value={whoIsGoing} setValue={setWhoIsGoing} />
     </View>
   );
 };

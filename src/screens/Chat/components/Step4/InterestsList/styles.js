@@ -5,9 +5,8 @@ export default theme =>
     flatList: {
       marginTop: 20,
     },
-    flatListContent: {
+    listColumnWrapper: {
       flexWrap: 'wrap',
-      flexDirection: 'row',
       justifyContent: 'center',
     },
     chip: selected => ({

@@ -87,17 +87,17 @@ const RootNavigation = () => {
     let iconName;
 
     if (route.name === 'ChatStack') {
-      iconName = focused ? 'md-chatbubble-ellipses' : 'md-chatbubble-ellipses-outline';
+      iconName = focused ? 'ios-earth' : 'ios-earth-outline';
     } else if (route.name === 'MapStack') {
       iconName = focused ? 'ios-grid' : 'ios-grid-outline';
     } else if (route.name === 'HistoryStack') {
-      iconName = focused ? 'ios-time' : 'ios-time-outline';
+      iconName = focused ? 'location' : 'location-outline';
     } else if (route.name === 'SettingsStack') {
       iconName = focused ? 'ios-settings' : 'ios-settings-outline';
     }
 
     // You can return any component that you like here!
-    return <Ionicons name={iconName} size={size} color={color} />;
+    return <Ionicons name={iconName} size={28} color={color} />;
   }, []);
 
   const Tabs = () => (
@@ -108,9 +108,11 @@ const RootNavigation = () => {
           borderTopWidth: 0,
           backgroundColor: theme.colors.background,
         },
+        tabBarLabelPosition: 'beside-icon',
         tabBarHideOnKeyboard: true,
         tabBarAllowFontScaling: true,
         headerShown: false,
+        tabBarShowLabel: false,
         tabBarIcon: props => getTabBarIcon(props, route),
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.secondary,

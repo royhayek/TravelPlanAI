@@ -1,0 +1,103 @@
+// ------------------------------------------------------------ //
+// ------------------------- PACKAGES ------------------------- //
+// ------------------------------------------------------------ //
+import React, { useCallback } from 'react';
+import { View, TouchableOpacity, Image, Platform, Linking } from 'react-native';
+import { useTheme, Text, Button } from 'react-native-paper';
+import StarRating from 'react-native-star-rating';
+import _ from 'lodash';
+// ------------------------------------------------------------ //
+// ------------------------- UTILITIES ------------------------ //
+// ------------------------------------------------------------ //
+import makeStyles from './styles';
+import RegularButton from '../Buttons/Regular';
+import { selectItineraryPlaces } from 'app/src/redux/selectors';
+import { useSelector } from 'react-redux';
+import { formatAmount } from 'app/src/helpers';
+import { GOOGLE_MAPS_API_KEY } from 'app/src/redux/actions/itineraryPlacesActions';
+// ------------------------------------------------------------ //
+// ------------------------ COMPONENT ------------------------- //
+// ------------------------------------------------------------ //
+const LocationCard = ({ location, width, onMap, orientation }) => {
+  const itineraryPlacesSelect = useSelector(selectItineraryPlaces);
+
+  // --------------------------------------------------------- //
+  // ----------------------- STATICS ------------------------- //
+  const isHorizontal = _.isEqual(orientation, 'horizontal');
+
+  const theme = useTheme();
+  const styles = makeStyles(theme, isHorizontal);
+
+  const { places } = itineraryPlacesSelect || {};
+  const {
+    id,
+    name,
+    description,
+    address,
+    coordinates: { lat, long },
+  } = location;
+  const { rating, user_ratings_total, photos } = _.find(places, { id })?.searchResult || {};
+  const image = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photo_reference=${photos[0].photo_reference}&key=${GOOGLE_MAPS_API_KEY}`;
+  // --------------------------------------------------------- //
+
+  // --------------------------------------------------------- //
+  // ---------------------- CALLBACKS ------------------------ //
+  const handleLocationPress = useCallback(() => {
+    const scheme = Platform.select({ ios: 'maps://0,0?q=', android: 'geo:0,0?q=' });
+    const latLng = `${lat},${long}`;
+    const label = name;
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLng}`,
+      android: `${scheme}${latLng}(${label})`,
+    });
+
+    Linking.openURL(url);
+  }, [lat, long, name]);
+  // ---------------------- /CALLBACKS ----------------------- //
+  // --------------------------------------------------------- //
+
+  // --------------------------------------------------------- //
+  // ---------------------- RENDER VARS ---------------------- //
+  return (
+    <TouchableOpacity key={name} onPress={handleLocationPress} style={styles.activity(width)}>
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: image }} style={styles.image} />
+      </View>
+      <View style={styles.descriptionContainer}>
+        <Text variant="titleMedium">{name}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text variant="bodyMedium" style={{ marginEnd: 5, color: theme.colors.secondary }}>
+            {rating}
+          </Text>
+          <StarRating
+            disabled
+            rating={rating}
+            maxStars={5}
+            halfStarEnabled
+            fullStar="star"
+            emptyStar="star"
+            halfStar="star-half"
+            iconSet="FontAwesome"
+            starSize={isHorizontal ? 14 : 16}
+            fullStarColor={theme.colors.star}
+            emptyStarColor={theme.colors.lightGray}
+            containerStyle={styles.starRatingContainer}
+          />
+          <Text variant="bodySmall" style={{ marginStart: 5, color: theme.colors.secondary }}>
+            ({formatAmount(user_ratings_total)})
+          </Text>
+        </View>
+        {!onMap && (
+          <Text variant="bodySmall" style={styles.description}>
+            {description}
+          </Text>
+        )}
+        <Text variant="labelSmall" style={styles.address}>
+          {address}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export default LocationCard;

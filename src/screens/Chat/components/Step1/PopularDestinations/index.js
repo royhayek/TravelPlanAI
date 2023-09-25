@@ -2,7 +2,7 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React from 'react';
-import { FlatList, ImageBackground, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
@@ -32,16 +32,17 @@ const PopularDestinations = ({ handleSubmit }) => {
       </Text>
       <FlatList
         numColumns={2}
+        showsVerticalScrollIndicator={false}
+        columnWrapperStyle={styles.listColumnWrapper}
         data={POPULAR_DESTINATIONS}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.flatListContainer}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleSubmit(item.name)} style={styles.button}>
-            <ImageBackground source={{ uri: item.image }} resizeMode="stretch" imageStyle={styles.imageStyle} style={styles.image}>
-              <Text variant="titleMedium" style={styles.name}>
-                {item.name}
-              </Text>
-            </ImageBackground>
+            <Image source={{ uri: item.image }} resizeMode="stretch" imageStyle={styles.imageStyle} style={styles.image} />
+            <Text variant="titleMedium" style={styles.name}>
+              {item.name}
+            </Text>
           </TouchableOpacity>
         )}
       />

@@ -46,8 +46,7 @@ const Step4 = () => {
   // --------------------------------------------------------- //
   // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
-    const joinedInterests = interests.join(', ');
-    dispatch(setPayload({ interests: joinedInterests }));
+    dispatch(setPayload({ interests: interests }));
   }, [dispatch, interests]);
   // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //
@@ -62,10 +61,9 @@ const Step4 = () => {
       <Text variant="titleSmall" style={styles.subtitle}>
         Choose as many as you'd like
       </Text>
-      <ScrollView style={styles.firstContent}>
-        <InterestsList value={interests} setValue={handleInterestPress} />
-        {/* Phase two */}
-        {/* <Text variant="titleMedium" style={styles.otherTitle}>
+      <InterestsList value={interests} setValue={handleInterestPress} />
+      {/* Phase two */}
+      {/* <Text variant="titleMedium" style={styles.otherTitle}>
           Other
           <Text variant="titleMedium" style={{ color: theme.colors.secondary }}>
             (optional)
@@ -80,7 +78,6 @@ const Step4 = () => {
             0/50
           </Text>
         </View> */}
-      </ScrollView>
     </View>
   );
 };

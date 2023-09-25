@@ -5,11 +5,14 @@ export default theme =>
     input: {
       marginTop: 8,
       maxHeight: 120,
-      borderRadius: 30,
+      borderRadius: 8,
       marginBottom: 8,
-      fontWeight: '500',
+      fontWeight: 'bold',
+      marginHorizontal: 4,
       justifyContent: 'center',
-      // backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.white,
+      borderWidth: theme.dark ? 1 : 0,
+      backgroundColor: theme.dark ? 'transparent' : theme.colors.inputBg,
+      borderColor: theme.dark ? theme.colors.inputBg : 'transparent',
     },
     underline: { display: 'none' },
     inputOutlineStyle: {

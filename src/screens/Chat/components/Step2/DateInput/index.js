@@ -45,7 +45,7 @@ const DateInput = ({ defaultValue, handleSubmit }) => {
     <TextInput
       value={value}
       editable={false}
-      mode="outlined"
+      theme={{ roundness: 8 }}
       placeholder={'MM/DD - MM/DD'}
       style={styles.input}
       outlineStyle={styles.inputOutlineStyle}
@@ -61,9 +61,9 @@ const DateInput = ({ defaultValue, handleSubmit }) => {
         <TextInput.Icon
           centered
           icon="calendar-blank-outline"
-          disabled={_.isEmpty(value)}
+          // disabled={_.isEmpty(value)}
           iconColor={theme.colors.secondary}
-          onPress={handleSubmitPrompt}
+          // onPress={handleSubmitPrompt}
           style={{ transform: isRTL ? [{ scaleX: -1 }] : undefined }}
         />
       }

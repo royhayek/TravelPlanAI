@@ -25,10 +25,11 @@ const InterestsList = ({ value, setValue }) => {
   // ----------------------- RENDERERS ----------------------- //
   return (
     <FlatList
+      numColumns={5}
       data={INTEREST_LIST}
       style={styles.flatList}
       keyExtractor={item => item.key}
-      contentContainerStyle={styles.flatListContent}
+      columnWrapperStyle={styles.listColumnWrapper}
       renderItem={({ item }) => {
         const selected = _.includes(value, item.title);
         return (

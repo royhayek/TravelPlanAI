@@ -2,19 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     map: {
       width: '100%',
       height: '100%',
-    },
-    markerWrap: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 50,
-      height: 50,
-    },
-    marker: {
-      width: 35,
-      height: 35,
     },
     backBtn: {
       position: 'absolute',
@@ -22,14 +17,19 @@ export default theme =>
       top: 50,
       color: theme.colors.white,
     },
-    scrollView: {},
+    scrollView: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 70,
+    },
     activity: width => ({
       width: width,
       borderWidth: 1,
       borderRadius: 8,
       paddingHorizontal: 8,
       paddingVertical: 8,
-      marginEnd: 16,
+      marginHorizontal: 10,
       elevation: 2,
       backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
       borderColor: theme.isDark ? theme.colors.white : 'transparent',

@@ -4,24 +4,29 @@ export default theme =>
   StyleSheet.create({
     flatList: {
       marginTop: 20,
+      gap: 10,
+    },
+    listColumnWrapper: {
+      gap: 10,
     },
     button: isActive => ({
       flex: 1,
-      height: 110,
+      height: 100,
       borderRadius: 8,
-      margin: 6,
       padding: 16,
       borderWidth: 1.8,
-      justifyContent: 'flex-end',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       borderColor: isActive ? theme.colors.primary : theme.colors.lightGray,
     }),
     title: isActive => ({
-      marginTop: 6,
+      marginTop: 5,
       fontWeight: '600',
       color: isActive ? theme.colors.primary : theme.dark ? theme.colors.white : theme.colors.black,
     }),
     iconContainer: isActive => ({
-      padding: 8,
+      padding: 6,
       alignSelf: 'flex-start',
       borderRadius: 50,
       backgroundColor: isActive ? theme.colors.primary : 'transparent',

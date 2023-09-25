@@ -5,12 +5,12 @@ export default theme =>
     flex1: { flex: 1 },
     popularDestText: {
       marginVertical: 16,
-      marginHorizontal: 16,
     },
-    flatListContainer: { paddingHorizontal: 8 },
+    listColumnWrapper: { gap: 10 },
+    flatListContainer: { gap: 10 },
     button: {
       flex: 1,
-      margin: 8,
+      margin: 0,
     },
     imageStyle: { borderRadius: 8 },
     image: {
@@ -19,9 +19,9 @@ export default theme =>
       justifyContent: 'flex-end',
     },
     name: {
-      fontWeight: '800',
-      paddingVertical: 10,
+      // fontWeight: '800',
+      marginTop: 6,
       paddingHorizontal: 5,
-      color: theme.colors.white,
+      // color: theme.colors.white,
     },
   });

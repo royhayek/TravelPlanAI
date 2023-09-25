@@ -4,6 +4,7 @@ export default theme =>
   StyleSheet.create({
     container: {
       flex: 1,
+      marginHorizontal: 24,
     },
     title: {
       marginTop: 20,
