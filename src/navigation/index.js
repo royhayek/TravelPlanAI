@@ -16,7 +16,7 @@ import BackButton from '../components/Buttons/Back';
 import ItineraryScreen from '../screens/Itinerary';
 import SettingsScreen from '../screens/Settings';
 import MyTripsScreen from '../screens/MyTrips';
-import ChatScreen from '../screens/Chat';
+import PlannerScreen from '../screens/Planner';
 import InfoScreen from '../screens/Info';
 import MapScreen from '../screens/Map';
 // ------------------------------------------------------------ //
@@ -58,7 +58,7 @@ const RootNavigation = () => {
 
   const ChatStackScreen = () => (
     <ChatStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
-      <ChatStack.Screen name="Chat" component={ChatScreen} options={{ title: _t('trip_planner'), ...screenOptions }} />
+      <ChatStack.Screen name="Chat" component={PlannerScreen} options={{ title: _t('trip_planner'), ...screenOptions }} />
       <ChatStack.Screen
         name="Subscription"
         component={SubscriptionScreen}
@@ -126,7 +126,7 @@ const RootNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
       <Stack.Screen name="Home" component={Tabs} />
-      <Stack.Screen name="Chat" component={ChatScreen} options={{ title: _t('trip_planner'), ...screenOptions }} />
+      <Stack.Screen name="Chat" component={PlannerScreen} options={{ title: _t('trip_planner'), ...screenOptions }} />
       <Stack.Screen name="Subscription" component={SubscriptionScreen} options={{ title: '', ...screenOptions }} />
       <Stack.Screen name="Info" component={InfoScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
       <Stack.Screen name="Itinerary" component={ItineraryScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />

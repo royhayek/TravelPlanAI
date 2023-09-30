@@ -3,7 +3,8 @@
 // ------------------------------------------------------------ //
 import React, { useCallback, useMemo, useState } from 'react';
 import { Keyboard, TouchableOpacity, View } from 'react-native';
-import { Snackbar, Text, useTheme } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { Text, useTheme } from 'react-native-paper';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
@@ -17,23 +18,23 @@ import Step5 from './components/Step5';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
+import { showSnackbar } from 'app/src/redux/slices/snackbarSlice';
+import { selectDestinations } from 'app/src/redux/selectors';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
-import { useSelector } from 'react-redux';
-import { selectItinerary } from 'app/src/redux/selectors';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const ChatScreen = () => {
+const PlannerScreen = () => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const dispatch = useDispatch();
 
   const [active, setActive] = useState(0);
-  const [error, setError] = useState('');
 
-  const itinerarySelect = useSelector(selectItinerary);
+  const itinerarySelect = useSelector(selectDestinations);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
@@ -49,7 +50,7 @@ const ChatScreen = () => {
         if ((_.isEqual(periodType, 'date') && fromDate && toDate) || _.isEqual(periodType, 'days')) {
           setActive(a => a + 1);
         } else {
-          setError('Please select a start and end date');
+          dispatch(showSnackbar({ type: 'error', title: 'Error', message: 'Please select a start and end date' }));
         }
         break;
 
@@ -60,25 +61,17 @@ const ChatScreen = () => {
       default:
         break;
     }
-  }, [active, itinerarySelect.payload]);
+  }, [active, dispatch, itinerarySelect.payload]);
 
   const handleSubmitPress = useCallback(() => {
     const { interests } = itinerarySelect.payload;
     if (!_.isEmpty(interests)) {
       setActive(a => a + 1);
     } else {
-      setError('Please select at least 2 interests');
+      dispatch(showSnackbar({ type: 'error', title: 'Error', message: 'Please select at least 2 interests' }));
     }
-  }, [itinerarySelect.payload]);
-
-  const onDismissSnackBar = () => setError('');
+  }, [dispatch, itinerarySelect.payload]);
   // ---------------------- /CALLBACKS ----------------------- //
-  // --------------------------------------------------------- //
-
-  // --------------------------------------------------------- //
-  // ------------------------ EFFECTS ------------------------ //
-
-  // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
@@ -111,11 +104,8 @@ const ChatScreen = () => {
     <View style={styles.container} onPress={() => Keyboard.dismiss()}>
       {steps[active]}
       {active !== 0 && !isLastStep && renderFooter}
-      <Snackbar visible={error} onDismiss={onDismissSnackBar} duration={1000}>
-        {error}
-      </Snackbar>
     </View>
   );
 };
 
-export default ChatScreen;
+export default PlannerScreen;

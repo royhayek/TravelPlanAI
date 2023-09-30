@@ -13,7 +13,7 @@ import InterestsList from './InterestsList';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
+import { setPayload } from 'app/src/redux/slices/destinationsSlice';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //

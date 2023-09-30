@@ -18,7 +18,7 @@ import BackButton from 'app/src/components/Buttons/Back';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { selectItinerary, selectItineraryPlaces } from 'app/src/redux/selectors';
+import { selectDestinations, selectItineraryPlaces } from 'app/src/redux/selectors';
 import { DUMMY_INFO, DUMMY_ITINERARY, DUMMY_PLACES } from './data';
 import makeStyles, { markdownStyles } from './styles';
 // ------------------------------------------------------------ //
@@ -37,7 +37,7 @@ const ItineraryScreen = ({ navigation }) => {
   const [tipsVisible, setTipsVisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
 
-  const itinerarySelect = useSelector(selectItinerary);
+  const itinerarySelect = useSelector(selectDestinations);
   const itineraryPlacesSelect = useSelector(selectItineraryPlaces);
 
   const places = itineraryPlacesSelect?.places || DUMMY_PLACES;

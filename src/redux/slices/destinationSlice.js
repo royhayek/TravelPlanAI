@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { showToast, hideToast } from './toastSlice';
-import { logQuery } from './queryLogSlice';
-import { fetchTravelSummaryAndTips } from '../actions/travelSummaryAndTipsActions';
-import { fetchTravelItinerary as fetchTravelDestinations } from '../actions/travelItineraryActions';
-import { fetchItineraryPlaces } from '../actions/itineraryPlacesActions';
+import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
+import { fetchTravelItinerary as fetchTravelDestinations } from '../actions/travelItineraryActions';
+import { fetchTravelSummaryAndTips } from '../actions/travelSummaryAndTipsActions';
+import { fetchItineraryPlaces } from '../actions/itineraryPlacesActions';
+import { showSnackbar, hideSnackbar } from './snackbarSlice';
+import { logQuery } from './queryLogSlice';
 
 const initialState = {
   loading: false,
-  destinations: [],
+  itinerary: [],
   error: null,
 };
 
@@ -18,18 +18,18 @@ export const destinationSlice = createSlice({
   name: 'destination',
   initialState,
   reducers: {
-    // Reducer function for the fetchDestinationsStart action
-    fetchDestinationsStart: state => {
+    // Reducer function for the fetchItineraryStart action
+    fetchItineraryStart: state => {
       state.loading = true;
       state.error = null;
     },
-    // Reducer function for the fetchDestinationsSuccess action
-    fetchDestinationsSuccess: (state, action) => {
+    // Reducer function for the fetchItinerarySuccess action
+    fetchItinerarySuccess: (state, action) => {
       state.loading = false;
-      state.destinations = action.payload;
+      state.itinerary = action.payload;
     },
-    // Reducer function for the fetchDestinationsFailure action
-    fetchDestinationsFailure: (state, action) => {
+    // Reducer function for the fetchItineraryFailure action
+    fetchItineraryFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -37,13 +37,13 @@ export const destinationSlice = createSlice({
 });
 
 // Export the action creators
-export const { fetchDestinationsStart, fetchDestinationsSuccess, fetchDestinationsFailure } = destinationSlice.actions;
+export const { fetchItineraryStart, fetchItinerarySuccess, fetchItineraryFailure } = destinationSlice.actions;
 
 // Action creator that fetches client's IP address and dispatches both submitForm and logQuery actions
 
 // Define an async action creator to submit the form data
 export const submitForm = payload => async (dispatch, getState) => {
-  dispatch(fetchDestinationsStart()); // Dispatch the fetchDestinationsStart action
+  dispatch(fetchItineraryStart()); // Dispatch the fetchItineraryStart action
 
   // Here, you can access any global state value (Not able to get recent state change)
   const state = getState();
@@ -67,29 +67,29 @@ export const submitForm = payload => async (dispatch, getState) => {
 
     // Dispatch logQuery action with the appropriate payload
     dispatch(logQuery({ ipAddress, payload, createdBy: 'user' }));
-    // Dispatch the fetchDestinationsSuccess action with the response data
-    dispatch(fetchDestinationsSuccess(response.data));
+    // Dispatch the fetchItinerarySuccess action with the response data
+    dispatch(fetchItinerarySuccess(response.data));
 
     if (!summaryAndTipsError) {
-      // Dispatch the showToast action with a success message
-      dispatch(showToast({ type: 'success', title: 'Success', message: 'Itinerary fetched successfully' }));
+      // Dispatch the showSnackbar action with a success message
+      dispatch(showSnackbar({ type: 'success', title: 'Success', message: 'Itinerary fetched successfully' }));
     } else if (itineraryError) {
-      dispatch(showToast({ type: 'error', title: 'Error', message: summaryAndTipsError }));
+      dispatch(showSnackbar({ type: 'error', title: 'Error', message: summaryAndTipsError }));
     } else if (placesError) {
-      dispatch(showToast({ type: 'warning', title: 'Warning', message: placesError }));
+      dispatch(showSnackbar({ type: 'warning', title: 'Warning', message: placesError }));
     } else {
-      dispatch(showToast({ type: 'error', title: 'Error', message: itineraryError }));
+      dispatch(showSnackbar({ type: 'error', title: 'Error', message: itineraryError }));
     }
   } catch (error) {
     console.error('[submitForm] :: ', error.message);
-    // Dispatch the fetchDestinationsFailure action with the error message
-    dispatch(fetchDestinationsFailure(error.message));
-    // Dispatch the showToast action with an error message
-    dispatch(showToast({ type: 'error', title: 'Error', message: error.message }));
+    // Dispatch the fetchItineraryFailure action with the error message
+    dispatch(fetchItineraryFailure(error.message));
+    // Dispatch the showSnackbar action with an error message
+    dispatch(showSnackbar({ type: 'error', title: 'Error', message: error.message }));
   } finally {
-    // Hide the toast message after 3 seconds
+    // Hide the snackbar message after 3 seconds
     setTimeout(() => {
-      dispatch(hideToast());
+      dispatch(hideSnackbar());
     }, state.toast.delay);
   }
 };

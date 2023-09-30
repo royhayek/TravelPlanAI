@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { setConversationId } from 'app/src/redux/slices/travelItinerarySlice';
+import { setConversationId } from 'app/src/redux/slices/destinationsSlice';
 import { deleteConversation } from 'app/src/data/localdb';
 import makeStyles from './styles';
 import moment from 'moment';

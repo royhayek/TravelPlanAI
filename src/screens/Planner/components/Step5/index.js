@@ -1,66 +1,77 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Text, useTheme } from 'react-native-paper';
-import { ScrollView, View } from 'react-native';
+import LottieView from 'lottie-react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { View } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import PartnersList from './PartnersList';
+
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { PARTNERS_LIST } from './data';
+import { selectDestinations } from 'app/src/redux/selectors';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
-import { useDispatch } from 'react-redux';
-import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
+import { useNavigation } from '@react-navigation/native';
+import { setPayload } from 'app/src/redux/slices/destinationsSlice';
+import { submitForm } from 'app/src/redux/slices/destinationSlice';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
 const _t = (key, options) => t(`planner.${key}`, options);
 
-const Step3 = () => {
+const Step5 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
+  const itinerarySelect = useSelector(selectDestinations);
+
   const dispatch = useDispatch();
   // ----------------------- /REDUX -------------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
+  const navigation = useNavigation();
+
   const theme = useTheme();
   const styles = makeStyles(theme);
-
-  const [whoIsGoing, setWhoIsGoing] = useState(PARTNERS_LIST[0].key);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
-  // ----------------------- EFFECTS ------------------------- //
+  // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
-    const partner = _.find(PARTNERS_LIST, { key: whoIsGoing });
-    const withWho = _.isEqual(partner.key, 'alone') ? 'alone' : `with ${partner.title}`;
-    dispatch(setPayload({ whoIsGoing: withWho }));
-  }, [whoIsGoing, dispatch]);
-  // ---------------------- /EFFECTS ------------------------- //
+    console.debug('itinerarySelect.payload', itinerarySelect.payload);
+    // console.debug('itinerarySelect.itinerary', Array.from(itinerarySelect.itinerary));
+    dispatch(submitForm(itinerarySelect.payload));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!itinerarySelect.isLoading && !_.isEmpty(itinerarySelect.itinerary)) {
+      navigation.navigate('Itinerary');
+      dispatch(setPayload({}));
+      setActive(0);
+    }
+  }, [dispatch, itinerarySelect, itinerarySelect.isLoading, itinerarySelect.itinerary, navigation, setActive]);
+  // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
     <View style={styles.container}>
-      <Text variant="titleLarge" style={styles.title}>
-        {_t('who_is_coming')}
+      <LottieView autoPlay loop style={styles.lottie} source={require('../../../../../assets/planning-animation.json')} />
+      <Text variant="labelLarge" style={styles.information}>
+        Dubai is a great choice! We're gathering popular things to do, restaurants, adventures and more...
       </Text>
-      <Text variant="titleSmall" style={styles.subtitle}>
-        Choose one
-      </Text>
-      <PartnersList value={whoIsGoing} setValue={setWhoIsGoing} />
     </View>
   );
 };
 
-export default Step3;
+export default Step5;

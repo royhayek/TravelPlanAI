@@ -11,14 +11,17 @@ export const getMessagesCount = createSelector(appState, data => data.messagesCo
 export const getSubscriptions = createSelector(appState, data => data.subscriptions);
 export const getOwnedSubscription = createSelector(appState, data => data.ownedSubscription);
 
-// ------------- Chat Selectors ------------- //
-export const itineraryState = state => state.travelItinerary;
+// ------------- Itinerary Selectors ------------- //
+export const destinationsState = state => state.destinations;
 
-export const selectItinerary = createSelector(itineraryState, data => data);
+export const selectDestinations = createSelector(destinationsState, data => data);
 
-export const itineraryPlacesState = state => {
-  console.debug('state', state);
-  return state.itineraryPlaces;
-};
+// ------------- Itinerary Places Selectors ------------- //
+export const itineraryPlacesState = state => state.places;
 
 export const selectItineraryPlaces = createSelector(itineraryPlacesState, data => data);
+
+// ------------- Snackbar Selectors ------------- //
+export const snackbarState = state => state.snackbar;
+
+export const selectSnackBar = createSelector(snackbarState, data => data);
