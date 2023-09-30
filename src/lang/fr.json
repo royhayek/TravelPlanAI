@@ -84,6 +84,12 @@
     "network": {
       "no_internet_connection": "Pas de connexion Internet",
       "retry_connecting": "Réessayer"
+    },
+    "trip": {
+      "save_before_you_go": "Sauvegarder avant de partir ?",
+      "you_havent_saved": "Vous n'avez pas enregistré cet itinéraire, si vous partez maintenant, vous perdrez certaines de ces recommandations.",
+      "leave": "Partir",
+      "go_back": "Retourner"
     }
   }
 }
