@@ -3,8 +3,9 @@
 // ------------------------------------------------------------ //
 import React, { useCallback, useEffect, useState } from 'react';
 import { Modal, Text, useTheme } from 'react-native-paper';
-import { View, Image, StyleSheet } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
+import { View, StyleSheet } from 'react-native';
+import FastImage from 'react-native-fast-image';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
@@ -60,7 +61,7 @@ const NetworkInfo = () => {
     return (
       <Modal visible dismissable={false}>
         <View style={styles.container}>
-          <Image source={require('../../assets/no-internet.png')} style={styles.icon} />
+          <FastImage source={require('../../assets/no-internet.png')} style={styles.icon} />
           <Text variant="titleSmall" style={styles.text}>
             {_t('no_internet_connection')}
           </Text>

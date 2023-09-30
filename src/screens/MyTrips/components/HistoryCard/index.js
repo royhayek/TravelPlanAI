@@ -2,9 +2,10 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React, { useCallback } from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
 import { IconButton, useTheme, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { View, TouchableOpacity } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 // ------------------------------------------------------------ //
@@ -39,10 +40,9 @@ const HistoryCard = ({ item, index, refresh }) => {
   // ---------------------- CALLBACKS ------------------------ //
   const handleTextPress = useCallback(
     conversation => {
-      updateConversationId(conversation.id);
-      navigation.navigate('ChatStack', { screen: 'Chat' });
+      navigation.navigate('Itinerary');
     },
-    [navigation, updateConversationId],
+    [navigation],
   );
 
   const handleDeleteHistory = useCallback(
@@ -65,7 +65,7 @@ const HistoryCard = ({ item, index, refresh }) => {
   return (
     <>
       <TouchableOpacity key={index} onPress={() => handleTextPress(item)} style={styles.container}>
-        <Image source={{ uri: cityImage }} style={styles.cityImage} />
+        <FastImage source={{ uri: cityImage }} style={styles.cityImage} />
         <View style={styles.content}>
           <View style={styles.rowContainer}>
             <Text variant="labelLarge" style={styles.title}>

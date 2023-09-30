@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistReducer } from 'redux-persist';
+import { combineReducers } from 'redux';
 import appReducer from './slices/appSlice';
 import snackbarSliceReducer from './slices/snackbarSlice';
 import destinationsReducer from './slices/destinationsSlice';
+import itineraryReducer from './slices/itinerarySlice';
 import placesReducer from './slices/placesSlice';
-import { combineReducers } from 'redux';
-import { persistReducer } from 'redux-persist';
 
 const appPersistConfig = {
   key: 'root',
@@ -14,6 +15,7 @@ const appPersistConfig = {
 
 export default combineReducers({
   app: persistReducer(appPersistConfig, appReducer),
+  itinerary: itineraryReducer,
   destinations: destinationsReducer,
   places: placesReducer,
   snackbar: snackbarSliceReducer,

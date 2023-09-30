@@ -2,15 +2,16 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React, { useCallback } from 'react';
-import { View, TouchableOpacity, Image, Platform, Linking } from 'react-native';
+import { View, TouchableOpacity, Platform, Linking } from 'react-native';
 import { useTheme, Text } from 'react-native-paper';
 import StarRating from 'react-native-star-rating';
+import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
 import makeStyles from './styles';
-import { selectItineraryPlaces } from 'app/src/redux/selectors';
+import { selectPlaces } from 'app/src/redux/selectors';
 import { useSelector } from 'react-redux';
 import { formatAmount } from 'app/src/helpers';
 import { GOOGLE_MAPS_API_KEY } from 'app/src/redux/actions/itineraryPlacesActions';
@@ -19,7 +20,7 @@ import { DUMMY_PLACES } from 'app/src/screens/Itinerary/data';
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
 const LocationCard = ({ location, width, onMap, orientation }) => {
-  const itineraryPlacesSelect = useSelector(selectItineraryPlaces);
+  const itineraryPlacesSelect = useSelector(selectPlaces);
 
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
@@ -55,7 +56,7 @@ const LocationCard = ({ location, width, onMap, orientation }) => {
   return (
     <TouchableOpacity key={place} onPress={handleLocationPress} style={styles.activity(width)}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={styles.image} />
+        <FastImage source={{ uri: image }} style={styles.image} />
       </View>
       <View style={styles.descriptionContainer}>
         <Text variant="titleMedium">{place}</Text>

@@ -2,8 +2,9 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, Image, RefreshControl, View } from 'react-native';
 import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
+import { FlatList, RefreshControl, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Ionicons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 // ------------------------------------------------------------ //
@@ -35,8 +36,6 @@ const HistoryScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [savedTrips, setSavedTrips] = useState(savedTripsData);
-
-  console.log({ savedTrips });
 
   const snapPoints = useMemo(() => ['25%'], []);
   // ----------------------- /STATICS ------------------------ //
@@ -122,7 +121,7 @@ const HistoryScreen = ({ navigation }) => {
           <ActivityIndicator />
         ) : (
           <>
-            <Image source={require('../../../assets/empty-history.png')} style={styles.emptyImage} />
+            <FastImage source={require('../../../assets/empty-history.png')} style={styles.emptyImage} />
             <Text variant="bodyMedium" style={styles.emptyText}>
               {_t('no_history_found')}
             </Text>

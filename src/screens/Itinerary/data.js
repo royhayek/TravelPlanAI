@@ -1,4 +1,4 @@
-export const DUMMY_ITINERARY = [
+export const DUMMY_DESTINATIONS = [
   [
     { id: '1', place: 'Hagia Sophia', address: 'Sultanahmet Square, Istanbul', desc: 'Visit the historic Hagia Sophia, an architectural marvel.' },
     { id: '2', place: 'Topkapi Palace', address: 'Bab-ı Hümayun Cd., Istanbul', desc: 'Explore the opulent Topkapi Palace and its rich history.' },

@@ -53,6 +53,7 @@
     "react-native-calendars": "^1.1301.0",
     "react-native-circular-progress-indicator": "^4.3.0",
     "react-native-dotenv": "^3.4.9",
+    "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-google-mobile-ads": "^11.7.0",
     "react-native-iap": "^12.10.5",

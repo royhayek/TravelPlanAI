@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
@@ -14,15 +14,7 @@ export default theme =>
       shadowOpacity: 1,
       shadowRadius: 20,
     },
-    aiPoweredContainer: {
-      borderRadius: 30,
-      paddingVertical: 6,
-      paddingHorizontal: 10,
-      borderWidth: theme.dark ? 1 : 0,
-      backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
-      borderColor: theme.dark ? theme.colors.secondary : 'transparent',
-    },
-    scrollView: {
+    flatList: {
       flex: 1,
       padding: 20,
     },
@@ -71,9 +63,6 @@ export default theme =>
       paddingTop: 24,
       paddingHorizontal: 10,
     },
-    destinationInfo: {
-      marginVertical: 16,
-    },
     activity: {
       borderWidth: 1,
       borderRadius: 8,
@@ -101,6 +90,42 @@ export default theme =>
       flexDirection: 'column',
       justifyContent: 'space-around',
     },
+    divider: { marginVertical: 8 },
+    tipsModalContent: {
+      borderRadius: 10,
+      marginHorizontal: 24,
+      marginVertical: '30%',
+      backgroundColor: theme.colors.background,
+    },
+    tipsTitle: {
+      marginTop: 16,
+      textAlign: 'center',
+    },
+    tipsText: { padding: 16 },
+    modalContent: {
+      backgroundColor: 'white',
+      width: '95%',
+      paddingVertical: 20,
+      paddingHorizontal: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: 10,
+      borderRadius: 10,
+    },
+    modalContentContainer: {
+      backgroundColor: 'white',
+      padding: 16,
+      width: '80%',
+    },
+    modalTitle: { textAlign: 'center', color: theme.colors.black, fontSize: 18, fontWeight: 'bold' },
+    modalDescription: { textAlign: 'center', marginTop: 10, color: theme.colors.gray, marginBottom: 25, fontSize: 16 },
+    modalButtonsContainer: { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'space-between' },
+    gobackButton: {
+      borderRadius: 30,
+      backgroundColor: theme.colors.black,
+      fontWeight: 'bold',
+    },
+    closeButton: { alignSelf: 'flex-end', marginBottom: 10 },
   });
 
 export const markdownStyles = (theme, isRTL) => ({
