@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchTravelItinerary } from '../actions/travelItineraryActions';
+import { fetchTravelSummaryAndTips } from '../actions/travelSummaryAndTipsActions';
 
 const initialState = {
   payload: null, // Hold user input and preferences
   itinerary: null, // Holds the generated itinerary
-  places: null,
-  isShow: false,
   isLoading: false, // Set to true while the request is being made
   error: null, // Holds any error messages if the request fails
 };
@@ -35,14 +34,30 @@ const travelItinerarySlice = createSlice({
       // When the thunk is fulfilled, store the generated itinerary in the state and set isLoading to false
       .addCase(fetchTravelItinerary.fulfilled, (state, action) => {
         state.itinerary = action.payload;
-        state.isShow = true;
         state.isLoading = false;
         state.error = null;
       })
       // When the thunk is rejected, set itinerary to null, isLoading to false, and store the error message in the state
       .addCase(fetchTravelItinerary.rejected, (state, action) => {
         state.itinerary = null;
-        state.isShow = true;
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchTravelSummaryAndTips.pending, state => {
+        state.summary = null;
+        state.tips = null;
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchTravelSummaryAndTips.fulfilled, (state, action) => {
+        state.summary = action.payload.summary;
+        state.tips = action.payload.tips;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(fetchTravelSummaryAndTips.rejected, (state, action) => {
+        state.summary = null;
+        state.tips = null;
         state.isLoading = false;
         state.error = action.error.message;
       });
