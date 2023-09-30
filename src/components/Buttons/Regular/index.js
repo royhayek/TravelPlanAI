@@ -29,7 +29,7 @@ const RegularButton = ({ title, onPress, style, startIcon, endIcon, backgroundCo
         start={{ x: 0, y: 0.75 }}
         end={{ x: 1, y: 0.25 }}
         colors={backgroundColors ?? [theme.colors.primary, theme.colors.primary, theme.colors.darkBlue]}
-        style={styles.linearBackground}>
+        style={[styles.linearBackground, style]}>
         {startIcon}
         <Text variant="titleMedium" style={styles.title}>
           {title}
