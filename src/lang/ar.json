@@ -84,6 +84,12 @@
     "network": {
       "no_internet_connection": "ليس هناك اتصال بالإنترنت",
       "retry_connecting": "أعد محاولة الاتصال"
+    },
+    "trip": {
+      "save_before_you_go": "حفظ قبل الرحيل؟",
+      "you_havent_saved": "لم تقم بحفظ هذا الجدول الزمني، إذا غادرت الآن، ستفقد بعض هذه الاقتراحات.",
+      "leave": "غادر",
+      "go_back": "ارجع"
     }
   }
 }
