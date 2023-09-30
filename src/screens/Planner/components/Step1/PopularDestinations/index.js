@@ -2,8 +2,9 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React from 'react';
-import { FlatList, Image, ImageBackground, TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import FastImage from 'react-native-fast-image';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
@@ -39,7 +40,7 @@ const PopularDestinations = ({ handleSubmit }) => {
         contentContainerStyle={styles.flatListContainer}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleSubmit(item.name)} style={styles.button}>
-            <Image source={{ uri: item.image }} resizeMode="stretch" imageStyle={styles.imageStyle} style={styles.image} />
+            <FastImage source={{ uri: item.image }} resizeMode="stretch" imageStyle={styles.imageStyle} style={styles.image} />
             <Text variant="titleMedium" style={styles.name}>
               {item.name}
             </Text>

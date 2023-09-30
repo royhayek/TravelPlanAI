@@ -11,17 +11,22 @@ export const getMessagesCount = createSelector(appState, data => data.messagesCo
 export const getSubscriptions = createSelector(appState, data => data.subscriptions);
 export const getOwnedSubscription = createSelector(appState, data => data.ownedSubscription);
 
+// ------------- Snackbar Selectors ------------- //
+export const snackbarState = state => state.snackbar;
+
+export const selectSnackBar = createSelector(snackbarState, data => data);
+
 // ------------- Itinerary Selectors ------------- //
+export const itineraryState = state => state.itinerary;
+
+export const selectItinerary = createSelector(itineraryState, data => data);
+
+// ------------- Itinerary Destinations Selectors ------------- //
 export const destinationsState = state => state.destinations;
 
 export const selectDestinations = createSelector(destinationsState, data => data);
 
 // ------------- Itinerary Places Selectors ------------- //
-export const itineraryPlacesState = state => state.places;
+export const placesState = state => state.places;
 
-export const selectItineraryPlaces = createSelector(itineraryPlacesState, data => data);
-
-// ------------- Snackbar Selectors ------------- //
-export const snackbarState = state => state.snackbar;
-
-export const selectSnackBar = createSelector(snackbarState, data => data);
+export const selectPlaces = createSelector(placesState, data => data);

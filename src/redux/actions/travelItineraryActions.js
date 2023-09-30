@@ -5,7 +5,7 @@ import { OpenAIApi } from 'openai';
 import _ from 'lodash';
 
 // This thunk will make a POST request to the OenAI API with the provided payload
-export const fetchTravelItinerary = createAsyncThunk('travelItinerary/fetch', async payload => {
+export const fetchTravelDestinations = createAsyncThunk('travelItinerary/fetch', async payload => {
   const { destination, periodType, noOfDays, selectedMonth, fromDate, toDate, interests, whoIsGoing } = payload;
   const joinedInterests = interests.join(', ');
 

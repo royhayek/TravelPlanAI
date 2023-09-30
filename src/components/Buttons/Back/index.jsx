@@ -5,6 +5,7 @@ import React from 'react';
 import { IconButton, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import PT from 'prop-types';
+import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
