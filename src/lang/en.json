@@ -84,6 +84,12 @@
     "network": {
       "no_internet_connection": "No Internet Connection",
       "retry_connecting": "Retry Connecting"
+    },
+    "trip": {
+      "save_before_you_go": "Save before you go?",
+      "you_havent_saved": "You haven't saved this iterenary, if you leave now, you'll lose of these recommendations",
+      "leave": "Leave",
+      "go_back": "Go Back"
     }
   }
 }
