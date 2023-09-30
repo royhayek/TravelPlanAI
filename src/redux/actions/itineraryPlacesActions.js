@@ -9,13 +9,11 @@ export const GOOGLE_MAPS_API_KEY = Platform.select({
 
 export const fetchItineraryPlaces = createAsyncThunk('itineraryPlaces/fetch', async payload => {
   try {
-    const { addresses } = payload;
     const apiKey = GOOGLE_MAPS_API_KEY;
     const fields = ['name', 'formatted_address', 'photos', 'rating', 'opening_hours', 'types'];
 
-    // Create an array of promises for fetching data
-    const fetchPromises = addresses.map(async ({ id, address }, index) => {
-      const query = encodeURIComponent(address);
+    const fetchPromises = payload.map(async ({ id, place, address }) => {
+      const query = encodeURIComponent(`${place}, ${address}`);
       const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&fields=${fields.join(',')}&key=${apiKey}`;
       const searchResultResponse = await fetch(searchUrl);
       const searchDataJson = await searchResultResponse.json();
@@ -27,13 +25,14 @@ export const fetchItineraryPlaces = createAsyncThunk('itineraryPlaces/fetch', as
       const placeDataJson = await placeResponse.json();
       const placeData = placeDataJson.result;
 
-      return { id, searchResult: searchData, placeResult: placeData }; // Return the fetched data
+      // Assuming you want to assign a placeholder image URL
+      return { id, searchResult: searchData, placeResult: placeData };
     });
 
     // Use Promise.all to wait for all promises to resolve
     const results = await Promise.all(fetchPromises);
 
-    console.debug('[fetchItineraryPlaces] :: ', results);
+    console.debug('[fetchItineraryPlaces] :: results ', results);
     return results;
   } catch (err) {
     console.error('[fetchItineraryPlaces] :: ', err);

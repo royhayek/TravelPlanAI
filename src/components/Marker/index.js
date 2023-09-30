@@ -10,8 +10,16 @@ const Marker = ({ marker, index, onMarkerPress, interpolations }) => {
 
   const scaleStyle = { transform: [{ scale: interpolations[index].scale }] };
 
+  const {
+    searchResult: {
+      geometry: {
+        location: { lat, lng },
+      },
+    },
+  } = marker;
+
   return (
-    <MapMarker key={index} coordinate={{ longitude: marker.coordinates.long, latitude: marker.coordinates.lat }} onPress={onMarkerPress}>
+    <MapMarker key={index} coordinate={{ longitude: lng, latitude: lat }} onPress={onMarkerPress}>
       <Animated.View style={[styles.markerWrap]}>
         <Animated.Image source={require('../../../assets/map-pin.png')} style={[styles.marker, scaleStyle]} resizeMode="cover" />
         <Text variant="labelSmall" style={styles.label}>

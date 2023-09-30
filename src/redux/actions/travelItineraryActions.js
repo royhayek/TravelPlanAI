@@ -4,7 +4,7 @@ import { parseAIResponse } from 'app/src/helpers';
 import { OpenAIApi } from 'openai';
 import _ from 'lodash';
 
-// This thunk will make a POST request to the ChatGPT API with the provided payload
+// This thunk will make a POST request to the OenAI API with the provided payload
 export const fetchTravelItinerary = createAsyncThunk('travelItinerary/fetch', async payload => {
   const { destination, periodType, noOfDays, selectedMonth, fromDate, toDate, interests, whoIsGoing } = payload;
   const joinedInterests = interests.join(', ');
@@ -14,13 +14,18 @@ export const fetchTravelItinerary = createAsyncThunk('travelItinerary/fetch', as
 
   // Generate response
   const openai = new OpenAIApi(openAIConfig);
+
+  // Completion prompt
+  const prompt = byDate
+    ? `Create a JSON array for a trip to ${destination} from ${fromDate} to ${toDate} ${whoIsGoing}, focusing on "${joinedInterests}" Include at least 4 activities per day, each with a unique ID, a descriptive name, and a real address (excluding the country name). The format should be: "[ [{"id": "", "place": "name", "address": "address", "desc": "activity description"}] ]"`
+    : `Create a JSON array for a trip to ${destination} for ${noOfDays} in ${selectedMonth} ${whoIsGoing}, focusing on "${joinedInterests}" Include at least 4 activities per day, each with a unique ID, a descriptive name, and a real address (excluding the country name). The format should be: "[ [{"id": "", "place": "name", "address": "address", "desc": "activity description"}] ]"`;
+
   const response = await openai.createCompletion({
     model: 'text-davinci-003',
     // Set the prompt to include the destination and duration
-    prompt: byDate
-      ? `Create a javascript array as a JSON string of fully descriptive travel itinerary for a trip to ${destination} from ${fromDate} to ${toDate} knowing that I am going ${whoIsGoing} and I am interested in ${joinedInterests}, and having at least 4 activities per day, the response should have a small summary about the destination and each activity should have a unique auto incremented id, a fully descriptive name, address, coordinates. The response should be under this format: { "summary": "", "days" : [ {  "name" : "Day 1",  "date": "2023-09-26", "activities": [{"id": "", "name": "name of the place", "description": "what will I be doing there", "address": "address of the place", "coordinates": { "lat": "", "long": "" } }] }] }`
-      : `Create a javascript array as a JSON string of fully descriptive travel itinerary for a trip to ${destination} for ${noOfDays} in ${selectedMonth} knowing that I am going ${whoIsGoing} and I am interested in ${joinedInterests}, and having at least 4 activities per day, the response should have a small summary about the destination and each activity should have a unique auto incremented id, a fully descriptive name, address, coordinates. The response should be under this format: { "summary": "", "days" : [ {  "name" : "Day 1",  "date": "2023-09-26", "activities": [{ "id": "", "name": "name of the place", "description": "what will I be doing there", "address": "address of the place", "coordinates": { "lat": "", "long": "" } }] }] }`,
-    max_tokens: 3000,
+    prompt,
+    // Set the maximum tokens (if lowered the itinerary returned might be cut and can't be parsed)
+    max_tokens: 2000,
     // Set the temperature to control the randomness of the generated response
     temperature: 0.7,
   });

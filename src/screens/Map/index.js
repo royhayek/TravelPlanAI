@@ -1,10 +1,10 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import { View, Image, SafeAreaView, TouchableOpacity, Animated, Dimensions, Platform } from 'react-native';
-import MapView, { MapMarker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { View, Animated, Dimensions, Platform } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import React, { useEffect, useRef, useState } from 'react';
-import { useTheme, Text } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
@@ -39,10 +39,10 @@ const MapScreen = ({ navigation, route }) => {
   const initialMapState = {
     markers: destinations,
     region: {
-      latitude: destinations[0].coordinates.lat,
-      longitude: destinations[1].coordinates.long,
-      latitudeDelta: 0.0255,
-      longitudeDelta: 0.0255,
+      latitude: _.first(destinations)?.searchResult.geometry.location.lat,
+      longitude: _.first(destinations)?.searchResult.geometry.location.lng,
+      latitudeDelta: 0.03,
+      longitudeDelta: 0.03,
     },
   };
 
@@ -62,36 +62,46 @@ const MapScreen = ({ navigation, route }) => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    mapAnimation.addListener(({ value }) => {
-      let index = Math.floor(value / CARD_WIDTH + 0.3);
+    try {
+      mapAnimation.addListener(({ value }) => {
+        let index = Math.floor(value / CARD_WIDTH + 0.3);
 
-      // animate 30% away from landing on the next item
-      if (index >= state.markers.length) {
-        index = state.markers.length - 1;
-      }
-      if (index <= 0) {
-        index = 0;
-      }
-
-      clearTimeout(regionTimeout);
-
-      const regionTimeout = setTimeout(() => {
-        if (mapIndex.current !== index) {
-          mapIndex.current = index;
-
-          const { coordinates } = state.markers[index];
-          mapRef.current.animateToRegion(
-            {
-              latitude: coordinates.lat,
-              longitude: coordinates.long,
-              latitudeDelta: state.region.latitudeDelta,
-              longitudeDelta: state.region.longitudeDelta,
-            },
-            350,
-          );
+        // animate 30% away from landing on the next item
+        if (index >= state.markers.length) {
+          index = state.markers.length - 1;
         }
-      }, 100);
-    });
+        if (index <= 0) {
+          index = 0;
+        }
+
+        clearTimeout(regionTimeout);
+
+        const regionTimeout = setTimeout(() => {
+          if (mapIndex.current !== index) {
+            mapIndex.current = index;
+
+            const {
+              searchResult: {
+                geometry: {
+                  location: { lat, lng },
+                },
+              },
+            } = state.markers[index];
+            mapRef.current.animateToRegion(
+              {
+                latitude: lat,
+                longitude: lng,
+                latitudeDelta: state.region.latitudeDelta,
+                longitudeDelta: state.region.longitudeDelta,
+              },
+              350,
+            );
+          }
+        }, 100);
+      });
+    } catch (err) {
+      console.error('[MapScreen] - useEffect :: ', err);
+    }
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
   // ----------------------- /EFFECTS ------------------------ //
@@ -102,9 +112,9 @@ const MapScreen = ({ navigation, route }) => {
   const onMarkerPress = mapEventData => {
     const markerID = mapEventData._targetInst.return.key;
     let x = markerID * CARD_WIDTH + markerID * 20;
-    // if (Platform.OS === 'ios') {
-    x = x - SPACING_FOR_CARD_INSET;
-    // }
+    if (Platform.OS === 'ios') {
+      x = x - SPACING_FOR_CARD_INSET;
+    }
 
     scrollViewRef.current.scrollTo({ x: x, y: 0, animated: true });
   };

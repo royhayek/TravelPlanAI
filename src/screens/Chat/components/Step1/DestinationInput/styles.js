@@ -7,7 +7,7 @@ export default theme =>
       maxHeight: 120,
       borderRadius: 8,
       marginBottom: 8,
-      fontWeight: 'bold',
+      fontWeight: '500',
       justifyContent: 'center',
       borderWidth: theme.dark ? 1 : 0,
       borderColor: theme.dark ? theme.colors.inputBg : 'transparent',

@@ -17,9 +17,9 @@ import _ from 'lodash';
 import { selectItinerary } from 'app/src/redux/selectors';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
-import { fetchTravelItinerary } from 'app/src/redux/actions/travelItineraryActions';
 import { useNavigation } from '@react-navigation/native';
 import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
+import { submitForm } from 'app/src/redux/slices/destinationSlice';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -48,7 +48,7 @@ const Step5 = ({ setActive }) => {
   useEffect(() => {
     console.debug('itinerarySelect.payload', itinerarySelect.payload);
     // console.debug('itinerarySelect.itinerary', Array.from(itinerarySelect.itinerary));
-    _.isEmpty(itinerarySelect.itinerary) && dispatch(fetchTravelItinerary(itinerarySelect.payload));
+    dispatch(submitForm(itinerarySelect.payload));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -58,7 +58,7 @@ const Step5 = ({ setActive }) => {
       dispatch(setPayload({}));
       setActive(0);
     }
-  }, [dispatch, itinerarySelect.isLoading, itinerarySelect.itinerary, navigation, setActive]);
+  }, [dispatch, itinerarySelect, itinerarySelect.isLoading, itinerarySelect.itinerary, navigation, setActive]);
   // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //
 

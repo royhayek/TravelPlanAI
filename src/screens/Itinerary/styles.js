@@ -14,6 +14,14 @@ export default theme =>
       shadowOpacity: 1,
       shadowRadius: 20,
     },
+    aiPoweredContainer: {
+      borderRadius: 30,
+      paddingVertical: 6,
+      paddingHorizontal: 10,
+      borderWidth: theme.dark ? 1 : 0,
+      backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
+      borderColor: theme.dark ? theme.colors.secondary : 'transparent',
+    },
     scrollView: {
       flex: 1,
       padding: 20,
@@ -94,3 +102,59 @@ export default theme =>
       justifyContent: 'space-around',
     },
   });
+
+export const markdownStyles = (theme, isRTL) => ({
+  text: {
+    ...theme.fonts.labelLarge,
+    direction: isRTL ? 'rtl' : 'ltr',
+    color: theme.dark ? theme.colors.white : theme.colors.black,
+    lineHeight: 23,
+  },
+  blockquote: {
+    ...theme.fonts.labelLarge,
+    direction: isRTL ? 'rtl' : 'ltr',
+    color: theme.dark ? theme.colors.white : theme.colors.black,
+  },
+  em: {
+    ...theme.fonts.bodySmall,
+    color: theme.dark ? theme.colors.white : theme.colors.black,
+    direction: isRTL ? 'rtl' : 'ltr',
+    fontWeight: '500',
+    fontSize: 12.8,
+    lineHeight: 19,
+  },
+  codespan: {
+    ...theme.fonts.labelLarge,
+    fontWeight: 'bold',
+    direction: isRTL ? 'rtl' : 'ltr',
+    color: theme.dark ? theme.colors.white : theme.colors.black,
+    backgroundColor: theme.dark ? theme.colors.secondaryContainer : 'transparent',
+  },
+  link: {
+    ...theme.fonts.labelLarge,
+    direction: isRTL ? 'rtl' : 'ltr',
+  },
+  code: {
+    ...theme.fonts.labelLarge,
+    flex: 1,
+    padding: 16,
+    borderRadius: 8,
+    marginVertical: 5,
+    direction: isRTL ? 'rtl' : 'ltr',
+    backgroundColor: theme.dark ? theme.colors.background : theme.colors.white,
+  },
+  table: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: theme.colors.white,
+    direction: isRTL ? 'rtl' : 'ltr',
+  },
+  li: {
+    ...theme.fonts.labelLarge,
+    flex: 1,
+    color: theme.colors.primary,
+    direction: isRTL ? 'rtl' : 'ltr',
+    marginBottom: 10,
+  },
+});
