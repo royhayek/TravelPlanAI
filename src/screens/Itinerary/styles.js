@@ -35,10 +35,6 @@ export default theme =>
     mapMarkerImg: {
       width: 25,
       height: 25,
-      shadowColor: 'black',
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.4,
-      shadowRadius: 2,
       backgroundColor: 'transparent',
     },
     mapMarkerValue: {
