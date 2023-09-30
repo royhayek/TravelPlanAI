@@ -1,77 +1,80 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useEffect } from 'react';
-import { Text, useTheme } from 'react-native-paper';
-import LottieView from 'lottie-react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
 import { View } from 'react-native';
-import _ from 'lodash';
+import { Button, Text, useTheme } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-
+import PopularDestinations from './PopularDestinations';
+import DestinationInput from './DestinationInput';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { selectItinerary } from 'app/src/redux/selectors';
+import { setPayload } from 'app/src/redux/slices/destinationsSlice';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
+import { selectDestinations } from 'app/src/redux/selectors';
 import { useNavigation } from '@react-navigation/native';
-import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
-import { submitForm } from 'app/src/redux/slices/destinationSlice';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
 const _t = (key, options) => t(`planner.${key}`, options);
 
-const Step5 = ({ setActive }) => {
+const Step1 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
-  const itinerarySelect = useSelector(selectItinerary);
-
   const dispatch = useDispatch();
+  const itinerarySelect = useSelector(selectDestinations);
   // ----------------------- /REDUX -------------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
-  const navigation = useNavigation();
-
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const navigation = useNavigation();
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
-  // ------------------------ EFFECTS ------------------------ //
-  useEffect(() => {
-    console.debug('itinerarySelect.payload', itinerarySelect.payload);
-    // console.debug('itinerarySelect.itinerary', Array.from(itinerarySelect.itinerary));
-    dispatch(submitForm(itinerarySelect.payload));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  // ----------------------- CALLBACKS ----------------------- //
+  const handleSubmitPrompt = useCallback(
+    value => {
+      dispatch(setPayload({ destination: value }));
+      setActive(1);
+    },
+    [dispatch, setActive],
+  );
+
+  // useEffect(() => {
+  //   console.debug('initerarySelect', itinerarySelect);
+  //   console.debug('itinerarySelect.itinerary[0]', JSON.parse(itinerarySelect.itinerary));
+  // }, []);
 
   useEffect(() => {
-    if (!itinerarySelect.isLoading && !_.isEmpty(itinerarySelect.itinerary)) {
-      navigation.navigate('Itinerary');
-      dispatch(setPayload({}));
-      setActive(0);
+    if (itinerarySelect?.itinerary) {
+      console.debug('itinerarySelect?.itinerary', itinerarySelect?.itinerary);
     }
-  }, [dispatch, itinerarySelect, itinerarySelect.isLoading, itinerarySelect.itinerary, navigation, setActive]);
-  // ----------------------- /EFFECTS ------------------------ //
+  }, [itinerarySelect?.itinerary]);
+
+  // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
     <View style={styles.container}>
-      <LottieView autoPlay loop style={styles.lottie} source={require('../../../../../assets/planning-animation.json')} />
-      <Text variant="labelLarge" style={styles.information}>
-        Dubai is a great choice! We're gathering popular things to do, restaurants, adventures and more...
+      <Text variant="titleLarge" style={styles.title}>
+        {_t('where_to_go')}
       </Text>
+      <Button onPress={() => navigation.navigate('Itinerary')}>Go To Itinerary</Button>
+      <DestinationInput handleSubmit={handleSubmitPrompt} />
+      <PopularDestinations handleSubmit={handleSubmitPrompt} />
     </View>
   );
 };
 
-export default Step5;
+export default Step1;

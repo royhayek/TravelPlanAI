@@ -1,33 +1,31 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback, useEffect } from 'react';
-import { View } from 'react-native';
-import { Button, Text, useTheme } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Text, useTheme } from 'react-native-paper';
+import { ScrollView, View } from 'react-native';
+import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import PopularDestinations from './PopularDestinations';
-import DestinationInput from './DestinationInput';
+import PartnersList from './PartnersList';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { setPayload } from 'app/src/redux/slices/travelItinerarySlice';
+import { PARTNERS_LIST } from './data';
 import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
-import { selectItinerary } from 'app/src/redux/selectors';
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { setPayload } from 'app/src/redux/slices/destinationsSlice';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
 const _t = (key, options) => t(`planner.${key}`, options);
 
-const Step1 = ({ setActive }) => {
+const Step3 = () => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
   const dispatch = useDispatch();
-  const itinerarySelect = useSelector(selectItinerary);
   // ----------------------- /REDUX -------------------------- //
   // --------------------------------------------------------- //
 
@@ -35,32 +33,19 @@ const Step1 = ({ setActive }) => {
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
-  const navigation = useNavigation();
+
+  const [whoIsGoing, setWhoIsGoing] = useState(PARTNERS_LIST[0].key);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
-  // ----------------------- CALLBACKS ----------------------- //
-  const handleSubmitPrompt = useCallback(
-    value => {
-      dispatch(setPayload({ destination: value }));
-      setActive(1);
-    },
-    [dispatch, setActive],
-  );
-
-  // useEffect(() => {
-  //   console.debug('initerarySelect', itinerarySelect);
-  //   console.debug('itinerarySelect.itinerary[0]', JSON.parse(itinerarySelect.itinerary));
-  // }, []);
-
+  // ----------------------- EFFECTS ------------------------- //
   useEffect(() => {
-    if (itinerarySelect?.itinerary) {
-      console.debug('itinerarySelect?.itinerary', itinerarySelect?.itinerary);
-    }
-  }, [itinerarySelect?.itinerary]);
-
-  // ---------------------- /CALLBACKS ----------------------- //
+    const partner = _.find(PARTNERS_LIST, { key: whoIsGoing });
+    const withWho = _.isEqual(partner.key, 'alone') ? 'alone' : `with ${partner.title}`;
+    dispatch(setPayload({ whoIsGoing: withWho }));
+  }, [whoIsGoing, dispatch]);
+  // ---------------------- /EFFECTS ------------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
@@ -68,13 +53,14 @@ const Step1 = ({ setActive }) => {
   return (
     <View style={styles.container}>
       <Text variant="titleLarge" style={styles.title}>
-        {_t('where_to_go')}
+        {_t('who_is_coming')}
       </Text>
-      <Button onPress={() => navigation.navigate('Itinerary')}>Go To Itinerary</Button>
-      <DestinationInput handleSubmit={handleSubmitPrompt} />
-      <PopularDestinations handleSubmit={handleSubmitPrompt} />
+      <Text variant="titleSmall" style={styles.subtitle}>
+        Choose one
+      </Text>
+      <PartnersList value={whoIsGoing} setValue={setWhoIsGoing} />
     </View>
   );
 };
 
-export default Step1;
+export default Step3;

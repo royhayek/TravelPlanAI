@@ -17,6 +17,7 @@ import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
+import CustomSnackbar from './components/CustomSnackbar';
 import SplashScreen from './screens/Splash';
 import RootNavigation from './navigation';
 // ------------------------------------------------------------ //
@@ -181,6 +182,7 @@ const Root = () => {
           {/* <SplashScreen loadedData={loadedData} /> */}
           <NetworkInfo />
           {/* <SubscriptionManager /> */}
+          <CustomSnackbar />
         </NavigationContainer>
       </BottomSheetModalProvider>
     </PaperProvider>

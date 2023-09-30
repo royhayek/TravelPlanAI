@@ -1,26 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const toastSlice = createSlice({
-  name: 'toast',
+const snackbarSlice = createSlice({
+  name: 'snackbarSlice',
   initialState: {
     show: false,
-    delay: 3000,
+    delay: 1200,
     autohide: true,
     title: '',
     message: '',
   },
   reducers: {
-    showToast: (state, action) => {
+    showSnackbar: (state, action) => {
       state.show = true;
       state.title = action.payload.title;
       state.message = action.payload.message;
     },
-    hideToast: state => {
+    hideSnackbar: state => {
       state.show = false;
     },
   },
 });
 
-export const { showToast, hideToast } = toastSlice.actions;
+export const { showSnackbar, hideSnackbar } = snackbarSlice.actions;
 
-export default toastSlice.reducer;
+export default snackbarSlice.reducer;
