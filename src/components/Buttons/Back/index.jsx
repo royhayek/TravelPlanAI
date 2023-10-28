@@ -12,6 +12,8 @@ import _ from 'lodash';
 import LeftChevron from 'app/src/lib/icons/LeftChevron';
 import { isRTL } from 'app/src/config/i18n';
 import makeStyles from './styles';
+import { ms } from 'react-native-size-matters';
+import { RFValue } from 'react-native-responsive-fontsize';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -28,7 +30,7 @@ const BackButton = ({ title, onPress, style, ...props }) => {
   // ----------------------- RENDERERS ----------------------- //
   return (
     <IconButton
-      size={18}
+      size={RFValue(18)}
       style={[styles.container, style]}
       onPress={() => navigation.goBack()}
       icon={() => (

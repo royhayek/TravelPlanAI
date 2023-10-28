@@ -1,14 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { ms, mvs } from 'react-native-size-matters';
 
 export default theme =>
   StyleSheet.create({
     input: {
-      marginTop: 8,
-      maxHeight: 120,
-      borderRadius: 8,
-      marginBottom: 8,
+      height: mvs(50),
+      marginTop: mvs(8),
+      maxHeight: mvs(120),
+      borderRadius: ms(8),
+      marginBottom: mvs(8),
+      fontSize: RFValue(14),
       fontWeight: 'bold',
-      marginHorizontal: 4,
+      marginHorizontal: ms(4),
       justifyContent: 'center',
       borderWidth: theme.dark ? 1 : 0,
       backgroundColor: theme.dark ? 'transparent' : theme.colors.inputBg,
@@ -16,7 +20,7 @@ export default theme =>
     },
     underline: { display: 'none' },
     inputOutlineStyle: {
-      borderRadius: 50,
-      borderWidth: 1.5,
+      borderRadius: ms(50),
+      borderWidth: ms(1.5),
     },
   });

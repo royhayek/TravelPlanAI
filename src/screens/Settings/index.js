@@ -18,6 +18,8 @@ import { changeLanguage, isRTL, t } from '../../config/i18n';
 import { Languages } from 'app/src/config/constants';
 import { appName } from 'app/src/helpers';
 import makeStyles from './styles';
+import { ms, s } from 'react-native-size-matters';
+import { RFValue } from 'react-native-responsive-fontsize';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -71,7 +73,7 @@ const SettingsScreen = ({ navigation }) => {
     [dispatch, toggleLangMenu],
   );
 
-  const handleUpgradePress = useCallback(() => navigation.navigate('Subscription'), []);
+  const handleUpgradePress = useCallback(() => navigation.navigate('Subscription'), [navigation]);
 
   const handleRestorePurchase = useCallback(async () => {
     try {
@@ -199,9 +201,12 @@ const SettingsScreen = ({ navigation }) => {
           <Text variant="bodyLarge" style={styles.upgradeTitle}>
             {_t('upgrade_to_plus')}
           </Text>
-          <Text style={styles.upgradeDesc}> {_t('expanded_access', { name: appName })}</Text>
+          <Text variant="labelSmall" style={styles.upgradeDesc}>
+            {' '}
+            {_t('expanded_access', { name: appName })}
+          </Text>
         </View>
-        <Ionicons name="ios-chevron-forward-sharp" size={28} color="white" style={{ transform: isRTL ? [{ scaleX: -1 }] : undefined }} />
+        <Ionicons name="ios-chevron-forward-sharp" size={ms(28)} color="white" style={{ transform: isRTL ? [{ scaleX: -1 }] : undefined }} />
       </TouchableOpacity>
     ),
     [handleUpgradePress, styles.upgradeContainer, styles.upgradeDesc, styles.upgradeTitle],
@@ -219,11 +224,11 @@ const SettingsScreen = ({ navigation }) => {
               {_.map(items, ({ key, icon, name, value, onPress, isSwitch, isMenu }) => (
                 <TouchableOpacity key={key} style={styles.item} onPress={onPress}>
                   <View style={styles.iconAndTitle}>
-                    <Ionicons name={icon} size={24} style={styles.endIcon} />
+                    <Ionicons name={icon} size={ms(24)} style={styles.endIcon} />
                     <Text variant="labelLarge">{name}</Text>
                   </View>
                   {isSwitch ? (
-                    <Switch value={value} onValueChange={onPress} style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }} />
+                    <Switch value={value} onValueChange={onPress} style={{ transform: [{ scaleX: s(0.8) }, { scaleY: s(0.8) }] }} />
                   ) : isMenu ? (
                     <Menu
                       visible={openLangMenu}
@@ -232,10 +237,10 @@ const SettingsScreen = ({ navigation }) => {
                       contentStyle={styles.languageMenuContent}
                       anchor={
                         <View style={styles.anchor}>
-                          <Text>{value}</Text>
+                          <Text variant="bodySmall">{value}</Text>
                           <Ionicons
                             name="chevron-forward"
-                            size={18}
+                            size={RFValue(18)}
                             style={styles.arrowIcon}
                             color={theme.dark ? theme.colors.white : theme.colors.black}
                           />
@@ -248,7 +253,7 @@ const SettingsScreen = ({ navigation }) => {
                   ) : (
                     <Ionicons
                       name="chevron-forward"
-                      size={18}
+                      size={RFValue(18)}
                       style={styles.arrowIcon}
                       color={theme.dark ? theme.colors.white : theme.colors.black}
                     />

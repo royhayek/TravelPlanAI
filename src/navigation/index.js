@@ -23,6 +23,8 @@ import MapScreen from '../screens/Map';
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
 import { t } from '../config/i18n';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { mvs } from 'react-native-size-matters';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -49,7 +51,7 @@ const RootNavigation = () => {
 
   const screenOptions = {
     headerShown: true,
-    headerTitleStyle: { color: theme.dark ? theme.colors.white : theme.colors.black },
+    headerTitleStyle: { color: theme.dark ? theme.colors.white : theme.colors.black, fontSize: RFValue(20) },
     headerStyle: { backgroundColor: theme.colors.background },
     headerShadowVisible: false,
     headerLeft: isArabic ? null : renderHeaderLeft,
@@ -97,18 +99,18 @@ const RootNavigation = () => {
     }
 
     // You can return any component that you like here!
-    return <Ionicons name={iconName} size={28} color={color} />;
+    return <Ionicons name={iconName} size={RFValue(28)} color={color} />;
   }, []);
 
   const Tabs = () => (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarStyle: {
+          height: mvs(50),
           elevation: 0,
           borderTopWidth: 0,
           backgroundColor: theme.colors.background,
         },
-        tabBarLabelPosition: 'beside-icon',
         tabBarHideOnKeyboard: true,
         tabBarAllowFontScaling: true,
         headerShown: false,

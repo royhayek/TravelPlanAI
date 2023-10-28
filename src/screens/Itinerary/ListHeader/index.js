@@ -2,7 +2,7 @@
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
 import React from 'react';
-import { Button, Text, useTheme } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import { View } from 'react-native';
 import _ from 'lodash';
@@ -12,21 +12,23 @@ import _ from 'lodash';
 import { selectDestinations } from 'app/src/redux/selectors';
 import { DUMMY_INFO } from '../data';
 import makeStyles from './styles';
+import Accordion from 'app/src/components/Accordion';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
-const ListHeader = ({ toggleTips }) => {
+const ListHeader = () => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
 
-  const itinerarySelect = useSelector(selectDestinations);
+  const destinationsSelect = useSelector(selectDestinations);
 
-  const itineraryPayload = itinerarySelect?.payload;
-  const summary = itinerarySelect?.summary || DUMMY_INFO.summary;
+  const itineraryPayload = destinationsSelect?.payload;
+  const summary = destinationsSelect?.summary || DUMMY_INFO.summary;
+  const tips = destinationsSelect?.tips || DUMMY_INFO.tips;
 
-  const { destination, noOfDays, whoIsGoing } = itinerarySelect.payload || {};
+  const { destination, noOfDays, whoIsGoing } = destinationsSelect.payload || {};
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
@@ -35,12 +37,10 @@ const ListHeader = ({ toggleTips }) => {
   return (
     <>
       <View>
-        <View style={styles.noteAndTips}>
-          <View style={styles.aiPoweredContainer}>
-            <Text variant="bodySmall">This trip is powered by AI</Text>
-          </View>
-          <Button onPress={toggleTips}>Tips</Button>
+        <View style={styles.aiPoweredContainer}>
+          <Text variant="bodySmall">This trip is powered by AI</Text>
         </View>
+
         <Text variant="headlineSmall">
           Your trip to {destination} for {noOfDays} days {whoIsGoing}
         </Text>
@@ -56,6 +56,10 @@ const ListHeader = ({ toggleTips }) => {
         <Text variant="labelLarge" style={styles.destinationInfo}>
           {summary}
         </Text>
+
+        <Accordion title="Tips" markdown>
+          {tips}
+        </Accordion>
 
         <Text variant="titleLarge" style={styles.itineraryTitle}>
           Itinerary

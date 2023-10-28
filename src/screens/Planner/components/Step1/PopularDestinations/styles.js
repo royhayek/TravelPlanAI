@@ -1,27 +1,27 @@
 import { StyleSheet } from 'react-native';
+import { ms, mvs, vs } from 'react-native-size-matters';
 
 export default theme =>
   StyleSheet.create({
     flex1: { flex: 1 },
     popularDestText: {
-      marginVertical: 16,
+      marginTop: mvs(12),
+      marginBottom: mvs(22),
     },
-    listColumnWrapper: { gap: 10 },
-    flatListContainer: { gap: 10 },
+    listColumnWrapper: { gap: ms(10) },
+    flatListContainer: { gap: ms(10) },
     button: {
       flex: 1,
       margin: 0,
     },
-    imageStyle: { borderRadius: 8 },
+    imageStyle: { borderRadius: ms(8) },
     image: {
-      height: 160,
-      borderRadius: 8,
+      height: mvs(160),
+      borderRadius: ms(8),
       justifyContent: 'flex-end',
     },
     name: {
-      // fontWeight: '800',
-      marginTop: 6,
-      paddingHorizontal: 5,
-      // color: theme.colors.white,
+      marginTop: mvs(6),
+      paddingHorizontal: ms(5),
     },
   });

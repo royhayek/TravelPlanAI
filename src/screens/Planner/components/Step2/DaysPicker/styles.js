@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native';
+import { ms, mvs } from 'react-native-size-matters';
 
 export default theme =>
   StyleSheet.create({
     container: {
-      padding: 8,
-      height: 50,
-      marginTop: 16,
-      borderWidth: 1,
-      borderRadius: 3,
+      padding: ms(8),
+      height: mvs(50),
+      marginTop: mvs(16),
+      borderWidth: ms(1),
+      borderRadius: ms(3),
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -18,15 +19,15 @@ export default theme =>
       flexDirection: 'row',
     },
     button: isDisabled => ({
-      width: 33,
-      height: 33,
-      borderRadius: 50,
+      width: ms(33),
+      height: mvs(33),
+      borderRadius: ms(50),
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: isDisabled ? theme.colors.lightGray : theme.colors.primary,
     }),
     value: {
-      width: 30,
-      paddingHorizontal: 10,
+      width: ms(30),
+      paddingHorizontal: ms(10),
     },
   });

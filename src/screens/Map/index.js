@@ -141,9 +141,10 @@ const MapScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <MapView ref={mapRef} provider={PROVIDER_GOOGLE} style={styles.map} initialRegion={state.region} showsUserLocation>
-        {state.markers.map((marker, index) => (
-          <Marker key={index} marker={marker} index={index} interpolations={interpolations} onMarkerPress={onMarkerPress} />
-        ))}
+        {state.markers.map(
+          (marker, index) =>
+            marker && <Marker key={index} marker={marker} index={index} interpolations={interpolations} onMarkerPress={onMarkerPress} displayDay />,
+        )}
       </MapView>
       <BackButton style={styles.backBtn} />
 

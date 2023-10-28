@@ -36,7 +36,7 @@
         }
       },
       "package": "com.codeblow.travelplanai",
-      "versionCode": "8",
+      "versionCode": 8,
       "runtimeVersion": "exposdk:44.0.0",
       "googleServicesFile": "./google-services.json"
     },
@@ -62,7 +62,8 @@
             "deploymentTarget": "13.0"
           }
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "owner": "royhayek"
   },
