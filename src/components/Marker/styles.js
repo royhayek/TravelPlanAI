@@ -13,8 +13,8 @@ export default theme =>
       width: 55,
       height: 55,
     },
-    marker: {
-      width: 40,
-      height: 40,
-    },
+    marker: size => ({
+      width: size ?? 40,
+      height: size ?? 40,
+    }),
   });

@@ -4,18 +4,19 @@
 import React, { useCallback } from 'react';
 import { IconButton, useTheme, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { View, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { ms } from 'react-native-size-matters';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
 import { setConversationId } from 'app/src/redux/slices/destinationsSlice';
 import { deleteConversation } from 'app/src/data/localdb';
 import makeStyles from './styles';
-import moment from 'moment';
-
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -58,7 +59,7 @@ const HistoryCard = ({ item, index, refresh }) => {
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   const renderDeleteIcon = useCallback(
-    () => <Ionicons name="md-trash" size={15} color={theme.dark ? theme.colors.white : theme.colors.black} />,
+    () => <Ionicons name="md-trash" size={RFValue(15)} color={theme.dark ? theme.colors.white : theme.colors.black} />,
     [theme.colors.black, theme.colors.white, theme.dark],
   );
 
@@ -72,7 +73,7 @@ const HistoryCard = ({ item, index, refresh }) => {
               {country}, {city}
             </Text>
             <IconButton
-              size={5}
+              size={ms(5)}
               mode="contained"
               icon={renderDeleteIcon}
               containerColor={theme.colors.background}

@@ -48,9 +48,9 @@ const Root = () => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
   const dispatch = useDispatch();
-  const updateMessagesCount = useCallback(payload => dispatch(setMessagesCount(payload)), [dispatch]);
-  const updateDeviceUuid = useCallback(payload => dispatch(setDeviceUuid(payload)), [dispatch]);
-  const updateConfiguration = useCallback(payload => dispatch(setConfig(payload)), [dispatch]);
+  const updateMessagesCount = useCallback((payload: Number) => dispatch(setMessagesCount(payload)), [dispatch]);
+  const updateDeviceUuid = useCallback((payload: any) => dispatch(setDeviceUuid(payload)), [dispatch]);
+  const updateConfiguration = useCallback((payload: any) => dispatch(setConfig(payload)), [dispatch]);
 
   const themeMode = useSelector(getThemeMode);
   const language = useSelector(getLanguage);

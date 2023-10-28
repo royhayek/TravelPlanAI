@@ -12,6 +12,7 @@ import _ from 'lodash';
 // ------------------------------------------------------------ //
 import { getConfiguration } from 'app/src/redux/selectors';
 import makeStyles from './styles';
+import { RFValue } from 'react-native-responsive-fontsize';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -43,7 +44,8 @@ const InfoScreen = ({ route }) => {
         contentWidth={width}
         tagsStyles={{
           body: {
-            lineHeight: 19,
+            fontSize: RFValue(14),
+            lineHeight: RFValue(19),
             color: theme.dark ? theme.colors.white : theme.colors.black,
           },
         }}

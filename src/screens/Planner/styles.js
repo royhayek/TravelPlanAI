@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { ms, mvs } from 'react-native-size-matters';
 
 export default theme =>
   StyleSheet.create({
@@ -9,11 +10,11 @@ export default theme =>
     },
     divider: { marginTop: 10 },
     input: {
-      marginTop: 6,
-      maxHeight: 120,
-      borderRadius: 30,
-      marginBottom: 8,
-      marginHorizontal: 16,
+      marginTop: mvs(6),
+      maxHeight: mvs(120),
+      borderRadius: ms(30),
+      marginBottom: mvs(8),
+      marginHorizontal: ms(16),
       justifyContent: 'center',
       // backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.white,
     },
@@ -30,8 +31,8 @@ export default theme =>
       borderWidth: 1.5,
     },
     popularDestText: {
-      marginVertical: 16,
-      marginHorizontal: 16,
+      marginVertical: mvs(16),
+      marginHorizontal: ms(16),
     },
     footer: {
       paddingVertical: 16,

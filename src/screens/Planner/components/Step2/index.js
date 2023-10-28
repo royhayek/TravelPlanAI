@@ -97,7 +97,7 @@ const Step2 = () => {
               7 days maximum
             </Text>
             <Text variant="titleMedium" style={styles.whatMonth}>
-              During what month?
+              During what month?{' '}
               <Text variant="titleMedium" style={{ color: theme.colors.secondary }}>
                 (optional)
               </Text>

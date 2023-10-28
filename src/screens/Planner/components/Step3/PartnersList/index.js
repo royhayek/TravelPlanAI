@@ -12,6 +12,7 @@ import _ from 'lodash';
 // ------------------------------------------------------------ //
 import { PARTNERS_LIST } from '../data';
 import makeStyles from './styles';
+import { ms } from 'react-native-size-matters';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -44,7 +45,7 @@ const PartnersList = ({ value, setValue }) => {
             <View>
               <View style={styles.iconContainer(isActive)}>
                 <MaterialIcons
-                  size={26}
+                  size={ms(26)}
                   name={item.icon}
                   color={isActive ? theme.colors.white : theme.dark ? theme.colors.white : theme.colors.black}
                 />
@@ -53,7 +54,7 @@ const PartnersList = ({ value, setValue }) => {
                 {item.title}
               </Text>
             </View>
-            {isActive && <Ionicons name="ios-checkmark-sharp" size={25} color={theme.colors.primary} />}
+            {isActive && <Ionicons name="ios-checkmark-sharp" size={ms(25)} color={theme.colors.primary} />}
           </TouchableOpacity>
         );
       }}

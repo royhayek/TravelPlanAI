@@ -10,6 +10,8 @@ import XDate from 'xdate';
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
 import makeStyles from './styles';
+import { ms } from 'react-native-size-matters';
+import { RFValue } from 'react-native-responsive-fontsize';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -159,12 +161,15 @@ const DatePicker = ({ onSuccess }) => {
       theme={{
         textMonthFontWeight: 'bold',
         arrowColor: theme.colors.white,
-        textDayStyle: { fontWeight: '500' },
+        textMonthFontSize: RFValue(14),
+        todayButtonFontSize: RFValue(14),
+        textDayHeaderFontSize: RFValue(11),
         textDisabledColor: theme.colors.secondary,
         calendarBackground: theme.colors.background,
+        textDayStyle: { fontWeight: '500', fontSize: RFValue(14) },
         dayTextColor: theme.dark ? theme.colors.white : theme.colors.black,
         monthTextColor: theme.dark ? theme.colors.white : theme.colors.black,
-        arrowStyle: { backgroundColor: theme.colors.primary, borderRadius: 50, width: 32, alignItems: 'center' },
+        arrowStyle: { backgroundColor: theme.colors.primary, borderRadius: ms(50), width: ms(32), alignItems: 'center' },
       }}
     />
   );

@@ -14,19 +14,24 @@ export const fetchItineraryPlaces = createAsyncThunk('itineraryPlaces/fetch', as
 
     const fetchPromises = payload.map(async ({ id, place, address }) => {
       const query = encodeURIComponent(`${place}, ${address}`);
+      console.debug('query', query);
       const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&fields=${fields.join(',')}&key=${apiKey}`;
+      console.debug('searchUrl', searchUrl);
       const searchResultResponse = await fetch(searchUrl);
       const searchDataJson = await searchResultResponse.json();
-      const searchData = searchDataJson.results[0];
+      console.debug('searchDataJson', searchDataJson);
+      if (searchDataJson.results.length > 0) {
+        const searchData = searchDataJson.results[0];
 
-      const placeId = searchData.place_id;
-      const placeUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`;
-      const placeResponse = await fetch(placeUrl);
-      const placeDataJson = await placeResponse.json();
-      const placeData = placeDataJson.result;
+        const placeId = searchData.place_id;
+        const placeUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`;
+        const placeResponse = await fetch(placeUrl);
+        const placeDataJson = await placeResponse.json();
+        const placeData = placeDataJson.result;
 
-      // Assuming you want to assign a placeholder image URL
-      return { id, searchResult: searchData, placeResult: placeData };
+        // Assuming you want to assign a placeholder image URL
+        return { id, searchResult: searchData, placeResult: placeData };
+      }
     });
 
     // Use Promise.all to wait for all promises to resolve

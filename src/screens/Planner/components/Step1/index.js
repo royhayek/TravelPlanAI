@@ -4,8 +4,8 @@
 import React, { useCallback } from 'react';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { ScrollView, View } from 'react-native';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
@@ -52,15 +52,13 @@ const Step1 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ----------------------- RENDERERS ----------------------- //
   return (
-    <>
-      <View style={styles.container}>
-        <Text variant="titleLarge" style={styles.title}>
-          {_t('where_to_go')}
-        </Text>
-        <DestinationInput handleSubmit={handleSubmitPrompt} />
-        <PopularDestinations handleSubmit={handleSubmitPrompt} />
-      </View>
-    </>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <Text variant="titleLarge" style={styles.title}>
+        {_t('where_to_go')}
+      </Text>
+      <DestinationInput handleSubmit={handleSubmitPrompt} />
+      <PopularDestinations handleSubmit={handleSubmitPrompt} />
+    </ScrollView>
   );
 };
 

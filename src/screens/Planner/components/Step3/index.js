@@ -3,7 +3,7 @@
 // ------------------------------------------------------------ //
 import React, { useEffect, useState } from 'react';
 import { Text, useTheme } from 'react-native-paper';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //

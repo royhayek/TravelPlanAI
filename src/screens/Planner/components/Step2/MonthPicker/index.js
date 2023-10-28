@@ -11,6 +11,7 @@ import _ from 'lodash';
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
 import makeStyles from './styles';
+import { RFValue } from 'react-native-responsive-fontsize';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -52,7 +53,11 @@ const MonthPicker = ({ value, setValue }) => {
         return (
           <TouchableOpacity onPress={() => setValue(item)}>
             <View style={styles.container(isActive)}>
-              <Fontisto name="date" size={14} color={isActive ? theme.colors.primary : theme.dark ? theme.colors.white : theme.colors.black} />
+              <Fontisto
+                name="date"
+                size={RFValue(14)}
+                color={isActive ? theme.colors.primary : theme.dark ? theme.colors.white : theme.colors.black}
+              />
               <Text variant="labelMedium" style={styles.title(isActive)}>
                 {item}
               </Text>

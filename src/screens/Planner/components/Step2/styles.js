@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { ms, mvs } from 'react-native-size-matters';
 
 export default theme =>
   StyleSheet.create({
@@ -6,8 +7,8 @@ export default theme =>
       flex: 1,
     },
     title: {
-      marginTop: 20,
-      marginBottom: 10,
+      marginTop: mvs(20),
+      marginBottom: mvs(10),
       fontWeight: 'bold',
       textAlign: 'center',
     },
@@ -17,25 +18,25 @@ export default theme =>
     },
     firstContent: {
       flex: 1,
-      margin: 16,
+      margin: ms(16),
     },
     secondContent: {
       flex: 1,
-      margin: 24,
+      margin: ms(24),
     },
     maxDays: {
-      marginTop: 6,
-      marginHorizontal: 5,
+      marginTop: mvs(6),
+      marginHorizontal: ms(5),
       color: theme.dark ? theme.colors.white : theme.colors.black,
     },
     whatMonth: {
-      marginTop: 24,
-      marginBottom: 16,
+      marginTop: mvs(24),
+      marginBottom: mvs(16),
     },
     footer: {
-      paddingVertical: 16,
+      paddingVertical: mvs(16),
       flexDirection: 'row',
-      paddingHorizontal: 24,
+      paddingHorizontal: ms(24),
       justifyContent: 'space-between',
     },
   });

@@ -30,7 +30,9 @@ const ToggleButtons = ({ buttons, active, setActive }) => {
           <TouchableWithoutFeedback key={button.key} onPress={() => setActive(button.key)}>
             <View style={styles.buttonContainer(index)}>
               <View style={styles.button(isActive)}>
-                <Text style={styles.title(isActive)}>{button.title}</Text>
+                <Text variant="bodySmall" style={styles.title(isActive)}>
+                  {button.title}
+                </Text>
               </View>
             </View>
           </TouchableWithoutFeedback>
