@@ -19,3 +19,7 @@ web-build/
 private_key.pepk
 credentials.json
 package-lock.json
+
+# Other
+android/
+ios/
