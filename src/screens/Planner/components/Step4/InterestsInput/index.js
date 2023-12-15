@@ -1,19 +1,16 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback } from 'react';
 import { TextInput, useTheme } from 'react-native-paper';
+import React, { useCallback } from 'react';
 import { Keyboard } from 'react-native';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const _t = (key, options) => t(`planner.${key}`, options);
-
 const InterestsInput = ({ value, setValue }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
@@ -34,13 +31,13 @@ const InterestsInput = ({ value, setValue }) => {
     <TextInput
       mode="outlined"
       value={value}
-      placeholder={'Shopping, Nightlight'}
       style={styles.input}
       returnKeyType="send"
       verticalAlign="middle"
       onChangeText={handleValueChange}
       onSubmitEditing={Keyboard.dismiss}
       underlineStyle={styles.underline}
+      placeholder={'Shopping, Nightlight'}
       outlineColor={theme.colors.secondary}
       outlineStyle={styles.inputOutlineStyle}
       activeOutlineColor={theme.colors.primary}

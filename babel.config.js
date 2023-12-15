@@ -5,24 +5,25 @@ module.exports = function (api) {
       [
         'babel-preset-expo',
         {
-          lazyImports: true,
-        },
-      ],
+          lazyImports: true
+        }
+      ]
     ],
     env: {
       production: {
-        plugins: ['react-native-paper/babel'],
-      },
+        plugins: ['react-native-paper/babel']
+      }
     },
     plugins: [
       [
         'module-resolver',
         {
-          root: ['./'],
+          root: ['./src'],
           alias: {
-            app: './',
-          },
-        },
+            app: './app',
+            redux: './redux'
+          }
+        }
       ],
       [
         'module:react-native-dotenv',
@@ -32,10 +33,10 @@ module.exports = function (api) {
           blocklist: null,
           allowlist: null,
           safe: false,
-          allowUndefined: false,
-        },
+          allowUndefined: false
+        }
       ],
-      ['react-native-reanimated/plugin'],
-    ],
+      ['react-native-reanimated/plugin']
+    ]
   };
 };

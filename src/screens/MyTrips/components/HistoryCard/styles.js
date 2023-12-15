@@ -1,41 +1,58 @@
-import { StyleSheet } from 'react-native';
 import { ms, mvs } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
     container: {
-      padding: ms(15),
-      marginBottom: mvs(15),
-      backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.background,
-      shadowColor: 'black',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.1,
-      borderRadius: ms(5),
-      elevation: 3,
+      height: mvs(300),
+      borderRadius: ms(16),
+      marginBottom: mvs(24),
+    },
+    horizontalContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: mvs(16),
     },
     content: {
-      flex: 1,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      margin: ms(16),
+      padding: ms(16),
       marginTop: mvs(9),
+      borderRadius: ms(16),
+      position: 'absolute',
+      backgroundColor: theme.colors.background,
+    },
+    deleteBtn: {
+      top: 0,
+      right: 0,
+      margin: ms(16),
+      position: 'absolute',
+      borderRadius: ms(8),
     },
     title: {
       color: theme.dark ? theme.colors.white : theme.colors.black,
+      marginBottom: mvs(6),
     },
     assistant: {
-      marginVertical: 1,
-      color: theme.colors.primary,
+      marginVertical: mvs(1),
     },
     date: {
-      marginTop: 1,
-      color: theme.colors.secondary,
+      marginTop: mvs(1),
     },
     cityImage: {
-      width: '100%',
-      aspectRatio: 3 / 2,
-      borderRadius: ms(5),
+      flex: 1,
+      borderRadius: ms(24),
     },
     rowContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
       alignItems: 'center',
+      flexDirection: 'row',
+      // justifyContent: 'space-between',
+    },
+    infoItemContainer: {
+      gap: ms(6),
+      alignItems: 'center',
+      flexDirection: 'row',
     },
   });

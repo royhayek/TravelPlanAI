@@ -4,6 +4,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Animated, FlatList, View } from 'react-native';
+import { ms } from 'react-native-size-matters';
 import { useTheme } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
@@ -11,16 +12,17 @@ import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import OutlinedButton from 'app/src/components/Buttons/Outlined';
-import BackButton from 'app/src/components/Buttons/Back';
-import Marker from 'app/src/components/Marker';
+import OutlinedButton from '../../shared/components/Buttons/Outlined';
+import BackButton from '../../shared/components/Buttons/Back';
+import Marker from '../../shared/components/Marker';
 import DestinationDay from './DestinationDay';
 import ListHeader from './ListHeader';
 import ExitModal from './ExitModal';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { selectDestinations, selectPlaces } from 'app/src/redux/selectors';
+import { selectDestinations } from '../../redux/slices/destinationsSlice';
+import { selectPlaces } from '../../redux/slices/placesSlice';
 import { DUMMY_DESTINATIONS, DUMMY_PLACES } from './data';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
@@ -36,7 +38,6 @@ const ItineraryScreen = ({ navigation }) => {
   const styles = makeStyles(theme);
 
   const [closeModalVisible, setCloseModalVisible] = useState(false);
-  const [tipsVisible, setTipsVisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
   const [expanded, setExpanded] = useState([0]);
 
@@ -59,8 +60,6 @@ const ItineraryScreen = ({ navigation }) => {
   };
 
   const handleToggleCloseModal = useCallback(() => setCloseModalVisible(cur => !cur), []);
-
-  const handleToggleTips = useCallback(() => setTipsVisible(cur => !cur), []);
 
   const handleSetExpanded = useCallback(index => setExpanded(_.xor(expanded, [index])), [expanded]);
   // ---------------------- /CALLBACKS ----------------------- //
@@ -104,7 +103,7 @@ const ItineraryScreen = ({ navigation }) => {
             latitudeDelta: 0.025,
             longitudeDelta: 0.025,
           }}>
-          {_.map(places, (place, index) => place && <Marker index={index} marker={place} interpolations={[]} size={28} />)}
+          {_.map(places, (place, index) => place && <Marker index={index} marker={place} interpolations={[]} size={ms(28)} />)}
         </MapView>
         <Animated.View style={styles.headerButtons(headerButtonsOpacity)}>
           <BackButton style={styles.backBtn} onPress={handleToggleCloseModal} />
@@ -112,7 +111,7 @@ const ItineraryScreen = ({ navigation }) => {
             title="Map view"
             onPress={() => handleNavigateToMapView()}
             containerStyle={styles.mapViewBtn}
-            startIcon={<Ionicons name="location-outline" size={20} color={theme.dark ? theme.colors.white : theme.colors.black} />}
+            startIcon={<Ionicons name="location-outline" size={ms(20)} color={theme.dark ? theme.colors.white : theme.colors.black} />}
           />
         </Animated.View>
       </Animated.View>
@@ -123,9 +122,9 @@ const ItineraryScreen = ({ navigation }) => {
           style={styles.flatList}
           scrollEventThrottle={16}
           nestedScrollEnabled={false}
+          ListHeaderComponent={<ListHeader />}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listContentContainer}
-          ListHeaderComponent={<ListHeader toggleTips={handleToggleTips} />}
           renderItem={({ item, index }) => (
             <DestinationDay day={item} index={index} expanded={expanded} setExpanded={() => handleSetExpanded(index)} />
           )}

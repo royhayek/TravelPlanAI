@@ -9,13 +9,13 @@ import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import BackButton from 'app/src/components/Buttons/Back';
+import LocationCard from '../../shared/components/LocationCard';
+import BackButton from '../../shared/components/Buttons/Back';
+import Marker from '../../shared/components/Marker';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
 import makeStyles from './styles';
-import Marker from '../../components/Marker';
-import LocationCard from 'app/src/components/LocationCard';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -149,9 +149,9 @@ const MapScreen = ({ navigation, route }) => {
       <BackButton style={styles.backBtn} />
 
       <Animated.ScrollView
-        ref={scrollViewRef}
         horizontal
         pagingEnabled
+        ref={scrollViewRef}
         decelerationRate="fast"
         snapToAlignment="center"
         scrollEventThrottle={100}

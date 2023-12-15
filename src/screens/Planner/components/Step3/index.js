@@ -1,8 +1,9 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useEffect, useState } from 'react';
 import { Text, useTheme } from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
@@ -12,11 +13,10 @@ import PartnersList from './PartnersList';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
+import { destinationsActions } from '../../../../redux/slices/destinationsSlice';
+import { t } from '../../../../app/i18n';
 import { PARTNERS_LIST } from './data';
-import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
-import { useDispatch } from 'react-redux';
-import { setPayload } from 'app/src/redux/slices/destinationsSlice';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -43,7 +43,7 @@ const Step3 = () => {
   useEffect(() => {
     const partner = _.find(PARTNERS_LIST, { key: whoIsGoing });
     const withWho = _.isEqual(partner.key, 'alone') ? 'alone' : `with ${partner.title}`;
-    dispatch(setPayload({ whoIsGoing: withWho }));
+    dispatch(destinationsActions.setPayload({ whoIsGoing: withWho }));
   }, [whoIsGoing, dispatch]);
   // ---------------------- /EFFECTS ------------------------- //
   // --------------------------------------------------------- //

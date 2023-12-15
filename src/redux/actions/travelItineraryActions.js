@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { openAIConfig } from 'app/src/data/api';
-import { parseAIResponse } from 'app/src/helpers';
+import { parseAIResponse } from '../../shared/utils';
+import { openAIConfig } from '../../app/api';
 import { OpenAIApi } from 'openai';
-import _ from 'lodash';
 import moment from 'moment';
+import _ from 'lodash';
 
 // This thunk will make a POST request to the OenAI API with the provided payload
-export const fetchTravelDestinations = createAsyncThunk('travelItinerary/fetch', async payload => {
+export const fetchTravelDestinations = createAsyncThunk('travelItinerary/fetch', async (payload) => {
   const { destination, periodType, noOfDays, selectedMonth, fromDate, toDate, interests, whoIsGoing } = payload;
 
   // Process payload
@@ -37,7 +37,7 @@ export const fetchTravelDestinations = createAsyncThunk('travelItinerary/fetch',
     // Set the maximum tokens (if lowered the itinerary returned might be cut and can't be parsed)
     max_tokens: 3900,
     // Set the temperature to control the randomness of the generated response
-    temperature: 0.4,
+    temperature: 0.4
   });
 
   console.debug('[fetchTravelItinerary] :: string response ', response.data.choices[0].text.trim());

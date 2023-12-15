@@ -1,18 +1,17 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { Text, useTheme } from 'react-native-paper';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { ms } from 'react-native-size-matters';
+import React from 'react';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
 import { PARTNERS_LIST } from '../data';
 import makeStyles from './styles';
-import { ms } from 'react-native-size-matters';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -22,12 +21,6 @@ const PartnersList = ({ value, setValue }) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
   // ----------------------- /STATICS ------------------------ //
-  // --------------------------------------------------------- //
-
-  // --------------------------------------------------------- //
-  // ---------------------- RENDER VARS ---------------------- //
-
-  // --------------------- /RENDER VARS ---------------------- //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
@@ -45,7 +38,7 @@ const PartnersList = ({ value, setValue }) => {
             <View>
               <View style={styles.iconContainer(isActive)}>
                 <MaterialIcons
-                  size={ms(26)}
+                  size={ms(24)}
                   name={item.icon}
                   color={isActive ? theme.colors.white : theme.dark ? theme.colors.white : theme.colors.black}
                 />

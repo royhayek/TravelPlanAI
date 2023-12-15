@@ -1,9 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
-import UnlimitedIcon from 'app/src/lib/icons/UnlimitedIcon';
-import NoAdsIcon from 'app/src/lib/icons/NoAdsIcon';
-import StarsIcon from 'app/src/lib/icons/StarsIcon';
-import { appName } from 'app/src/helpers';
-import { t } from 'app/src/config/i18n';
+import UnlimitedIcon from '../../shared/assets/icons/UnlimitedIcon';
+import NoAdsIcon from '../../shared/assets/icons/NoAdsIcon';
+import StarsIcon from '../../shared/assets/icons/StarsIcon';
+import { appName } from '../../shared/utils';
+import { t } from '../../app/i18n';
 
 const _t = (key, options) => t(`subscription.${key}`, options);
 

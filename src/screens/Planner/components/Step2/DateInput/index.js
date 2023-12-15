@@ -3,17 +3,18 @@
 // ------------------------------------------------------------ //
 import React, { useCallback, useEffect, useState } from 'react';
 import { TextInput, useTheme } from 'react-native-paper';
+import { ms } from 'react-native-size-matters';
 import { Keyboard } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { isRTL } from 'app/src/config/i18n';
+import { isRTL } from '../../../../../app/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
-const DateInput = ({ defaultValue, handleSubmit }) => {
+const DateInput = ({ defaultValue }) => {
   // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
@@ -26,8 +27,6 @@ const DateInput = ({ defaultValue, handleSubmit }) => {
   // --------------------------------------------------------- //
   // ----------------------- CALLBACKS ----------------------- //
   const handleValueChange = useCallback(text => setValue(text), []);
-
-  const handleSubmitPrompt = useCallback(() => handleSubmit(value), [handleSubmit, value]);
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
@@ -45,25 +44,23 @@ const DateInput = ({ defaultValue, handleSubmit }) => {
     <TextInput
       value={value}
       editable={false}
-      theme={{ roundness: 8 }}
-      placeholder={'MM/DD - MM/DD'}
       style={styles.input}
-      outlineStyle={styles.inputOutlineStyle}
       returnKeyType="send"
       verticalAlign="middle"
-      outlineColor={theme.colors.secondary}
-      onSubmitEditing={Keyboard.dismiss}
+      theme={{ roundness: ms(8) }}
+      placeholder={'MM/DD - MM/DD'}
       onChangeText={handleValueChange}
-      activeOutlineColor={theme.colors.primary}
       underlineStyle={styles.underline}
+      onSubmitEditing={Keyboard.dismiss}
+      outlineColor={theme.colors.secondary}
+      outlineStyle={styles.inputOutlineStyle}
+      activeOutlineColor={theme.colors.primary}
       placeholderTextColor={theme.colors.secondary}
       left={
         <TextInput.Icon
           centered
           icon="calendar-blank-outline"
-          // disabled={_.isEmpty(value)}
           iconColor={theme.colors.secondary}
-          // onPress={handleSubmitPrompt}
           style={{ transform: isRTL ? [{ scaleX: -1 }] : undefined }}
         />
       }

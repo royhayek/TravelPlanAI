@@ -1,15 +1,15 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback } from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import { useTheme, Text, Divider } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { setConversationId, setMessages } from 'app/src/redux/slices/destinationsSlice';
-import { getLanguage } from 'app/src/redux/selectors';
+import { setConversationId, setMessages } from 'redux/slices/destinationsSlice';
+import { getLanguage } from 'redux/slices/appSlice';
 import { ASSISTANTS } from './data';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //

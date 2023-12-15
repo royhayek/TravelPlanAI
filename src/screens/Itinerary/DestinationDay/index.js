@@ -1,21 +1,23 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useEffect, useState } from 'react';
 import { useTheme, Text, List, Button, Badge, Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { ms } from 'react-native-size-matters';
 import { useSelector } from 'react-redux';
 import { View } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import LocationCard from 'app/src/components/LocationCard';
-import Accordion from 'app/src/components/Accordion';
+import LocationCard from '../../../shared/components/LocationCard';
+import Accordion from '../../../shared/components/Accordion';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { selectDestinations, selectPlaces } from 'app/src/redux/selectors';
+import { selectDestinations } from '../../../redux/slices/destinationsSlice';
+import { selectPlaces } from '../../../redux/slices/placesSlice';
 import { DUMMY_DESTINATIONS, DUMMY_PLACES } from '../data';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
@@ -23,15 +25,19 @@ import makeStyles from './styles';
 // ------------------------------------------------------------ //
 const DestinationDay = ({ day, index, expanded, setExpanded }) => {
   // --------------------------------------------------------- //
+  // ------------------------ REDUX -------------------------- //
+  const destionationsSelect = useSelector(selectDestinations);
+  const placesSelect = useSelector(selectPlaces);
+  // ----------------------- /REDUX -------------------------- //
+  // --------------------------------------------------------- //
+
+  // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
   const navigation = useNavigation();
 
   const [expandedDays, setExpandedDays] = useState([day.length]);
-
-  const destionationsSelect = useSelector(selectDestinations);
-  const placesSelect = useSelector(selectPlaces);
 
   const places = placesSelect?.places || DUMMY_PLACES;
   const destinations = destionationsSelect?.destinations || DUMMY_DESTINATIONS;
@@ -83,7 +89,7 @@ const DestinationDay = ({ day, index, expanded, setExpanded }) => {
           style={styles.accordion}
           title={
             <View style={styles.accordionTitle}>
-              <Badge size={25} style={{ backgroundColor: theme.colors.primary }}>
+              <Badge size={ms(25)} style={{ backgroundColor: theme.colors.primary }}>
                 {i + 1}
               </Badge>
               <Text style={styles.placeTitle} variant="titleSmall">

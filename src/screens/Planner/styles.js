@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
 import { ms, mvs } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
@@ -8,7 +8,7 @@ export default theme =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    divider: { marginTop: 10 },
+    divider: { marginTop: mvs(10) },
     input: {
       marginTop: mvs(6),
       maxHeight: mvs(120),
@@ -27,18 +27,18 @@ export default theme =>
       alignItems: 'center',
     },
     inputOutlineStyle: {
-      borderRadius: 50,
-      borderWidth: 1.5,
+      borderRadius: ms(50),
+      borderWidth: ms(1.5),
     },
     popularDestText: {
       marginVertical: mvs(16),
       marginHorizontal: ms(16),
     },
     footer: {
-      paddingVertical: 16,
-      flexDirection: 'row',
-      paddingHorizontal: 24,
       alignItems: 'center',
+      flexDirection: 'row',
+      paddingVertical: mvs(16),
+      paddingHorizontal: ms(24),
       justifyContent: 'space-between',
     },
   });

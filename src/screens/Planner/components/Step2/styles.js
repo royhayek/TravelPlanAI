@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
 import { ms, mvs } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
@@ -8,9 +8,9 @@ export default theme =>
     },
     title: {
       marginTop: mvs(20),
-      marginBottom: mvs(10),
       fontWeight: 'bold',
       textAlign: 'center',
+      marginBottom: mvs(10),
     },
     subtitle: {
       textAlign: 'center',
@@ -34,8 +34,8 @@ export default theme =>
       marginBottom: mvs(16),
     },
     footer: {
-      paddingVertical: mvs(16),
       flexDirection: 'row',
+      paddingVertical: mvs(16),
       paddingHorizontal: ms(24),
       justifyContent: 'space-between',
     },

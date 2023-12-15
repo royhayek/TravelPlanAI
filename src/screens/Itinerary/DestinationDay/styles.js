@@ -1,9 +1,12 @@
-import { StyleSheet } from 'react-native';
 import { ms, mvs } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
-    accordionContainer: { flex: 1, marginBottom: 8 },
+    accordionContainer: {
+      flex: 1,
+      marginBottom: mvs(8),
+    },
     titleStyle: {
       borderRadius: ms(8),
       paddingHorizontal: ms(16),
@@ -11,8 +14,8 @@ export default theme =>
     },
     title: {
       flex: 1,
-      flexDirection: 'row',
       alignItems: 'center',
+      flexDirection: 'row',
       justifyContent: 'space-between',
     },
     accordion: {

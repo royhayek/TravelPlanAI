@@ -1,20 +1,21 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback } from 'react';
 import { Button, Modal, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { ms } from 'react-native-size-matters';
 import { AntDesign } from '@expo/vector-icons';
+import React, { useCallback } from 'react';
 import { View } from 'react-native';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import OutlinedButton from 'app/src/components/Buttons/Outlined';
-import RegularButton from 'app/src/components/Buttons/Regular';
+import OutlinedButton from '../../../shared/components/Buttons/Outlined';
+import RegularButton from '../../../shared/components/Buttons/Regular';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { t } from 'app/src/config/i18n';
+import { t } from '../../../app/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
@@ -41,7 +42,7 @@ const ExitModal = ({ visible, toggle }) => {
   return (
     <Modal visible={visible} onDismiss={toggle} contentContainerStyle={styles.content} animationType="slide">
       <Button onPress={toggle} style={styles.closeButton}>
-        <AntDesign name="close" size={24} color="grey" />
+        <AntDesign name="close" size={ms(24)} color="grey" />
       </Button>
 
       <Text style={styles.title}>{_t('save_before_you_go')}</Text>

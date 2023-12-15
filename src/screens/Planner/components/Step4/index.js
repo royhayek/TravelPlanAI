@@ -3,8 +3,8 @@
 // ------------------------------------------------------------ //
 import React, { useCallback, useEffect, useState } from 'react';
 import { Text, useTheme } from 'react-native-paper';
-import { ScrollView, View } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { View } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
@@ -13,9 +13,9 @@ import InterestsList from './InterestsList';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { setPayload } from 'app/src/redux/slices/destinationsSlice';
-import { t } from 'app/src/config/i18n';
+import { destinationsActions } from '../../../../redux/slices/destinationsSlice';
 import makeStyles from './styles';
+import { t } from '../../../../app/i18n';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -23,15 +23,10 @@ const _t = (key, options) => t(`planner.${key}`, options);
 
 const Step4 = () => {
   // --------------------------------------------------------- //
-  // ------------------------ REDUX -------------------------- //
-  const dispatch = useDispatch();
-  // ----------------------- /REDUX -------------------------- //
-  // --------------------------------------------------------- //
-
-  // --------------------------------------------------------- //
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const dispatch = useDispatch();
 
   const [interests, setInterests] = useState([]);
   // ----------------------- /STATICS ------------------------ //
@@ -46,7 +41,7 @@ const Step4 = () => {
   // --------------------------------------------------------- //
   // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
-    dispatch(setPayload({ interests: interests }));
+    dispatch(destinationsActions.setPayload({ interests: interests }));
   }, [dispatch, interests]);
   // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //

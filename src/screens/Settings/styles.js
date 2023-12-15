@@ -1,5 +1,5 @@
 import { ms, mvs } from 'react-native-size-matters';
-import { isRTL } from '../../config/i18n';
+import { isRTL } from '../../app/i18n';
 import { StyleSheet } from 'react-native';
 
 export default theme =>
@@ -9,59 +9,54 @@ export default theme =>
       backgroundColor: theme.colors.background,
     },
     content: {
-      marginHorizontal: ms(14),
+      marginHorizontal: ms(24),
     },
     contentContainer: { paddingBottom: mvs(30) },
     iconAndTitle: {
+      gap: ms(16),
       flexDirection: 'row',
       alignItems: 'center',
-    },
-    languageMenuContent: {
-      shadowOpacity: 0.2,
-      backgroundColor: theme.colors.background,
     },
     anchor: {
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
-    card: {
-      elevation: 2,
-      borderRadius: ms(8),
-      marginHorizontal: ms(4),
-      paddingVertical: mvs(10),
-      paddingHorizontal: ms(16),
-      shadowRadius: 3,
-      shadowColor: theme.colors.shadow,
-      shadowOpacity: theme.dark ? 0.4 : 0,
-      shadowOffset: { width: 0, height: 0 },
-      backgroundColor: theme.dark ? theme.colors.background : theme.colors.white,
+    iconContainer: {
+      width: ms(48),
+      height: ms(48),
+      borderWidth: ms(1.5),
+      borderRadius: ms(50),
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderColor: theme.dark ? theme.colors.secondary : theme.colors.lightGray,
     },
     title: {
       marginVertical: ms(16),
+      color: theme.colors.secondary,
     },
     item: {
-      marginVertical: mvs(9),
+      marginVertical: mvs(4),
       flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'space-between',
     },
     endIcon: {
       color: theme.dark ? theme.colors.white : theme.colors.black,
-      marginEnd: mvs(15),
     },
     arrowIcon: {
-      marginStart: 3,
+      marginStart: ms(3),
       transform: isRTL ? [{ rotateY: '180deg' }] : [],
     },
     upgradeContainer: {
       padding: mvs(20),
+      marginTop: ms(5),
       borderRadius: ms(12),
-      marginVertical: ms(5),
       flexDirection: 'row',
-      backgroundColor: theme.colors.primary,
-      marginHorizontal: ms(16),
       alignItems: 'center',
+      marginHorizontal: ms(16),
       justifyContent: 'space-between',
+      backgroundColor: theme.colors.primary,
     },
     upgradeTitle: {
       color: theme.colors.white,
@@ -89,13 +84,13 @@ export default theme =>
       padding: ms(16),
     },
     planTitle: {
-      color: theme.colors.secondary,
-      marginBottom: mvs(10),
       fontWeight: 'bold',
+      marginBottom: mvs(10),
+      color: theme.colors.secondary,
     },
     upgradeBtn: {
       height: mvs(46),
-      justifyContent: 'center',
       borderRadius: ms(8),
+      justifyContent: 'center',
     },
   });

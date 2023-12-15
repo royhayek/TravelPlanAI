@@ -9,16 +9,16 @@ import moment from 'moment';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import ToggleButtons from 'app/src/components/ToggleButtons';
-import DatePicker from 'app/src/components/DatePicker';
+import ToggleButtons from '../../../../shared/components/ToggleButtons';
+import DatePicker from '../../../../shared/components/DatePicker';
 import MonthPicker from './MonthPicker';
 import DaysPicker from './DaysPicker';
 import DateInput from './DateInput';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { setPayload } from 'app/src/redux/slices/destinationsSlice';
-import { t } from 'app/src/config/i18n';
+import { destinationsActions } from '../../../../redux/slices/destinationsSlice';
+import { t } from '../../../../app/i18n';
 import makeStyles from './styles';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
@@ -70,7 +70,7 @@ const Step2 = () => {
   // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
     const { fromDate, toDate } = dateState;
-    dispatch(setPayload({ periodType: activeButton, fromDate, toDate, noOfDays, selectedMonth }));
+    dispatch(destinationsActions.setPayload({ periodType: activeButton, fromDate, toDate, noOfDays, selectedMonth }));
   }, [noOfDays, dateState, selectedMonth, activeButton, dispatch]);
   // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //

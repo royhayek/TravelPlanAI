@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
 import { ms } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({

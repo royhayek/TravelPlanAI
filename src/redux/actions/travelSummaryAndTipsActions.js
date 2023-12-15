@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { openAIConfig } from 'app/src/data/api';
-import { parseAIResponse } from 'app/src/helpers';
+import { openAIConfig } from '../../app/api';
+import { parseAIResponse } from '../../shared/utils';
 import { OpenAIApi } from 'openai';
 
 // This thunk will make a POST request to the OenAI API with the provided payload
