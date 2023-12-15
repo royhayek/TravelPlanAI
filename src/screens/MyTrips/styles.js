@@ -1,3 +1,4 @@
+import { ms, mvs } from 'react-native-size-matters';
 import { StyleSheet } from 'react-native';
 
 export default theme =>
@@ -12,23 +13,24 @@ export default theme =>
       justifyContent: 'center',
     },
     listContent: {
-      padding: 16,
+      paddingTop: mvs(8),
+      paddingHorizontal: ms(24),
     },
     modalTitle: {
       textAlign: 'center',
       fontWeight: 'bold',
-      marginVertical: 10,
-      marginHorizontal: 20,
+      marginVertical: mvs(10),
+      marginHorizontal: ms(20),
     },
     modalButtons: {
-      gap: 20,
+      gap: ms(20),
       flexDirection: 'row',
       justifyContent: 'center',
     },
     emptyImage: {
-      width: 100,
-      height: 100,
-      marginBottom: 20,
+      width: ms(100),
+      height: mvs(100),
+      marginBottom: mvs(20),
     },
     emptyText: { fontWeight: 'bold' },
   });

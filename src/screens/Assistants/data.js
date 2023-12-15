@@ -1,14 +1,14 @@
 import React from 'react';
-import Math from 'app/src/lib/icons/Assistants/Math';
-import Facts from 'app/src/lib/icons/Assistants/Facts';
-import Email from 'app/src/lib/icons/Assistants/Email';
-import Travel from 'app/src/lib/icons/Assistants/Travel';
-import Health from 'app/src/lib/icons/Assistants/Health';
-import Support from 'app/src/lib/icons/Assistants/Support';
-import Recipes from 'app/src/lib/icons/Assistants/Recipes';
-import Technology from 'app/src/lib/icons/Assistants/Technology';
-import Programming from 'app/src/lib/icons/Assistants/Programming';
-import Translation from 'app/src/lib/icons/Assistants/Translation';
+import Math from 'shared/assets/icons/Assistants/Math';
+import Facts from 'shared/assets/icons/Assistants/Facts';
+import Email from 'shared/assets/icons/Assistants/Email';
+import Travel from 'shared/assets/icons/Assistants/Travel';
+import Health from 'shared/assets/icons/Assistants/Health';
+import Support from 'shared/assets/icons/Assistants/Support';
+import Recipes from 'shared/assets/icons/Assistants/Recipes';
+import Technology from 'shared/assets/icons/Assistants/Technology';
+import Programming from 'shared/assets/icons/Assistants/Programming';
+import Translation from 'shared/assets/icons/Assistants/Translation';
 
 export const ASSISTANTS = [
   {

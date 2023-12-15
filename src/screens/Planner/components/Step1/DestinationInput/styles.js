@@ -1,24 +1,33 @@
 import { StyleSheet } from 'react-native';
-import { ms, mvs, s, vs } from 'react-native-size-matters';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { ms, mvs } from 'react-native-size-matters';
 
 export default theme =>
   StyleSheet.create({
-    textInput: {
-      marginTop: vs(6),
-      minHeight: mvs(52),
+    container: {
+      marginTop: mvs(6),
+      minHeight: mvs(40),
       borderRadius: ms(8),
-      marginBottom: vs(8),
-      fontSize: RFValue(14),
-      fontWeight: '500',
+      marginBottom: mvs(8),
+      alignItems: 'center',
       justifyContent: 'center',
+      marginHorizontal: ms(24),
       borderWidth: theme.dark ? 1 : 0,
-      borderColor: theme.dark ? theme.colors.inputBg : 'transparent',
+      borderColor: theme.dark ? theme.colors.secondary : 'transparent',
       backgroundColor: theme.dark ? 'transparent' : theme.colors.inputBg,
+    },
+    textInput: {
+      ...theme.fonts.titleSmall,
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
     },
     listView: {
       borderRadius: ms(8),
-      borderWidth: 0.5,
+      borderWidth: ms(0.5),
       borderColor: theme.colors.lightGray,
+    },
+    textInputContainer: {
+      minHeight: mvs(40),
+      alignItems: 'center',
+      paddingHorizontal: ms(16),
     },
   });

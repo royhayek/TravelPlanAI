@@ -1,3 +1,4 @@
+import { ms, mvs } from 'react-native-size-matters';
 import { StyleSheet } from 'react-native';
 
 export default theme =>
@@ -13,37 +14,37 @@ export default theme =>
     },
     backBtn: {
       position: 'absolute',
-      left: 16,
-      top: 50,
+      left: ms(16),
+      top: mvs(50),
       color: theme.colors.white,
     },
     scrollView: {
       position: 'absolute',
       left: 0,
       right: 0,
-      bottom: 70,
+      bottom: mvs(70),
     },
     activity: width => ({
       width: width,
-      borderWidth: 1,
-      borderRadius: 8,
-      paddingHorizontal: 8,
-      paddingVertical: 8,
-      marginHorizontal: 10,
       elevation: 2,
-      backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
-      borderColor: theme.isDark ? theme.colors.white : 'transparent',
-      flexDirection: 'row',
       overflow: 'hidden',
+      borderWidth: ms(1),
+      borderRadius: ms(8),
+      flexDirection: 'row',
+      paddingVertical: mvs(8),
+      marginHorizontal: ms(10),
+      paddingHorizontal: ms(8),
+      borderColor: theme.isDark ? theme.colors.white : 'transparent',
+      backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
     }),
     imageContainer: {
-      paddingEnd: 16,
+      paddingEnd: ms(16),
       justifyContent: 'center',
     },
     image: {
-      width: 90,
-      height: 90,
-      borderRadius: 8,
+      width: ms(90),
+      height: mvs(90),
+      borderRadius: ms(8),
       backgroundColor: theme.colors.background,
     },
     descriptionContainer: {
@@ -52,8 +53,8 @@ export default theme =>
       justifyContent: 'space-around',
     },
     pinNumber: {
+      fontWeight: 'bold',
       position: 'absolute',
       color: theme.colors.white,
-      fontWeight: 'bold',
     },
   });

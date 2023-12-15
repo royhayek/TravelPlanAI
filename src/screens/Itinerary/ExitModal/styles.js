@@ -1,24 +1,45 @@
+import { ms, mvs } from 'react-native-size-matters';
+import { scaledFontSize } from '../../../shared/assets/theme';
 import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
     content: {
-      backgroundColor: 'white',
       width: '95%',
-      paddingVertical: 20,
-      paddingHorizontal: 15,
-      justifyContent: 'center',
       alignItems: 'center',
-      marginHorizontal: 10,
-      borderRadius: 10,
+      borderRadius: ms(10),
+      paddingVertical: mvs(20),
+      marginHorizontal: ms(10),
+      paddingHorizontal: ms(15),
+      justifyContent: 'center',
+      backgroundColor: 'white',
     },
-    title: { textAlign: 'center', color: theme.colors.black, fontSize: 18, fontWeight: 'bold' },
-    description: { textAlign: 'center', marginTop: 10, color: theme.colors.gray, marginBottom: 25, fontSize: 16 },
-    buttonsContainer: { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'space-between' },
-    gobackButton: {
-      borderRadius: 30,
-      backgroundColor: theme.colors.black,
+    title: {
       fontWeight: 'bold',
+      textAlign: 'center',
+      color: theme.colors.black,
+      fontSize: scaledFontSize(18),
     },
-    closeButton: { alignSelf: 'flex-end', marginBottom: 10 },
+    description: {
+      marginTop: mvs(10),
+      textAlign: 'center',
+      marginBottom: mvs(25),
+      color: theme.colors.gray,
+      fontSize: scaledFontSize(16),
+    },
+    buttonsContainer: {
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'space-between',
+      justifyContent: 'space-between',
+    },
+    gobackButton: {
+      fontWeight: 'bold',
+      borderRadius: ms(30),
+      backgroundColor: theme.colors.black,
+    },
+    closeButton: {
+      alignSelf: 'flex-end',
+      marginBottom: mvs(10),
+    },
   });

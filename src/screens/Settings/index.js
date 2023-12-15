@@ -1,25 +1,27 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useCallback, useMemo, useState } from 'react';
 import { Alert, ScrollView, TouchableOpacity, View } from 'react-native';
-import { Menu, Switch, Text, useTheme } from 'react-native-paper';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Switch, Text, useTheme } from 'react-native-paper';
 import { getAvailablePurchases } from 'react-native-iap';
 import Rate, { AndroidMarket } from 'react-native-rate';
 import { useDispatch, useSelector } from 'react-redux';
+import { ms } from 'react-native-size-matters';
 import { Ionicons } from '@expo/vector-icons';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
+// ------------------------ COMPONENTS ------------------------ //
+// ------------------------------------------------------------ //
+import Menu from '../../shared/components/Menu';
+// ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { getConfiguration, getLanguage, getOwnedSubscription, getThemeMode } from 'app/src/redux/selectors';
-import { setLanguage, setOwnedSubscription, setThemeMode } from '../../redux/slices/appSlice';
-import { changeLanguage, isRTL, t } from '../../config/i18n';
-import { Languages } from 'app/src/config/constants';
-import { appName } from 'app/src/helpers';
+import { appActions, getConfiguration, getLanguage, getOwnedSubscription, getThemeMode } from '../../redux/slices/appSlice';
+import { changeLanguage, isRTL, t } from '../../app/i18n';
+import { Languages } from '../../shared/constants';
+import { appName } from '../../shared/utils';
 import makeStyles from './styles';
-import { ms, s } from 'react-native-size-matters';
-import { RFValue } from 'react-native-responsive-fontsize';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -29,7 +31,7 @@ const SettingsScreen = ({ navigation }) => {
   // --------------------------------------------------------- //
   // ----------------------- REDUX --------------------------- //
   const dispatch = useDispatch();
-  const updateOwnedSubscription = useCallback(payload => dispatch(setOwnedSubscription(payload)), [dispatch]);
+  const updateOwnedSubscription = useCallback(payload => dispatch(appActions.setOwnedSubscription(payload)), [dispatch]);
 
   const ownedSubscription = useSelector(getOwnedSubscription);
   const config = useSelector(getConfiguration);
@@ -66,7 +68,7 @@ const SettingsScreen = ({ navigation }) => {
 
   const updateLanguage = useCallback(
     lng => {
-      dispatch(setLanguage(lng));
+      dispatch(appActions.setLanguage(lng));
       changeLanguage(lng);
       toggleLangMenu();
     },
@@ -111,7 +113,7 @@ const SettingsScreen = ({ navigation }) => {
     });
   }, [config?.other?.appleAppId, config?.other?.googlePackageName]);
 
-  const toggleThemeMode = useCallback(() => dispatch(setThemeMode(isDark ? 'light' : 'dark')), [dispatch, isDark]);
+  const toggleThemeMode = useCallback(() => dispatch(appActions.setThemeMode(isDark ? 'light' : 'dark')), [dispatch, isDark]);
   // ---------------------- /CALLBACKS ----------------------- //
   // --------------------------------------------------------- //
 
@@ -126,7 +128,7 @@ const SettingsScreen = ({ navigation }) => {
             key: 'language',
             name: _t('language'),
             icon: 'ios-language-outline',
-            value: _.find(Languages, { locale: language })?.title,
+            value: _.find(Languages, { item: language })?.title,
             onPress: () => toggleLangMenu(),
             isMenu: true,
           },
@@ -198,11 +200,10 @@ const SettingsScreen = ({ navigation }) => {
     () => (
       <TouchableOpacity onPress={handleUpgradePress} style={styles.upgradeContainer}>
         <View>
-          <Text variant="bodyLarge" style={styles.upgradeTitle}>
+          <Text variant="titleLarge" style={styles.upgradeTitle}>
             {_t('upgrade_to_plus')}
           </Text>
           <Text variant="labelSmall" style={styles.upgradeDesc}>
-            {' '}
             {_t('expanded_access', { name: appName })}
           </Text>
         </View>
@@ -217,50 +218,47 @@ const SettingsScreen = ({ navigation }) => {
       <ScrollView style={styles.content} contentContainerStyle={styles.contentContainer} overScrollMode="never" showsVerticalScrollIndicator={false}>
         {_.map(sections, ({ section, items }) => (
           <View key={section}>
-            <Text variant="titleSmall" style={styles.title}>
+            <Text variant="labelMedium" style={styles.title}>
               {section}
             </Text>
-            <View style={styles.card}>
-              {_.map(items, ({ key, icon, name, value, onPress, isSwitch, isMenu }) => (
-                <TouchableOpacity key={key} style={styles.item} onPress={onPress}>
-                  <View style={styles.iconAndTitle}>
+            {_.map(items, ({ key, icon, name, value, onPress, isSwitch, isMenu }) => (
+              <TouchableOpacity key={key} style={styles.item} onPress={onPress}>
+                <View style={styles.iconAndTitle}>
+                  <View style={styles.iconContainer}>
                     <Ionicons name={icon} size={ms(24)} style={styles.endIcon} />
-                    <Text variant="labelLarge">{name}</Text>
                   </View>
-                  {isSwitch ? (
-                    <Switch value={value} onValueChange={onPress} style={{ transform: [{ scaleX: s(0.8) }, { scaleY: s(0.8) }] }} />
-                  ) : isMenu ? (
-                    <Menu
-                      visible={openLangMenu}
-                      onDismiss={toggleLangMenu}
-                      anchorPosition="bottom"
-                      contentStyle={styles.languageMenuContent}
-                      anchor={
-                        <View style={styles.anchor}>
-                          <Text variant="bodySmall">{value}</Text>
-                          <Ionicons
-                            name="chevron-forward"
-                            size={RFValue(18)}
-                            style={styles.arrowIcon}
-                            color={theme.dark ? theme.colors.white : theme.colors.black}
-                          />
-                        </View>
-                      }>
-                      {_.map(Languages, ({ locale, title }) => (
-                        <Menu.Item key={locale} onPress={() => updateLanguage(locale)} title={title} />
-                      ))}
-                    </Menu>
-                  ) : (
-                    <Ionicons
-                      name="chevron-forward"
-                      size={RFValue(18)}
-                      style={styles.arrowIcon}
-                      color={theme.dark ? theme.colors.white : theme.colors.black}
-                    />
-                  )}
-                </TouchableOpacity>
-              ))}
-            </View>
+                  <Text variant="labelLarge">{name}</Text>
+                </View>
+                {isSwitch ? (
+                  <Switch value={value} onValueChange={onPress} style={{ transform: [{ scaleX: ms(0.8) }, { scaleY: ms(0.8) }] }} />
+                ) : isMenu ? (
+                  <Menu
+                    items={Languages}
+                    visible={openLangMenu}
+                    onDismiss={toggleLangMenu}
+                    onItemPress={updateLanguage}
+                    anchor={
+                      <View style={styles.anchor}>
+                        <Text variant="bodySmall">{value}</Text>
+                        <Ionicons
+                          size={ms(18)}
+                          name="chevron-forward"
+                          style={styles.arrowIcon}
+                          color={theme.dark ? theme.colors.secondary : theme.colors.black}
+                        />
+                      </View>
+                    }
+                  />
+                ) : (
+                  <Ionicons
+                    size={ms(18)}
+                    name="chevron-forward"
+                    style={styles.arrowIcon}
+                    color={theme.dark ? theme.colors.secondary : theme.colors.black}
+                  />
+                )}
+              </TouchableOpacity>
+            ))}
           </View>
         ))}
       </ScrollView>

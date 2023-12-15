@@ -1,18 +1,18 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React from 'react';
 import { ScrollView, useWindowDimensions } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import { useTheme } from 'react-native-paper';
 import { useSelector } from 'react-redux';
+import React from 'react';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { getConfiguration } from 'app/src/redux/selectors';
+import { getConfiguration } from '../../redux/slices/appSlice';
+import { scaledFontSize } from '../../shared/assets/theme';
 import makeStyles from './styles';
-import { RFValue } from 'react-native-responsive-fontsize';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -44,8 +44,8 @@ const InfoScreen = ({ route }) => {
         contentWidth={width}
         tagsStyles={{
           body: {
-            fontSize: RFValue(14),
-            lineHeight: RFValue(19),
+            fontSize: scaledFontSize(14),
+            lineHeight: scaledFontSize(19),
             color: theme.dark ? theme.colors.white : theme.colors.black,
           },
         }}

@@ -1,26 +1,21 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, useTheme } from 'react-native-paper';
 import LottieView from 'lottie-react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import _ from 'lodash';
 // ------------------------------------------------------------ //
-// ------------------------ COMPONENTS ------------------------ //
-// ------------------------------------------------------------ //
-
-// ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { selectDestinations, selectItinerary, selectPlaces } from 'app/src/redux/selectors';
-import { t } from 'app/src/config/i18n';
+import { selectDestinations, destinationsActions } from '../../../../redux/slices/destinationsSlice';
+import { selectItinerary, submitForm } from '../../../../redux/slices/itinerarySlice';
+import { clearPlaces, selectPlaces } from '../../../../redux/slices/placesSlice';
+import { t } from '../../../../app/i18n';
 import makeStyles from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { clearDestinations, setPayload } from 'app/src/redux/slices/destinationsSlice';
-import { submitForm } from 'app/src/redux/slices/itinerarySlice';
-import { clearPlaces } from 'app/src/redux/slices/placesSlice';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -29,11 +24,9 @@ const _t = (key, options) => t(`planner.${key}`, options);
 const Step5 = ({ setActive }) => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
+  const placesSelect = useSelector(selectPlaces);
   const itinerarySelect = useSelector(selectItinerary);
   const destinationsSelect = useSelector(selectDestinations);
-  const placesSelect = useSelector(selectPlaces);
-
-  const dispatch = useDispatch();
   // ----------------------- /REDUX -------------------------- //
   // --------------------------------------------------------- //
 
@@ -43,10 +36,11 @@ const Step5 = ({ setActive }) => {
 
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const dispatch = useDispatch();
 
+  const isEmptyPlaces = _.isEmpty(placesSelect.places);
   const isEmptyDestinations = _.isEmpty(destinationsSelect.destinations);
   const isEmptySummaryOrTips = _.isEmpty(destinationsSelect.summary) && _.isEmpty(destinationsSelect.tips);
-  const isEmptyPlaces = _.isEmpty(placesSelect.places);
   // ----------------------- /STATICS ------------------------ //
   // --------------------------------------------------------- //
 
@@ -54,7 +48,7 @@ const Step5 = ({ setActive }) => {
   // ------------------------ EFFECTS ------------------------ //
   useEffect(() => {
     console.debug('[itinerarySelect] - Step 5 :: ', { destinationsSelect });
-    dispatch(clearDestinations());
+    dispatch(destinationsActions.clearDestinations());
     dispatch(clearPlaces());
     dispatch(submitForm(destinationsSelect.payload));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,7 +58,7 @@ const Step5 = ({ setActive }) => {
     console.debug('[itinerarySelect] - Step 5 :: ', { itinerarySelect });
     if (!itinerarySelect.isLoading && !isEmptyDestinations && !isEmptySummaryOrTips && !isEmptyPlaces) {
       navigation.navigate('Itinerary');
-      dispatch(setPayload({}));
+      dispatch(destinationsActions.setPayload({}));
       setActive(0);
     }
   }, [dispatch, isEmptyDestinations, isEmptyPlaces, isEmptySummaryOrTips, itinerarySelect, navigation, setActive]);

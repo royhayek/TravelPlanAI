@@ -1,18 +1,21 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React from 'react';
 import { Text, useTheme } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import { View } from 'react-native';
+import React from 'react';
 import _ from 'lodash';
+// ------------------------------------------------------------ //
+// ------------------------ COMPONENTS ------------------------ //
+// ------------------------------------------------------------ //
+import Accordion from '../../../shared/components/Accordion';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { selectDestinations } from 'app/src/redux/selectors';
+import { selectDestinations } from '../../../redux/slices/destinationsSlice';
 import { DUMMY_INFO } from '../data';
 import makeStyles from './styles';
-import Accordion from 'app/src/components/Accordion';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //

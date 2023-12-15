@@ -1,19 +1,20 @@
+import { ms, mvs } from 'react-native-size-matters';
 import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
     input: {
-      marginTop: 6,
-      maxHeight: 120,
-      borderRadius: 8,
-      fontWeight: '500',
+      fontWeight: 500,
+      marginTop: mvs(6),
+      maxHeight: mvs(120),
+      borderRadius: ms(8),
+      marginHorizontal: ms(8),
       justifyContent: 'center',
-      marginHorizontal: 8,
       // backgroundColor: theme.dark ? theme.colors.backdrop : theme.colors.white,
     },
     underline: { display: 'none' },
     inputOutlineStyle: {
-      borderWidth: 1.5,
+      borderWidth: ms(1.5),
       borderColor: theme.colors.lightGray,
     },
   });

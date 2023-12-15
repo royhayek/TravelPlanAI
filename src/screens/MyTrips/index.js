@@ -4,22 +4,22 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
 import { FlatList, RefreshControl, View } from 'react-native';
+import { Ionicons, Octicons } from '@expo/vector-icons';
+import { ms, mvs } from 'react-native-size-matters';
 import FastImage from 'react-native-fast-image';
-import { Ionicons } from '@expo/vector-icons';
-import { Octicons } from '@expo/vector-icons';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENTS ------------------------ //
 // ------------------------------------------------------------ //
-import CustomBottomSheet from 'app/src/components/BottomSheet';
-import RegularButton from 'app/src/components/Buttons/Regular';
+import CustomBottomSheet from '../../shared/components/BottomSheet';
+import RegularButton from '../../shared/components/Buttons/Regular';
 import HistoryCard from './components/HistoryCard';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ //
-import { deleteAllConversations, getConversations } from 'app/src/data/localdb';
-import { t } from 'app/src/config/i18n';
+import { deleteAllConversations, getConversations } from '../../shared/services/localdb';
+import { savedTrips as savedTripsData } from './data';
+import { t } from '../../app/i18n';
 import makeStyles from './styles';
-import { savedTrips as savedTripsData } from './mock';
 // ------------------------------------------------------------ //
 // ------------------------ COMPONENT ------------------------- //
 // ------------------------------------------------------------ //
@@ -100,18 +100,34 @@ const HistoryScreen = ({ navigation }) => {
     [refreshSavedTrips, refreshing, theme.colors.black, theme.colors.white, theme.dark],
   );
 
+  const renderActiveTrip = useMemo(
+    () => (
+      <>
+        <Text variant="headlineSmall" style={{ marginBottom: mvs(16) }}>
+          Active Trip
+        </Text>
+        <HistoryCard item={savedTrips[0]} index={0} refresh={refreshSavedTrips} />
+        <Text variant="titleMedium" style={{ marginBottom: mvs(16) }}>
+          Upcoming Trips
+        </Text>
+      </>
+    ),
+    [refreshSavedTrips, savedTrips],
+  );
+
   const renderList = useMemo(
     () => (
       <FlatList
         data={savedTrips}
         key={item => item.id}
         refreshing={refreshing}
+        ListHeaderComponent={renderActiveTrip}
         refreshControl={renderRefreshControl}
         contentContainerStyle={styles.listContent}
-        renderItem={({ item, index }) => <HistoryCard item={item} index={index} refresh={refreshSavedTrips} />}
+        renderItem={({ item, index }) => <HistoryCard small item={item} index={index} refresh={refreshSavedTrips} />}
       />
     ),
-    [refreshSavedTrips, savedTrips, refreshing, renderRefreshControl, styles.listContent],
+    [savedTrips, refreshing, renderActiveTrip, renderRefreshControl, styles.listContent, refreshSavedTrips],
   );
 
   const renderLoadingOrEmpty = useMemo(
@@ -142,9 +158,13 @@ const HistoryScreen = ({ navigation }) => {
           <RegularButton
             title={_t('delete')}
             onPress={handleDeleteAllHistory}
-            startIcon={<Octicons name="trash" size={18} color={theme.colors.white} />}
+            startIcon={<Octicons name="trash" size={ms(18)} color={theme.colors.white} />}
           />
-          <RegularButton title={_t('cancel')} startIcon={<Ionicons name="close" size={18} color={theme.colors.white} />} onPress={handleSheetClose} />
+          <RegularButton
+            title={_t('cancel')}
+            startIcon={<Ionicons name="close" size={ms(18)} color={theme.colors.white} />}
+            onPress={handleSheetClose}
+          />
         </View>
       </CustomBottomSheet>
     ),

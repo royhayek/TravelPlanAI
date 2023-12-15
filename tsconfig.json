@@ -1,12 +1,39 @@
 {
     "extends": "expo/tsconfig.base",
     "compilerOptions": {
+        "target": "es2015",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
         "strict": true,
-        "baseUrl": "./",
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": false,
+        "noImplicitAny": false,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "baseUrl": ".",
         "paths": {
             "app/*": [
-                "./*",
-                "./src/*"
+                "src/app/*"
+            ],
+            "screens/*": [
+                "src/screens/*"
+            ],
+            "redux/*": [
+                "src/redux/*"
+            ],
+            "shared/*": [
+                "src/shared/*"
             ],
         }
     },
@@ -14,7 +41,6 @@
         "**/*.ts",
         "**/*.tsx",
         ".expo/types/**/*.ts",
-        "expo-env.d.ts",
-        "src/Root.js"
+        "expo-env.d.ts"
     ]
 }

@@ -1,17 +1,18 @@
 // ------------------------------------------------------------ //
 // ------------------------- PACKAGES ------------------------- //
 // ------------------------------------------------------------ //
-import React from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 // ------------------------------------------------------------ //
 // ------------------------- UTILITIES ------------------------ //
 // ------------------------------------------------------------ /
-import { getConfiguration } from 'app/src/redux/selectors';
-import { t } from 'app/src/config/i18n';
 import makeStyles from './styles';
+import { t } from '../../../../../app/i18n';
+import { fetchDestinations } from '../../../../../redux/actions/destinationActions';
+import { selectPopularDestinations } from '../../../../../redux/slices/destinationsSlice';
 // ------------------------------------------------------------ //
 // ------------------------- COMPONENT ------------------------ //
 // ------------------------------------------------------------ //
@@ -20,9 +21,9 @@ const _t = (key, options) => t(`planner.${key}`, options);
 const PopularDestinations = ({ handleSubmit }) => {
   // --------------------------------------------------------- //
   // ------------------------ REDUX -------------------------- //
-  const config = useSelector(getConfiguration);
-  console.debug('config', config)
-  const { destinations = [] } = config;
+  const dispatch = useDispatch();
+
+  const popularDestinations = useSelector(selectPopularDestinations);
   // ----------------------- /REDUX -------------------------- //
   // --------------------------------------------------------- //
 
@@ -30,7 +31,16 @@ const PopularDestinations = ({ handleSubmit }) => {
   // ----------------------- STATICS ------------------------- //
   const theme = useTheme();
   const styles = makeStyles(theme);
+
   // ----------------------- /STATICS ------------------------ //
+  // --------------------------------------------------------- //
+
+  // --------------------------------------------------------- //
+  // ----------------------- EFFECTS ------------------------- //
+  useEffect(() => {
+    dispatch(fetchDestinations());
+  }, [dispatch]);
+  // ----------------------- /EFFECTS ------------------------ //
   // --------------------------------------------------------- //
 
   // --------------------------------------------------------- //
@@ -42,16 +52,24 @@ const PopularDestinations = ({ handleSubmit }) => {
       </Text>
       <FlatList
         numColumns={2}
-        showsVerticalScrollIndicator={false}
-        columnWrapperStyle={styles.listColumnWrapper}
-        data={destinations}
+        data={popularDestinations}
         keyExtractor={item => item.id}
+        showsHorizontalScrollIndicator={false}
+        columnWrapperStyle={styles.listColumnWrapper}
         contentContainerStyle={styles.flatListContainer}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleSubmit(item.name)} style={styles.button}>
-            <FastImage source={{ uri: item.image }} resizeMode="cover" imageStyle={styles.imageStyle} style={styles.image} />
-            <Text variant="titleMedium" style={styles.name}>
+          <TouchableOpacity key={item._id} onPress={() => handleSubmit(item.name)} style={styles.button}>
+            <FastImage
+              source={`http://localhost:4000/uploads/destination/${item.image}`}
+              resizeMode="cover"
+              imageStyle={styles.imageStyle}
+              style={styles.image}
+            />
+            <Text variant="titleSmall" style={styles.name}>
               {item.name}
+            </Text>
+            <Text variant="labelMedium" style={styles.country}>
+              {item.country}
             </Text>
           </TouchableOpacity>
         )}

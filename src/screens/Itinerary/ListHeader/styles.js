@@ -1,20 +1,20 @@
-import { StyleSheet } from 'react-native';
 import { ms, mvs } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
     noteAndTips: {
       marginBottom: mvs(5),
-      flexDirection: 'row',
       alignItems: 'center',
+      flexDirection: 'row',
       justifyContent: 'space-between',
     },
     aiPoweredContainer: {
       borderRadius: ms(30),
       marginBottom: mvs(6),
       paddingVertical: mvs(6),
-      paddingHorizontal: ms(10),
       alignSelf: 'flex-start',
+      paddingHorizontal: ms(10),
       borderWidth: theme.dark ? 1 : 0,
       backgroundColor: theme.dark ? 'transparent' : theme.colors.card,
       borderColor: theme.dark ? theme.colors.secondary : 'transparent',
@@ -26,8 +26,8 @@ export default theme =>
       flexDirection: 'row',
     },
     interests: {
-      borderRadius: ms(30),
       borderWidth: ms(0.5),
+      borderRadius: ms(30),
       paddingVertical: mvs(3),
       paddingHorizontal: ms(5),
       backgroundColor: 'transparent',

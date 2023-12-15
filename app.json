@@ -44,6 +44,8 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
+      "googleMapsApiKey": "AIzaSyDSlQbEnjmwa44nytAE-PbbSq1cy1fe6KI",
+      "supportsRTL": true,
       "eas": {
         "projectId": "8f78b06a-2996-45bb-bc94-ffd3cc0ad712"
       }
@@ -53,6 +55,7 @@
     },
     "plugins": [
       "react-native-iap",
+      "@react-native-google-signin/google-signin",
       "./react-native-maps-plugin",
       [
         "expo-build-properties",

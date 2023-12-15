@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
 import { ms, mvs } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
 export default theme =>
   StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
-      paddingHorizontal: ms(16),
       justifyContent: 'center',
+      paddingHorizontal: ms(16),
     },
     lottie: {
       width: ms(200),
