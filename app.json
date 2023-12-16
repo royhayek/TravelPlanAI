@@ -11,6 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "experiments": {
+      "tsconfigPaths": true
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -55,7 +58,6 @@
     },
     "plugins": [
       "react-native-iap",
-      "@react-native-google-signin/google-signin",
       "./react-native-maps-plugin",
       [
         "expo-build-properties",
@@ -64,6 +66,12 @@
             "useFrameworks": "static",
             "deploymentTarget": "13.0"
           }
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.231505269694-n7o6cid3gnoo8hhjs1gqhfr32e0s4g80"
         }
       ],
       "expo-localization"

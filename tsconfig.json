@@ -1,38 +1,33 @@
 {
     "extends": "expo/tsconfig.base",
     "compilerOptions": {
-        "target": "es2015",
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react-native",
         "lib": [
             "dom",
-            "dom.iterable",
             "esnext"
         ],
-        "strict": true,
-        "allowJs": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": false,
-        "noImplicitAny": false,
+        "module": "commonjs",
         "noEmit": true,
-        "jsx": "react-jsx",
+        "target": "es6",
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "strict": true,
         "baseUrl": ".",
         "paths": {
-            "app/*": [
+            "@app/*": [
                 "src/app/*"
             ],
-            "screens/*": [
+            "@screens/*": [
                 "src/screens/*"
             ],
-            "redux/*": [
+            "@redux/*": [
                 "src/redux/*"
             ],
-            "shared/*": [
+            "@shared/*": [
                 "src/shared/*"
             ],
         }
@@ -42,5 +37,8 @@
         "**/*.tsx",
         ".expo/types/**/*.ts",
         "expo-env.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

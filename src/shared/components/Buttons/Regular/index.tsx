@@ -1,29 +1,20 @@
-// ------------------------------------------------------------ //
-// ------------------------- PACKAGES ------------------------- //
-// ------------------------------------------------------------ //
+// Packages
 import { LinearGradient } from 'expo-linear-gradient';
 import PT from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import React from 'react';
-// ------------------------------------------------------------ //
-// ------------------------- UTILITIES ------------------------ //
-// ------------------------------------------------------------ //
+// Utilities
 import makeStyles from './styles';
-// ------------------------------------------------------------ //
-// ------------------------- COMPONENT ------------------------ //
-// ------------------------------------------------------------ //
+
+// Component
 
 const RegularButton = ({ title, onPress, style, startIcon, endIcon, backgroundColors, disabled, ...props }) => {
-  // --------------------------------------------------------- //
-  // ----------------------- STATICS ------------------------- //
+  // Statics
   const theme = useTheme();
   const styles = makeStyles(theme);
-  // ----------------------- /STATICS ------------------------ //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- RENDERERS ----------------------- //
+  // Renderers
   return (
     <TouchableOpacity onPress={onPress} style={[styles.container(disabled), style]} disabled={disabled} {...props}>
       <LinearGradient

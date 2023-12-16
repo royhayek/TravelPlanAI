@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
+import { RootState } from '@app/store';
 
 const snackbarSlice = createSlice({
   name: 'snackbarSlice',
@@ -26,9 +26,7 @@ export const snackbarActions = snackbarSlice.actions;
 
 export default snackbarSlice.reducer;
 
-// ------------------------------------------------------------ //
-// ------------------------ Selectors ------------------------- //
-// ------------------------------------------------------------ //
+// Selectors
 const _snackbar = (state: RootState) => state.snackbar;
 
 export const selectSnackBar = createSelector(_snackbar, (data) => data);

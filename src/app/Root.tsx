@@ -1,6 +1,4 @@
-// ------------------------------------------------------------ //
-// ------------------------- PACKAGES ------------------------- //
-// ------------------------------------------------------------ //
+// Packages
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -14,14 +12,10 @@ import { ref, onValue } from 'firebase/database';
 import { StatusBar } from 'expo-status-bar';
 import uuid from 'react-native-uuid';
 import _ from 'lodash';
-// ------------------------------------------------------------ //
-// ------------------------ COMPONENTS ------------------------ //
-// ------------------------------------------------------------ //
+// Components
 import CustomSnackbar from '../shared/components/CustomSnackbar';
 import RootNavigation from './navigation';
-// ------------------------------------------------------------ //
-// ------------------------- UTILITIES ------------------------ //
-// ------------------------------------------------------------ //
+// Utilities
 import { appActions, getLanguage, getThemeMode } from '../redux/slices/appSlice';
 import { registerForPushNotificationsAsync } from '../shared/utils';
 import { darkTheme, lightTheme } from '../shared/assets/theme';
@@ -30,9 +24,8 @@ import NetworkInfo from '../shared/services/NetworkInfo';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import { Firebase } from '../shared/constants';
 import { changeLocale } from './i18n';
-// ------------------------------------------------------------ //
-// ------------------------- COMPONENT ------------------------ //
-// ------------------------------------------------------------ //
+
+// Component
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -42,8 +35,7 @@ Notifications.setNotificationHandler({
 });
 
 const Root = () => {
-  // --------------------------------------------------------- //
-  // ------------------------ REDUX -------------------------- //
+  // Redux
   const dispatch = useDispatch();
   const updateMessagesCount = useCallback((payload: Number) => dispatch(appActions.setMessagesCount(payload)), [dispatch]);
   const updateDeviceUuid = useCallback((payload: any) => dispatch(appActions.setDeviceUuid(payload)), [dispatch]);
@@ -51,11 +43,8 @@ const Root = () => {
 
   const themeMode = useSelector(getThemeMode);
   const language = useSelector(getLanguage);
-  // ----------------------- /REDUX -------------------------- //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- STATICS ------------------------- //
+  // Statics
   const [notification, setNotification] = useState<Notifications.Notification>();
   const [expoPushToken, setExpoPushToken] = useState<string | undefined>('');
   const [loadedData, setLoadedData] = useState(false);
@@ -65,11 +54,8 @@ const Root = () => {
 
   const isDark = _.isEqual(themeMode, 'dark');
   const theme = isDark ? darkTheme : lightTheme;
-  // ----------------------- /STATICS ------------------------ //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- CALLBACKS ----------------------- //
+  // Callbacks
   // Function to generate and store UUID if not already stored
   const getOrGenerateUUID = useCallback(async () => {
     try {
@@ -142,11 +128,8 @@ const Root = () => {
     await createTables();
     await initAppPurchases();
   }, [checkDailyMessageCount, getConfiguration, initAppPurchases, language]);
-  // ---------------------- /CALLBACKS ----------------------- //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- EFFECTS ------------------------- //
+  // Effects
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => setExpoPushToken(token));
     notificationListener.current = Notifications.addNotificationReceivedListener((noti) => setNotification(noti));
@@ -165,11 +148,8 @@ const Root = () => {
     })();
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
-  // ----------------------- /EFFECTS ------------------------ //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- RENDERERS ----------------------- //
+  // Renderers
   return (
     <PaperProvider theme={theme}>
       <BottomSheetModalProvider>

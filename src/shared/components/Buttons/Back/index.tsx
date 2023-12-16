@@ -1,21 +1,16 @@
-// ------------------------------------------------------------ //
-// ------------------------- PACKAGES ------------------------- //
-// ------------------------------------------------------------ //
+// Packages
 import { IconButton, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { ms } from 'react-native-size-matters';
 import PT from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-// ------------------------------------------------------------ //
-// ------------------------- UTILITIES ------------------------ //
-// ------------------------------------------------------------ //
+// Utilities
 import LeftChevron from '../../../../shared/assets/icons/LeftChevron';
 import { isRTL } from '../../../../app/i18n';
 import makeStyles from './styles';
-// ------------------------------------------------------------ //
-// ------------------------- COMPONENT ------------------------ //
-// ------------------------------------------------------------ //
+
+// Component
 interface BackButtonProps {
   title?: string;
   onPress?: () => void;
@@ -24,16 +19,12 @@ interface BackButtonProps {
 }
 
 const BackButton = ({ title, onPress, style, ...props }) => {
-  // --------------------------------------------------------- //
-  // ----------------------- STATICS ------------------------- //
+  // Statics
   const theme = useTheme();
   const styles = makeStyles(theme);
   const navigation = useNavigation();
-  // ----------------------- /STATICS ------------------------ //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- RENDERERS ----------------------- //
+  // Renderers
   return (
     <IconButton
       size={ms(18)}

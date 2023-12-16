@@ -1,6 +1,4 @@
-// ------------------------------------------------------------ //
-// ------------------------- PACKAGES ------------------------- //
-// ------------------------------------------------------------ //
+// Packages
 import { NativeModules, ScrollView, TouchableOpacity, View } from 'react-native';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getPurchaseHistoryAsync } from 'expo-in-app-purchases';
@@ -9,43 +7,31 @@ import { requestSubscription } from 'react-native-iap';
 import LottieView from 'lottie-react-native';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
-// ------------------------------------------------------------ //
-// ------------------------ COMPONENTS ------------------------ //
-// ------------------------------------------------------------ //
+// Components
 import RegularButton from '../../shared/components/Buttons/Regular';
-// ------------------------------------------------------------ //
-// ------------------------- UTILITIES ------------------------ //
-// ------------------------------------------------------------ //
+// Utilities
 import { getOwnedSubscription, getSubscriptions } from '../../redux/slices/appSlice';
 import { isAndroid } from '../../shared/utils';
 import { t } from '../../app/i18n';
 import { benefits } from './config';
 import makeStyles from './styles';
-// ------------------------------------------------------------ //
-// ------------------------- COMPONENT ------------------------ //
-// ------------------------------------------------------------ //
+
+// Component
 const _t = (key: string, options?: object) => t(`subscription.${key}`, options);
 
 const SubscriptionScreen = ({ navigation }) => {
-  // --------------------------------------------------------- //
-  // ----------------------- REDUX --------------------------- //
+  // Redux
   const ownedSubscription = useSelector(getOwnedSubscription);
   const subscriptions = useSelector(getSubscriptions);
-  // ----------------------- /REDUX -------------------------- //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- STATICS ------------------------- //
+  // Statics
   const theme = useTheme();
   const styles = makeStyles(theme);
 
   const [subscribed, setSubscribed] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<undefined | null>(null);
-  // ----------------------- /STATICS ------------------------ //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- CALLBACKS ----------------------- //
+  // Callbacks
   const handleBuySubscription = async () => {
     const { RNIapIos, RNIapIosSk2, RNIapModule, RNIapAmazonModule } = NativeModules;
     const isPlay = isAndroid && !!RNIapModule;
@@ -76,11 +62,8 @@ const SubscriptionScreen = ({ navigation }) => {
     const history = await getPurchaseHistoryAsync();
     console.debug('history in subscriptions', history);
   }, []);
-  // ---------------------- /CALLBACKS ----------------------- //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ------------------------ EFFECTS ------------------------ //
+  // Effects
   useEffect(() => {
     getHistory();
     !_.isEmpty(subscriptions) && _.isEmpty(selectedPlan) && setSelectedPlan(_.first(_.first(subscriptions)?.subscriptionOfferDetails));
@@ -90,11 +73,8 @@ const SubscriptionScreen = ({ navigation }) => {
   useEffect(() => {
     ownedSubscription && subscribed && navigation.goBack();
   }, [navigation, ownedSubscription, subscribed]);
-  // ----------------------- /EFFECTS ------------------------ //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- RENDERERS ----------------------- //
+  // Renderers
   const renderBenefits = useMemo(
     () => (
       <View style={styles.benefitsContainer}>

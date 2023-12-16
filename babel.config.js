@@ -1,30 +1,13 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: [
-      [
-        'babel-preset-expo',
-        {
-          lazyImports: true
-        }
-      ]
-    ],
+    presets: [['babel-preset-expo']],
     env: {
       production: {
         plugins: ['react-native-paper/babel']
       }
     },
     plugins: [
-      [
-        'module-resolver',
-        {
-          root: ['./src'],
-          alias: {
-            app: './app',
-            redux: './redux'
-          }
-        }
-      ],
       [
         'module:react-native-dotenv',
         {
@@ -36,7 +19,19 @@ module.exports = function (api) {
           allowUndefined: false
         }
       ],
-      ['react-native-reanimated/plugin']
+      ['react-native-reanimated/plugin'],
+      [
+        'module-resolver',
+        {
+          alias: {
+            '@app': './src/app',
+            '@redux': './src/redux',
+            '@shared': './src/shared',
+            '@screens': './src/screens'
+          },
+          extensions: ['.js', '.jsx', '.ts', '.tsx']
+        }
+      ],
     ]
   };
 };
