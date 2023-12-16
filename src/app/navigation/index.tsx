@@ -1,34 +1,37 @@
-/* eslint-disable react/no-unstable-nested-components */
-// ------------------------------------------------------------ //
-// ------------------------- PACKAGES ------------------------- //
-// ------------------------------------------------------------ //
+// Packages
+import { HeaderBackButtonProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { I18nManager, Platform } from 'react-native';
 import { ms, mvs } from 'react-native-size-matters';
 import { Text, useTheme } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useCallback } from 'react';
-// ------------------------------------------------------------ //
-// ------------------------ COMPONENTS ------------------------ //
-// ------------------------------------------------------------ //
-import BackButton from '../../shared/components/Buttons/Back';
-import SubscriptionScreen from '../../screens/Subscription';
-import ItineraryScreen from '../../screens/Itinerary';
-import SettingsScreen from '../../screens/Settings';
-import MyTripsScreen from '../../screens/MyTrips';
-import PlannerScreen from '../../screens/Planner';
-import InfoScreen from '../../screens/Info';
-import MapScreen from '../../screens/Map';
-// ------------------------------------------------------------ //
-// ------------------------- UTILITIES ------------------------ //
-// ------------------------------------------------------------ //
-import { scaledFontSize } from '../../shared/assets/theme';
-import { t } from '../../app/i18n';
-// ------------------------------------------------------------ //
-// ------------------------- COMPONENT ------------------------ //
-// ------------------------------------------------------------ //
-const _t = (key) => t(`navigation.${key}`);
+import React, { ReactNode, useCallback } from 'react';
+
+// Components
+import BackButton from '@shared/components/Buttons/Back';
+import SubscriptionScreen from '@screens/Subscription';
+import ItineraryScreen from '@screens/Itinerary';
+import SettingsScreen from '@screens/Settings';
+import MyTripsScreen from '@screens/MyTrips';
+import PlannerScreen from '@screens/Planner';
+import InfoScreen from '@screens/Info';
+import MapScreen from '@screens/Map';
+import Login from '@screens/Login';
+
+// Utilities
+import { scaledFontSize } from '@shared/assets/theme';
+import { t } from '@app/i18n';
+
+interface TabBarLabelProps {
+  children: ReactNode;
+  focused: boolean;
+  color: string;
+  position: string;
+}
+
+// Component
+const _t = (key: string) => t(`navigation.${key}`);
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,17 +40,15 @@ const TripsStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
 
 const RootNavigation = () => {
-  // --------------------------------------------------------- //
-  // ----------------------- STATICS ------------------------- //
+  // Statics
   const theme = useTheme();
 
   const isArabic = I18nManager.isRTL && Platform.OS === 'android';
-  // ----------------------- /STATICS ------------------------ //
-  // --------------------------------------------------------- //
 
-  // --------------------------------------------------------- //
-  // ----------------------- RENDERERS ----------------------- //
-  const renderHeaderLeft = (props) => (props.canGoBack ? <BackButton /> : null);
+  const isLoggedIn = false;
+
+  // Renderers
+  const renderHeaderLeft = (props: HeaderBackButtonProps) => (props.canGoBack ? <BackButton /> : null);
 
   const screenOptions = {
     headerShown: true,
@@ -103,7 +104,10 @@ const RootNavigation = () => {
     // return <FontAwesomeIcon icon={faHouse} size={size} style={{ color: '#000000' }} />;
   }, []);
 
-  const getTabBarLabel = useCallback(({ children, focused, color, position }) => (focused ? <Text variant="titleSmall">{children}</Text> : null), []);
+  const getTabBarLabel = useCallback(
+    ({ children, focused, color, position }: TabBarLabelProps) => (focused ? <Text variant="titleSmall">{children}</Text> : null),
+    []
+  );
 
   const Tabs = () => (
     <Tab.Navigator
@@ -138,7 +142,7 @@ const RootNavigation = () => {
     </Tab.Navigator>
   );
 
-  return (
+  return isLoggedIn ? (
     <Stack.Navigator screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
       <Stack.Screen name="Home" component={Tabs} />
       <Stack.Screen name="Chat" component={PlannerScreen} options={{ title: _t('trip_planner'), ...screenOptions }} />
@@ -146,6 +150,10 @@ const RootNavigation = () => {
       <Stack.Screen name="Info" component={InfoScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
       <Stack.Screen name="Itinerary" component={ItineraryScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
       <Stack.Screen name="Map" component={MapScreen} options={({ route }) => ({ title: route.params?.name, ...screenOptions })} />
+    </Stack.Navigator>
+  ) : (
+    <Stack.Navigator screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
+      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 };

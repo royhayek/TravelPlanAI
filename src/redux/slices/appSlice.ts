@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
+import { RootState } from '@app/store';
 
 const initialState = {
   config: {
@@ -59,9 +59,7 @@ export const appActions = appSlice.actions;
 
 export default appSlice.reducer;
 
-// ------------------------------------------------------------ //
-// ------------------------ Selectors ------------------------- //
-// ------------------------------------------------------------ //
+// Selectors
 const _app = (state: RootState) => state.app;
 
 export const getLanguage = createSelector(_app, data => data.language);

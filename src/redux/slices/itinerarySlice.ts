@@ -7,8 +7,8 @@ import { fetchItineraryPlaces } from '../actions/itineraryPlacesActions';
 import { snackbarActions } from './snackbarSlice';
 import { logQuery } from './queryLogSlice';
 import { clearPlaces } from './placesSlice';
-import { clearDestinations } from './destinationsSlice';
-import { RootState } from 'app/store';
+import { destinationsActions } from './destinationsSlice';
+import { RootState } from '@app/store';
 
 const initialState = {
   isLoading: false,
@@ -47,7 +47,7 @@ export const { fetchItineraryStart, fetchItinerarySuccess, fetchItineraryFailure
 // Define an async action creator to submit the form data
 export const submitForm = (payload) => async (dispatch, getState) => {
   // Clear saved itinerary in redux
-  dispatch(clearDestinations());
+  dispatch(destinationsActions.clearDestinations());
   dispatch(clearPlaces());
   dispatch(fetchItineraryStart());
 
@@ -100,9 +100,7 @@ export const submitForm = (payload) => async (dispatch, getState) => {
 // Export the destination reducer
 export default itinerarySlice.reducer;
 
-// ------------------------------------------------------------ //
-// ------------------------ Selectors ------------------------- //
-// ------------------------------------------------------------ //
+// Selectors
 const _itinerary = (state: RootState) => state.itinerary;
 
 export const selectItinerary = createSelector(_itinerary, (data) => data);

@@ -1,6 +1,6 @@
 import { debounce } from 'lodash';
 import { persistStore } from 'redux-persist';
-import rootReducer from 'redux/reducers';
+import rootReducer from '../redux/reducers';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Action, AnyAction, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
